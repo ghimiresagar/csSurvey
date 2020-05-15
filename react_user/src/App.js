@@ -1,43 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route } from "react-router-dom";
+import Login from './components/login';
+import Test from './components/test1';
 
+// This class only matches the url and renders the appropriate component for the url 
 class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = { apiResponse: "" };
-  }
-
-  // we need to call this
-  callAPI(){
-    fetch("http://localhost:9000/test")
-      .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res }))
-      .catch(err => err);
-  }
-
-  // call by on mount
-  componentDidMount(){
-    this.callAPI();
-  }
-
-  render () {
+  render(){
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p className="App-intro">{this.state.apiResponse}
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <switch>
+        <Route exact path="/test">
+          <Test />
+        </Route>
+        <Route exact path='/'>
+          <Login />
+        </Route>
+      </switch>
     );
   }
 }
