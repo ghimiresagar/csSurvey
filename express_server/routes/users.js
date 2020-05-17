@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// require control models
+let user_controller = require('../controllers/userController');
+
+/* url - /users 
+   everything is under this url as other's can only do surveys
+*/
+
+router.get('/', user_controller.index);
+
+router.post('/', user_controller.authenticate);
+
 
 module.exports = router;

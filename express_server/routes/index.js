@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET home page. Redirect to users. */ 
 router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Express' });
-  res.send("Login Form");
+  res.redirect('/users');
 });
 
 module.exports = router;
