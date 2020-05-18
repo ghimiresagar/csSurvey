@@ -45,9 +45,15 @@ exports.list_surveys = function(req, res){
 //--------------------- SENIOR SURVEY CONTROLLERS ----------------------------
 // users/senior
 
-// exports.senior_list_get = function(req, res){
-//     res.send("Senior Survey List get");
-// };
+exports.senior_survey_get = function(req, res){
+    SeniorSurveyCollection.countDocuments({}, function(err, count){
+        if (err) { return console.log(err); }
+        var result = {
+            "count": count
+        };
+        res.send(result);
+    });
+};
 
 exports.senior_detail_get = function(req, res){
     res.send("Senior Survey Detail get: " + req.params.id);

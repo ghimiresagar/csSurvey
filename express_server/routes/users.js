@@ -15,6 +15,7 @@ router.post('/', user_controller.authenticate);
 router.get('/surveys', user_controller.list_surveys);
 
 //--------------------- SENIOR SURVEY ----------------------------
+router.get('/surveys/senior', user_controller.senior_survey_get);
 
 // create senior survey
 router.get('/senior/create', user_controller.senior_create_get);
