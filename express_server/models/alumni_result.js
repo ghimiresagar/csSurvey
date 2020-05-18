@@ -18,4 +18,4 @@ AlumniSurveyResultSchema.virtual('url')
         return '/survey/senior/result/' + this._id;
     });
 
-module.exports = mongoose.model('AlumniSurvey', AlumniSurveyResultSchema);
+module.exports = mongoose.model('AlumniSurveyResult', AlumniSurveyResultSchema);

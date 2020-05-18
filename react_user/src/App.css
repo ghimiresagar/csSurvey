@@ -1,3 +1,5 @@
+/* login form */
+
 #login .container #login-row #login-column #login-box {
   margin-top: 120px;
   max-width: 600px;
@@ -11,3 +13,5 @@
 #login .container #login-row #login-column #login-box #login-form {
   padding: 10px;
 }
+
+/* login form */

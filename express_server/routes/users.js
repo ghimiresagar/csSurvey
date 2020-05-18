@@ -12,5 +12,7 @@ router.get('/', user_controller.index);
 
 router.post('/', user_controller.authenticate);
 
+router.get('/surveys', user_controller.list_surveys);
+
 
 module.exports = router;

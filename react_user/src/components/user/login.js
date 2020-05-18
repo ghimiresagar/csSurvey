@@ -1,6 +1,5 @@
 import React from 'react';
 import'bootstrap/dist/css/bootstrap.css';
-import Button from 'react-bootstrap/Button';
 import '../../App.css';
 
 class Login extends React.Component {
@@ -50,22 +49,22 @@ class Login extends React.Component {
   render() {
       return(
         <div id="login">
-            <div class="container">
-                <div id="login-row" class="row justify-content-center align-items-center">
-                    <div id="login-column" class="col-md-6">
-                        <div id="login-box" class="col-md-12">
-                            <form id="login-form" class="form" onSubmit={this.handleSubmit}>
-                                <h2 class="text-center text-info">CS Survey Portal<hr></hr></h2>
-                                <div class="form-group">
-                                    <label for="username" class="text-info">Username:</label>
-                                    <input type="text" name="username" value={this.state.username} class="form-control" onChange={this.handleChange} />
+            <div className="container">
+                <div id="login-row" className="row justify-content-center align-items-center">
+                    <div id="login-column" className="col-md-6">
+                        <div id="login-box" className="col-md-12">
+                            <form id="login-form" className="form" onSubmit={this.handleSubmit}>
+                                <h2 className="text-center text-info">CS Survey Portal<hr></hr></h2>
+                                <div className="form-group">
+                                    <label htmlFor="username" className="text-info">Username:</label>
+                                    <input type="text" name="username" value={this.state.username} className="form-control" onChange={this.handleChange} />
                                 </div>
-                                <div class="form-group">
-                                    <label for="password" class="text-info">Password:</label>
-                                    <input type="password" name="password" value={this.state.password} class="form-control" onChange={this.handleChange} />
+                                <div className="form-group">
+                                    <label htmlFor="password" className="text-info">Password:</label>
+                                    <input type="password" name="password" value={this.state.password} className="form-control" onChange={this.handleChange} />
                                 </div>
-                                <div class="form-group text-center">
-                                    <input type="submit" name="submit" class="btn btn-info btn-lg" value="submit" />
+                                <div className="form-group text-center">
+                                    <input type="submit" name="submit" className="btn btn-info btn-lg" value="submit" />
                                 </div>
                                 <p>{this.state.apiMessage}</p>
                             </form>
