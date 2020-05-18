@@ -5,7 +5,7 @@ mongoose.connect(mg_url, { useNewUrlParser: true }, function(err) {
   if (!err) {
     console.log("[Info] Connected to db");
   }
-  return console.log("Error: "+err);
+  return console.log("Error: (no error - null)"+err);
 });
 
 //Get the default connection, database

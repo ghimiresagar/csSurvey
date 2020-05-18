@@ -41,7 +41,100 @@ exports.list_surveys = function(req, res){
     });
 };
 
-// /users/results
-exports.list_survey_results = function(req, res, next) {
-    res.send("list recent survey results, NI, get");
-}
+
+//--------------------- SENIOR SURVEY CONTROLLERS ----------------------------
+// users/senior
+
+// exports.senior_list_get = function(req, res){
+//     res.send("Senior Survey List get");
+// };
+
+exports.senior_detail_get = function(req, res){
+    res.send("Senior Survey Detail get: " + req.params.id);
+};
+
+exports.senior_create_get = function(req, res){
+    res.send("Senior Survey Create Get");
+};
+
+exports.senior_create_post = function(req, res){
+    res.send("Senior Survey Create Post");
+};
+
+exports.senior_update_get = function(req, res){
+    res.send("Senior Survey Update get");
+};
+
+exports.senior_update_post = function(req, res) {
+    res.send("Senior Survey Update post");
+};
+
+exports.senior_delete_get = function(req, res) {
+    res.send("Senior Survey Delete get");
+};
+
+exports.senior_delete_post = function(req, res) {
+    res.send("Senior Survey Delete post");
+};
+
+//--------------------- ALUMNI SURVEY CONTROLLER----------------------------
+// users/alumni
+
+exports.alumni_detail_get = function(req, res){
+    res.send("alumni Survey Detail get" + req.params.id);
+};
+
+exports.alumni_create_get = function(req, res){
+    res.send("alumni Survey Create Get");
+};
+
+exports.alumni_create_post = function(req, res){
+    res.send("alumni Survey Create Post");
+};
+
+exports.alumni_update_get = function(req, res){
+    res.send("alumni Survey Update get");
+};
+
+exports.alumni_update_post = function(req, res) {
+    res.send("alumni Survey Update post");
+};
+
+exports.alumni_delete_get = function(req, res) {
+    res.send("alumni Survey Delete get");
+};
+
+exports.alumni_delete_post = function(req, res) {
+    res.send("alumni Survey Delete post");
+};
+
+//--------------------- IBA SURVEY ----------------------------
+// users/iba/
+
+exports.iba_detail_get = function(req, res){
+    res.send("iba Survey Detail get" + req.params.id);
+};
+
+exports.iba_create_get = function(req, res){
+    res.send("iba Survey Create Get");
+};
+
+exports.iba_create_post = function(req, res){
+    res.send("iba Survey Create Post");
+};
+
+exports.iba_update_get = function(req, res){
+    res.send("iba Survey Update get");
+};
+
+exports.iba_update_post = function(req, res) {
+    res.send("iba Survey Update post");
+};
+
+exports.iba_delete_get = function(req, res) {
+    res.send("iba Survey Delete get");
+};
+
+exports.iba_delete_post = function(req, res) {
+    res.send("iba Survey Delete post");
+};
