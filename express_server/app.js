@@ -4,15 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var mongoose = require('mongoose');
 
-var mg_url = 'mongodb+srv://sagardb:Somerville11@cluster0-z8jim.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true';
-
-mongoose.connect(mg_url, { useNewUrlParser: true });
-
-//Get the default connection
-var db = mongoose.connection;
-
+// mongoose connection file
+var db = require('./connection');
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

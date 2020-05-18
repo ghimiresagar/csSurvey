@@ -14,6 +14,8 @@ router.post('/', user_controller.authenticate);
 
 router.get('/surveys', user_controller.list_surveys);
 
-router.get('/results', user_controller.list_survey_results);
+router.get
+
+
 
 module.exports = router;

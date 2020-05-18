@@ -1,7 +1,12 @@
 let User = require('../models/user');
-let SeniorSurvey = require('../models/senior_survey');
-let AlumniSurvey = require('../models/alumni_survey');
+var SeniorSurvey = require('../models/senior_survey');
 let async = require('async');
+
+let db = require('../connection');
+let UserCollection = db.collection("User");
+let SeniorSurveyCollection = db.collection("SeniorSurvey");
+let AlumniSurveyCollection = db.collection("AlumniSurvey");
+
 
 // /users
 exports.index = function (req, res, next) {
@@ -16,13 +21,16 @@ exports.authenticate = function (req, res, next) {
 exports.list_surveys = function(req, res){
     async.parallel({
         user_count: function(callback){
-            User.countDocuments({}, callback);
+            UserCollection.countDocuments({}, callback);
         },
+        // user_name: function(callback) {
+        //     UserCollection.findOne({}, callback);
+        // },
         senior_survey_count: function(callback){
-            SeniorSurvey.countDocuments({}, callback);
+            SeniorSurveyCollection.countDocuments({}, callback);
         },
         alumni_survey_count: function(callback){
-            AlumniSurvey.countDocuments({}, callback);
+            AlumniSurveyCollection.countDocuments({}, callback);
         }
     }, function(err, results){
         if (err) { 
