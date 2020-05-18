@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 
 var mg_url = 'mongodb+srv://sagardb:Somerville11@cluster0-z8jim.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true';
 
-mongoose.connect(mg_url, { useNewUrlParse: true });
+mongoose.connect(mg_url, { useNewUrlParser: true });
 
 //Get the default connection
 var db = mongoose.connection;

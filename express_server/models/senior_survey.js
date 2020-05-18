@@ -6,7 +6,7 @@ let SeniorSurveySchema = new Schema(
     {
         semester: {type: String, required: true},
         year: {type: Number, required: true},
-        senior_result: { type: Schema.Types.ObjectId, ref: 'SeniorSurveyResult', required: true},
+        // senior_result: { type: Schema.Types.ObjectId, ref: 'SeniorSurveyResult', required: true},
         q1: {type: String},
         q2: {type: String},
         q3: {type: String},
