@@ -16,12 +16,10 @@ class Survey extends React.Component {
     }
 
     getQuery(){
-        fetch("http://localhost:9000/users/surveys/"+this.state.name)
-            .then(res => res.text())
+        fetch("http://localhost:9000/users/surveys/senior")
+            // .then(res => res.text())
             .then(res => console.log(res));
     }
-
-
 
     render(){
         return(

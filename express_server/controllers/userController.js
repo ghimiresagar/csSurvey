@@ -7,6 +7,11 @@ let UserCollection = db.collection("User");
 let SeniorSurveyCollection = db.collection("SeniorSurvey");
 let AlumniSurveyCollection = db.collection("AlumniSurvey");
 
+var sendJsonResponse = function(res, status, content) {
+    // res.status(status);
+    res.json(content);
+ }
+
 
 // /users
 exports.index = function (req, res, next) {
@@ -46,12 +51,13 @@ exports.list_surveys = function(req, res){
 // users/senior
 
 exports.senior_survey_get = function(req, res){
-    SeniorSurveyCollection.countDocuments({}, function(err, count){
-        if (err) { return console.log(err); }
-        var result = {
-            "count": count
-        };
-        res.send(result);
+    let user = UserCollection.find({}, function(err, result){
+        if (err) {
+            sendJsonResponse(res, 404, err);
+        } else {
+            console.log(result);
+            sendJsonResponse(res, 201, result);
+        }
     });
 };
 
