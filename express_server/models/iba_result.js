@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-AlumniSurveyResultSchema = new Schema(
+IbaSurveyResultSchema = new Schema(
     {
         q1: {type: Number},
         q2: {type: Number},
@@ -11,9 +11,9 @@ AlumniSurveyResultSchema = new Schema(
 );
 
 // virtual for survey url
-AlumniSurveyResultSchema.virtual('url')
+IbaSurveyResultSchema.virtual('url')
     .get(function() {
-        return '/survey/alumni/result/' + this._id;
+        return '/survey/iba/result/' + this._id;
     });
 
-module.exports = mongoose.model('AlumniSurveyResult', AlumniSurveyResultSchema);
+module.exports = mongoose.model('IbaSurveyResult', IbaSurveyResultSchema);

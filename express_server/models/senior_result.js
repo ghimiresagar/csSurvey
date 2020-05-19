@@ -1,10 +1,8 @@
-const mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-const Schema = mongoose.Schema;
-
-let SeniorSurveyResultSchema = new Schema(
+SeniorSurveyResultSchema = new Schema(
     {
-        senior_survey: { type: Schema.Types.ObjectId, ref: 'SeniorSurvey', required: true},
         q1: {type: Number},
         q2: {type: Number},
         q3: {type: Number},

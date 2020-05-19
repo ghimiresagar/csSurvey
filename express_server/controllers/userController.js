@@ -1,17 +1,6 @@
-let User = require('../models/user');
+var User = require('../models/user');
 var SeniorSurvey = require('../models/senior_survey');
 let async = require('async');
-
-let db = require('../connection');
-let UserCollection = db.collection("User");
-let SeniorSurveyCollection = db.collection("SeniorSurvey");
-let AlumniSurveyCollection = db.collection("AlumniSurvey");
-
-var sendJsonResponse = function(res, status, content) {
-    // res.status(status);
-    res.json(content);
- }
-
 
 // /users
 exports.index = function (req, res, next) {
@@ -24,26 +13,7 @@ exports.authenticate = function (req, res, next) {
 
 // /users/surveys
 exports.list_surveys = function(req, res){
-    async.parallel({
-        user_count: function(callback){
-            UserCollection.countDocuments({}, callback);
-        },
-        // user_name: function(callback) {
-        //     UserCollection.findOne({}, callback);
-        // },
-        senior_survey_count: function(callback){
-            SeniorSurveyCollection.countDocuments({}, callback);
-        },
-        alumni_survey_count: function(callback){
-            AlumniSurveyCollection.countDocuments({}, callback);
-        }
-    }, function(err, results){
-        if (err) { 
-            res.send(err); 
-        } else {
-            res.send(results);   
-        }
-    });
+    res.send("List Surveys");
 };
 
 
@@ -51,13 +21,18 @@ exports.list_surveys = function(req, res){
 // users/senior
 
 exports.senior_survey_get = function(req, res){
-    let user = UserCollection.find({}, function(err, result){
-        if (err) {
-            sendJsonResponse(res, 404, err);
-        } else {
-            console.log(result);
-            sendJsonResponse(res, 201, result);
-        }
+
+    async.parallel({
+        survey_count: function(callback){
+            User.countDocuments({}, callback);
+        },
+        survey_item: function(callback){
+            User.findOne({}, callback);
+        }    
+    }, function(err, result){
+        console.log(err);
+        console.log(result);
+        res.json(result);
     });
 };
 
