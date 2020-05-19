@@ -6,6 +6,7 @@ SeniorSurveySchema = new Schema(
         semester: {type: String, required: true},
         year: {type: Date, required: true},
         result_senior: {type: Schema.Types.ObjectId, ref: 'SeniorSurveyResult', required: true},
+        status: { type: Boolean, required: true, default: true},
         q1: {type: String},
         q2: {type: String},
         q3: {type: String},

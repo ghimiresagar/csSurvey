@@ -21,13 +21,12 @@ exports.list_surveys = function(req, res){
 // users/senior
 
 exports.senior_survey_get = function(req, res){
-
     async.parallel({
         survey_count: function(callback){
-            User.countDocuments({}, callback);
+            SeniorSurvey.countDocuments({}, callback);
         },
         survey_item: function(callback){
-            User.findOne({}, callback);
+            SeniorSurvey.findOne({}, callback);
         }    
     }, function(err, result){
         console.log(err);
