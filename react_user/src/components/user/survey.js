@@ -7,6 +7,8 @@ class Survey extends React.Component {
         super(props);
         this.state = {
             name: this.props.value,
+            total_survey: 0,
+            survey_items: []
         };
     }
 
@@ -17,8 +19,8 @@ class Survey extends React.Component {
 
     getQuery(){
         fetch("http://localhost:9000/users/surveys/senior")
-            // .then(res => res.text())
-            .then(res => console.log(res));
+        .then(res => res.text())
+        .then(console.log(res));
     }
 
     render(){

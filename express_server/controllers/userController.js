@@ -26,12 +26,14 @@ exports.senior_survey_get = function(req, res){
             SeniorSurvey.countDocuments({}, callback);
         },
         survey_item: function(callback){
-            SeniorSurvey.findOne({}, callback);
+            SeniorSurvey.find()
+                .limit(5)
+                .sort({ year: -1 })
+                .exec(callback);
         }    
     }, function(err, result){
         console.log(err);
-        console.log(result);
-        res.json(result);
+        res.send(result);
     });
 };
 
