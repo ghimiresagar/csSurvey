@@ -3,14 +3,18 @@ let Schema = mongoose.Schema;
 
 IbaSurveySchema = new Schema(
     {
-        semester: {type: String, required: true},
-        year: {type: Date, required: true},
-        result_iba: { type: Schema.Types.ObjectId, ref: 'IbaSurveyResult', required: true},
-        status: { type: Boolean, required: true, default: true},
-        q1: {type: String},
-        q2: {type: String},
-        q3: {type: String},
-        q4: {type: String}
+        type: {type: String, required: true, default: "senior"},
+        number: {type: Number, required: true},
+        title: {type: String, required: true},
+        result: [
+            {
+                semester: {type: String, required: true},
+                year: {type: String, required: true},
+                number_of_parts: {type: Number, required: true},
+                rate: {type: Array, required: true, default: [0, 0, 0, 0, 0]}
+            }
+
+        ],
     }
 );
 

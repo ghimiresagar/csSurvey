@@ -15,7 +15,9 @@ class App extends React.Component {
             <Login />
           </Route>
           <Route path='/users/surveys'>
-            <Survey value="senior"/>
+            <Survey value="Senior"/>
+            <Survey value="Alumni"/>
+            <Survey value="Iba"/>
           </Route>
           <Route path='/'>
             <Redirect to="/users" />

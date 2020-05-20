@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var SeniorSurvey = require('../models/senior_survey');
+let AlumniSurvey = require('../models/alumni_survey');
 let async = require('async');
 
 // /users
@@ -22,18 +23,16 @@ exports.list_surveys = function(req, res){
 
 exports.senior_survey_get = function(req, res){
     async.parallel({
-        survey_count: function(callback){
-            SeniorSurvey.countDocuments({}, callback);
+        question: function(callback){
+            SeniorSurvey.find({}, {"title":1, "_id":0}, callback);
         },
-        survey_item: function(callback){
-            SeniorSurvey.find()
-                .limit(5)
-                .sort({ year: -1 })
-                .exec(callback);
-        }    
+        number_question: function(callback){
+            SeniorSurvey.countDocuments({}, callback);
+        }
     }, function(err, result){
-        console.log(err);
+        if (err) console.log(err);
         res.send(result);
+
     });
 };
 
