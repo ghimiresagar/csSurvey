@@ -13,9 +13,10 @@ class SeniorSurvey extends React.Component {
             res_title: [],
             res_id: [],
             res_input_type: [],
-            res_question_type: []
+            res_question_type: [],
+            res_body: [],
+            res_id_top: [],
         };
-        this.postQuery = this.postQuery.bind(this);
     }
 
     componentWillMount(){
@@ -25,7 +26,9 @@ class SeniorSurvey extends React.Component {
                 res_title: Object.keys(body.question).map(keys => body.question[keys].title),
                 res_id: Object.keys(body.question).map(keys => body.question[keys]._id),
                 res_input_type: Object.keys(body.question).map(keys => body.question[keys].input_type),
-                res_question_type: Object.keys(body.question).map(keys => body.question[keys].title)
+                res_question_type: Object.keys(body.question).map(keys => body.question[keys].title),
+                res_body: Object.keys(body.question).map(keys => body.question[keys]),
+                res_id_top: Object.keys(body.top_id).map(keys => body.top_id[keys]._id),    
             }))
             .catch(err => console.log(err));
     }
@@ -36,29 +39,22 @@ class SeniorSurvey extends React.Component {
         return body;
     }
 
-    postQuery = (e) => {
-        e.preventDefault();
-        fetch("http://localhost:9000/users/surveys/senior/create", {
-           method: 'post',
-           body: e
-        }).then(function(data){
-            console.log(data);
-        });
-        console.log("Button Clicked!");
-    }
-
     render(){
         const questions = []
-        for (const [x, y] of this.state.res_id.entries()) {
+        const id_top = []
+        for (var [i, j] of this.state.res_id_top.entries()){
+            id_top.push(j+1);
+        }
+        for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
                 <Accordion>
                     <Card>
                         <Accordion.Toggle as={Card.Header} eventKey="0">
-                        {y}
+                        {y.title}
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
                         <Card.Body>
-                            
+                            {y._id}
                         </Card.Body>
                         </Accordion.Collapse>
                     </Card><br></br>
@@ -67,7 +63,7 @@ class SeniorSurvey extends React.Component {
           }
         return(
             <Container>
-                <AddQuestion />
+                <AddQuestion value={id_top[0]}/>
                 {questions}
             </Container>
         );

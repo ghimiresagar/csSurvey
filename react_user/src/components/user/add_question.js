@@ -8,6 +8,40 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';    
  
 class AddQuestion extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            id : this.props.value,
+            title: "",
+            input_type: "Rate",
+            question_type: 1
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    postQuestion = (e) => {
+        e.preventDefault();
+        let body = {
+            id: this.state.id,
+            title: this.state.title,
+            input_type: this.state.input_type,
+            question_type: this.state.question_type
+        };
+        fetch("http://localhost:9000/users/surveys/senior/create", {
+           method: 'post',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify(body)
+        }).then(function(data){
+            console.log(data)
+        }).catch(err => console.log(err));
+        console.log("Button Clicked!");
+    }
+
     render() {
         return(     
             <Accordion className="text-center">
@@ -23,7 +57,7 @@ class AddQuestion extends React.Component {
                                 New Question: 
                             </Form.Label>
                             <Col sm={10}>
-                            <Form.Control type="text" placeholder="Question" />
+                            <Form.Control type="text" placeholder="Question" name="title" value={this.state.title} onChange={this.handleChange} />
                             </Col>
                         </Form.Group>
                         <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
@@ -31,7 +65,7 @@ class AddQuestion extends React.Component {
                                 Input Type:
                             </Form.Label>
                             <Col sm={4}>
-                                <Form.Control as="select" custom>
+                                <Form.Control as="select" custom name="input_type" value={this.state.input_type} onChange={this.handleChange}>
                                 <option>Rate</option>
                                 <option>Input</option>
                                 </Form.Control>
@@ -40,7 +74,7 @@ class AddQuestion extends React.Component {
                                 Question Type:
                             </Form.Label>
                             <Col sm={4}>
-                                <Form.Control as="select" custom>
+                                <Form.Control as="select" custom name="question_type" value={this.state.question_type} onChange={this.handleChange}>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -49,7 +83,7 @@ class AddQuestion extends React.Component {
                             </Col>
                         </Form.Group>
                         <div className="text-center">
-                            <Button variant="primary" onClick={this.postQuery}>
+                            <Button variant="primary" onClick={this.postQuestion}>
                                 Add Question
                             </Button>    
                         </div>

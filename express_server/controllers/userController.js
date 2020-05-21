@@ -33,7 +33,6 @@ exports.senior_survey_get = function(req, res){
     }, function(err, result){
         if (err) console.log(err);
         res.send(result);
-
     });
 };
 
@@ -52,18 +51,18 @@ function saveSeniorQuestion (question) {
 
 exports.senior_create_post = function(req, res){
     saveSeniorQuestion({
-        _id: 4,
-        title: req.body,
-        input_type: "Rate",
-        question_type: 1,
-        result:[        // result is always default when created
-            {
-                semester: "Spring",
-                year: 2019,
-                number_of_parts: 0,
-                rate: [0,0,0,0,0]
-            }
-        ]
+        _id: res.body.id,
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type,
+        // result:[        // result is always default when created
+        //     {
+        //         semester: "Spring",
+        //         year: 2019,
+        //         number_of_parts: 0,
+        //         rate: [0,0,0,0,0]
+        //     }
+        // ]
     })
         .then(doc => { console.log(doc)})
         .catch(err => { console.error(err)})
@@ -78,6 +77,9 @@ exports.senior_update_get = function(req, res){
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({}, callback);
+        },
+        top_id: function(callback){         // returns an array
+            SeniorSurvey.find({}, {"_id":1}, callback).sort({"_id": -1}).limit(1);
         }
     }, function(err, result){
         if (err) console.log(err);
