@@ -46,23 +46,8 @@ exports.senior_create_get = function(req, res){
 };
 
 exports.senior_create_post = function(req, res){
-    res.send("Senior Survey Create Post");
+    console.log(req.body);
 };
-
-// // edit survey questions
-// exports.senior_update_get = function(req, res){
-//     async.parallel({
-//         question: function(callback){
-//             SeniorSurvey.find({}, {"title":1, "_id":0}, callback);
-//         },
-//         number_question: function(callback){
-//             SeniorSurvey.countDocuments({}, callback);
-//         }
-//     }, function(err, result){
-//         if (err) console.log(err);
-//         res.send(result);
-//     });
-// };
 
 // edit survey questions
 exports.senior_update_get = function(req, res){

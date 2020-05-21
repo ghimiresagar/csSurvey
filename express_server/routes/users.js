@@ -18,8 +18,8 @@ router.get('/surveys', user_controller.list_surveys);
 router.get('/surveys/senior', user_controller.senior_survey_get);
 
 // create senior survey
-router.get('/senior/create', user_controller.senior_create_get);
-router.post('/senior/create', user_controller.senior_create_post);
+router.get('/surveys/senior/create', user_controller.senior_create_get);
+router.post('/surveys/senior/create', user_controller.senior_create_post);
 
 // update senior survey
 router.get('/surveys/senior/edit', user_controller.senior_update_get);
