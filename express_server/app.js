@@ -16,8 +16,14 @@ var mongoose = require('mongoose').set('debug', true);
 var mongoDB = 'mongodb+srv://sagardb:Somerville11@cluster0-z8jim.mongodb.net/cs_survey?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+db.once('open', _ => {
+  console.log('[INFO] Database connected!')
+});
+
+db.on('error', err => {
+  console.error('[WARNING] connection error!')
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

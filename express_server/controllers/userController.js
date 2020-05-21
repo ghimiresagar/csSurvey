@@ -45,15 +45,36 @@ exports.senior_create_get = function(req, res){
     res.send("Senior Survey Create Get");
 };
 
+function saveSeniorQuestion (question) {
+    const c = new SeniorSurvey(question)
+    return c.save()
+  }
+
 exports.senior_create_post = function(req, res){
-    console.log(req.body);
+    saveSeniorQuestion({
+        _id: 4,
+        title: req.body,
+        input_type: "Rate",
+        question_type: 1,
+        result:[        // result is always default when created
+            {
+                semester: "Spring",
+                year: 2019,
+                number_of_parts: 0,
+                rate: [0,0,0,0,0]
+            }
+        ]
+    })
+        .then(doc => { console.log(doc)})
+        .catch(err => { console.error(err)})
 };
 
 // edit survey questions
 exports.senior_update_get = function(req, res){
     async.parallel({
         question: function(callback){
-            SeniorSurvey.find({}, callback);
+            SeniorSurvey.find({}, callback)
+            .sort({_id: -1});
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({}, callback);
