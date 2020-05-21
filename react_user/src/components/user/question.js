@@ -3,5 +3,4 @@ function Question(props) {
         props.value
     );
 }
-
 export default Question;

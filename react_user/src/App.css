@@ -1,11 +1,11 @@
 * {
-  background-color: aliceblue;
+  background-color: white;
 }
 
 
 /* login form */
 
-#login .container #login-row #login-column #login-box {
+/* #login .container #login-row #login-column #login-box {
   margin-top: 120px;
   max-width: 600px;
   height: 320px;
@@ -17,6 +17,6 @@
 
 #login .container #login-row #login-column #login-box #login-form {
   padding: 10px;
-}
+} */
 
 /* login form */

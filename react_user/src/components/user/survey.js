@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Question from './question';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -13,7 +14,6 @@ class Survey extends React.Component {
         this.state = {
             name: this.props.value,     // name of the survey, is passed
             count: 0,
-            question_title: "None",
             obj: []
         };
     }
@@ -22,7 +22,6 @@ class Survey extends React.Component {
     componentWillMount(){
         this.getQuery()
             .then(body => this.setState({ 
-                question_title: body.question[0].title,
                 count: body.number_question,
                 obj: Object.keys(body.question).map(keys => body.question[keys].title)
             }))
@@ -35,9 +34,6 @@ class Survey extends React.Component {
         const body = await data.json();
         return body;
     }
-
-    // almost close to undo
-    // wait
 
     render(){
         const questions = []
@@ -58,7 +54,9 @@ class Survey extends React.Component {
                         <Card.Title>Questions</Card.Title>
                         {questions}
                         <div className="text-center">
-                            <Button variant="primary">Edit Survey</Button>
+                        <Link to={`/users/surveys/${this.state.name}/edit`} className="active">
+                            <Button variant="primary">Edit Survey</Button>    
+                        </Link>
                         </div>
                     </Card.Body>
                 </Card>
