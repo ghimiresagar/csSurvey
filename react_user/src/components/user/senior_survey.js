@@ -14,8 +14,7 @@ class SeniorSurvey extends React.Component {
             res_id: [],
             res_input_type: [],
             res_question_type: [],
-            res_body: [],
-            res_id_top: [],
+            res_body: []
         };
     }
 
@@ -27,8 +26,7 @@ class SeniorSurvey extends React.Component {
                 res_id: Object.keys(body.question).map(keys => body.question[keys]._id),
                 res_input_type: Object.keys(body.question).map(keys => body.question[keys].input_type),
                 res_question_type: Object.keys(body.question).map(keys => body.question[keys].title),
-                res_body: Object.keys(body.question).map(keys => body.question[keys]),
-                res_id_top: Object.keys(body.top_id).map(keys => body.top_id[keys]._id),    
+                res_body: Object.keys(body.question).map(keys => body.question[keys])
             }))
             .catch(err => console.log(err));
     }
@@ -41,10 +39,6 @@ class SeniorSurvey extends React.Component {
 
     render(){
         const questions = []
-        const id_top = []
-        for (var [i, j] of this.state.res_id_top.entries()){
-            id_top.push(j+1);
-        }
         for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
                 <Accordion>
@@ -63,7 +57,7 @@ class SeniorSurvey extends React.Component {
           }
         return(
             <Container>
-                <AddQuestion value={id_top[0]}/>
+                <AddQuestion />
                 {questions}
             </Container>
         );

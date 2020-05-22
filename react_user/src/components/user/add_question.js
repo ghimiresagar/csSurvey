@@ -11,7 +11,6 @@ class AddQuestion extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            id : this.props.value,
             title: "",
             input_type: "Rate",
             question_type: 1
@@ -27,7 +26,6 @@ class AddQuestion extends React.Component {
     postQuestion = (e) => {
         e.preventDefault();
         let body = {
-            id: this.state.id,
             title: this.state.title,
             input_type: this.state.input_type,
             question_type: this.state.question_type

@@ -51,7 +51,6 @@ function saveSeniorQuestion (question) {
 
 exports.senior_create_post = function(req, res){
     saveSeniorQuestion({
-        _id: res.body.id,
         title: req.body.title,
         input_type: req.body.input_type,
         question_type: req.body.question_type,

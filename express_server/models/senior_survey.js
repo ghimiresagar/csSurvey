@@ -3,7 +3,6 @@ let Schema = mongoose.Schema;
 
 SeniorSurveySchema = new Schema(
     {
-        _id: {type: Number, required: true, unique: true},
         title: {type: String, required: true},
         input_type: {type: String, required: true},
         question_type: {type: Number, required: true},
