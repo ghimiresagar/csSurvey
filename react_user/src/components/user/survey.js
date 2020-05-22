@@ -18,7 +18,7 @@ class Survey extends React.Component {
     }
 
     // when the component mounts, get express query of surveys
-    componentWillMount(){
+    componentDidMount(){
         this.getQuery()
             .then(body => this.setState({ 
                 count: body.number_question,

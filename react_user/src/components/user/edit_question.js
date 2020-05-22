@@ -15,7 +15,8 @@ class EditQuestion extends React.Component {
             input_type: "Rate",
             question_type: 1
         }
-        console.log(this.props.value._id)
+        // _id is never going to change, so don't put this on state
+        // console.log(this.props.value._id)
     }
 
     handleChange = (e) => {
@@ -24,11 +25,12 @@ class EditQuestion extends React.Component {
         });
     }
 
-    postQuestion = (e) => {
+    updateQuestion = (e) => {
         e.preventDefault();
 
         // run after after validation
         let body = {
+            id: this.props.value._id,
             title: this.state.title,
             input_type: this.state.input_type,
             question_type: this.state.question_type
@@ -45,10 +47,13 @@ class EditQuestion extends React.Component {
 
     deleteQuestion = (e) => {
         e.preventDefault();
+        let body = {
+            id: this.props.value._id
+        }
         fetch("http://localhost:9000/users/surveys/senior/delete", {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.props.value._id)
+            body: JSON.stringify(body)
         }).then(function(data){
             console.log(data)
             window.location.reload(false);
@@ -100,7 +105,7 @@ class EditQuestion extends React.Component {
                             </Col>
                             <Col sm={2}>
                                 <div className="text-center">
-                                    <Button variant="primary m-1" onClick={this.postQuestion}>
+                                    <Button variant="primary m-1" onClick={this.updateQuestion}>
                                         Update
                                     </Button>    
                                     <Button variant="danger m-1" onClick={this.deleteQuestion}>

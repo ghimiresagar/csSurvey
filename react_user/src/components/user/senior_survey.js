@@ -17,7 +17,7 @@ class SeniorSurvey extends React.Component {
         };
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.get_questions()
             .then(body => this.setState({
                 count: body.number_question,

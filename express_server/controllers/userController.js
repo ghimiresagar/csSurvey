@@ -44,12 +44,12 @@ exports.senior_create_get = function(req, res){
     res.send("Senior Survey Create Get");
 };
 
-function saveSeniorQuestion (question) {
-    const c = new SeniorSurvey(question)
-    return c.save()
-  }
-
 exports.senior_create_post = function(req, res){
+    function saveSeniorQuestion (question) {
+        const c = new SeniorSurvey(question)
+        return c.save()
+      }
+
     saveSeniorQuestion({
         title: req.body.title,
         input_type: req.body.input_type,
@@ -88,25 +88,28 @@ exports.senior_update_get = function(req, res){
 
 // edit survey, post
 exports.senior_update_post = function(req, res) {
-    saveSeniorQuestion({
+    SeniorSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
         input_type: req.body.input_type,
         question_type: req.body.question_type
     })
-        .then(doc => { 
-            console.log(doc)
-            res.json(doc)
+        .then(updated => {
+            console.log(updated)
+            res.send(updated)
         })
-        .catch(err => { console.error(err)})
+        .catch(err => console.log(err));
 };
 
 exports.senior_delete_get = function(req, res) {
-    res.send("Senior Survey Delete get");
+    res.send("Delete senior get");
 };
 
 exports.senior_delete_post = function(req, res) {
-    SeniorSurvey.findOneAndDelete({ "_id": req.body._id })
-    .then(deleted => console.log(deleted))
+    SeniorSurvey.findOneAndDelete({ "_id": req.body.id })
+    .then(deleted => {
+        console.log(deleted)
+        res.json(deleted)
+    })
     .catch(err => console.log(err));
 };
 
