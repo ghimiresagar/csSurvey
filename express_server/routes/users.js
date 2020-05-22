@@ -26,8 +26,8 @@ router.get('/surveys/senior/edit', user_controller.senior_update_get);
 router.post('/surveys/senior/edit', user_controller.senior_update_post);
 
 //delete senior survey
-router.get('/senior/:id/delete', user_controller.senior_delete_get);
-router.post('/senior/:id/delete', user_controller.senior_delete_post);
+router.get('/surveys/senior/delete', user_controller.senior_delete_get);
+router.post('/surveys/senior/delete', user_controller.senior_delete_post);
 
 router.get('/senior/:id', user_controller.senior_detail_get);
 

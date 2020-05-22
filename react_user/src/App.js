@@ -26,6 +26,12 @@ class App extends React.Component {
           <Route exact path='/users/surveys/senior/edit'>
             <SeniorSurvey />
           </Route>
+          <Route exact path='/users/surveys/senior/edit'>
+            <SeniorSurvey />
+          </Route>
+          <Route exact path='/users/surveys/senior/edit'>
+            <SeniorSurvey />
+          </Route>
           <Route path='/'>
             <Redirect to="/users" />
           </Route>

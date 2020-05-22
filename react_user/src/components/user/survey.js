@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Question from './question';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
@@ -41,7 +40,7 @@ class Survey extends React.Component {
         for (const [x, y] of this.state.obj.entries()) {
           questions.push(
             <Card.Text>
-                <Question value={y}> </Question>
+                {y}
             </Card.Text>
           )
         }

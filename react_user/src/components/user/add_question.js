@@ -25,6 +25,8 @@ class AddQuestion extends React.Component {
 
     postQuestion = (e) => {
         e.preventDefault();
+
+        // run after after validation
         let body = {
             title: this.state.title,
             input_type: this.state.input_type,
@@ -36,8 +38,8 @@ class AddQuestion extends React.Component {
            body: JSON.stringify(body)
         }).then(function(data){
             console.log(data)
+            window.location.reload(false);
         }).catch(err => console.log(err));
-        console.log("Button Clicked!");
     }
 
     render() {
@@ -51,40 +53,46 @@ class AddQuestion extends React.Component {
                     <Card.Body>
                     <Form>
                         <Form.Group as={Row}>
-                            <Form.Label column sm={2}>
-                                New Question: 
-                            </Form.Label>
                             <Col sm={10}>
-                            <Form.Control type="text" placeholder="Question" name="title" value={this.state.title} onChange={this.handleChange} />
+                            <Form.Group as={Row}>
+                                <Form.Label column sm={2}>
+                                    New Question: 
+                                </Form.Label>
+                                <Col sm={10}>
+                                <Form.Control type="text" placeholder="Question" name="title" value={this.state.title} onChange={this.handleChange} required/>
+                                </Col>
+                            </Form.Group>
+                            <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
+                                <Form.Label column sm={2}>
+                                    Input Type:
+                                </Form.Label>
+                                <Col sm={4}>
+                                    <Form.Control as="select" custom name="input_type" value={this.state.input_type} onChange={this.handleChange}>
+                                    <option>Rate</option>
+                                    <option>Input</option>
+                                    </Form.Control>
+                                </Col>
+                                <Form.Label column sm={2}>
+                                    Question Type:
+                                </Form.Label>
+                                <Col sm={4}>
+                                    <Form.Control as="select" custom name="question_type" value={this.state.question_type} onChange={this.handleChange}>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    </Form.Control>
+                                </Col>
+                            </Form.Group>
+                            </Col>
+                            <Col sm={2}>
+                                <div className="text-center">
+                                    <Button variant="primary" onClick={this.postQuestion}>
+                                        Add Question
+                                    </Button>    
+                                </div>
                             </Col>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
-                            <Form.Label column sm={2}>
-                                Input Type:
-                            </Form.Label>
-                            <Col sm={4}>
-                                <Form.Control as="select" custom name="input_type" value={this.state.input_type} onChange={this.handleChange}>
-                                <option>Rate</option>
-                                <option>Input</option>
-                                </Form.Control>
-                            </Col>
-                            <Form.Label column sm={2}>
-                                Question Type:
-                            </Form.Label>
-                            <Col sm={4}>
-                                <Form.Control as="select" custom name="question_type" value={this.state.question_type} onChange={this.handleChange}>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                </Form.Control>
-                            </Col>
-                        </Form.Group>
-                        <div className="text-center">
-                            <Button variant="primary" onClick={this.postQuestion}>
-                                Add Question
-                            </Button>    
-                        </div>
                     </Form>    
                     </Card.Body>
                     </Accordion.Collapse>

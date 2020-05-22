@@ -63,11 +63,14 @@ exports.senior_create_post = function(req, res){
         //     }
         // ]
     })
-        .then(doc => { console.log(doc)})
+        .then(doc => { 
+            console.log(doc)
+            res.json(doc)
+        })
         .catch(err => { console.error(err)})
 };
 
-// edit survey questions
+// edit survey questions, display
 exports.senior_update_get = function(req, res){
     async.parallel({
         question: function(callback){
@@ -76,9 +79,6 @@ exports.senior_update_get = function(req, res){
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({}, callback);
-        },
-        top_id: function(callback){         // returns an array
-            SeniorSurvey.find({}, {"_id":1}, callback).sort({"_id": -1}).limit(1);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -86,8 +86,18 @@ exports.senior_update_get = function(req, res){
     });
 };
 
+// edit survey, post
 exports.senior_update_post = function(req, res) {
-    res.send("Senior Survey Update post");
+    saveSeniorQuestion({
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type
+    })
+        .then(doc => { 
+            console.log(doc)
+            res.json(doc)
+        })
+        .catch(err => { console.error(err)})
 };
 
 exports.senior_delete_get = function(req, res) {
@@ -95,7 +105,9 @@ exports.senior_delete_get = function(req, res) {
 };
 
 exports.senior_delete_post = function(req, res) {
-    res.send("Senior Survey Delete post");
+    SeniorSurvey.findOneAndDelete({ "_id": req.body._id })
+    .then(deleted => console.log(deleted))
+    .catch(err => console.log(err));
 };
 
 //--------------------- ALUMNI SURVEY CONTROLLER----------------------------

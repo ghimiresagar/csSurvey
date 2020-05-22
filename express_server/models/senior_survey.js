@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 
 SeniorSurveySchema = new Schema(
     {
-        title: {type: String, required: true},
+        title: {type: String, required: true, unique: true},
         input_type: {type: String, required: true},
         question_type: {type: Number, required: true},
         result: [
@@ -13,7 +13,6 @@ SeniorSurveySchema = new Schema(
                 number_of_parts: {type: Number, default: 0},
                 rate: {type: Array, default: [0, 0, 0, 0, 0]}
             }
-
         ],
     }
 );

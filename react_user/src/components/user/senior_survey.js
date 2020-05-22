@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import Accordion from 'react-bootstrap/Accordion';
 import AddQuestion from './add_question';
+import EditQuestion from './edit_question';
 
 class SeniorSurvey extends React.Component {
     constructor(props){
@@ -41,18 +40,7 @@ class SeniorSurvey extends React.Component {
         const questions = []
         for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
-                <Accordion>
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                        {y.title}
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0">
-                        <Card.Body>
-                            {y._id}
-                        </Card.Body>
-                        </Accordion.Collapse>
-                    </Card><br></br>
-                </Accordion>
+                <EditQuestion value={y} />
             )
           }
         return(
