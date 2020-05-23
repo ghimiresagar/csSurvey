@@ -17,10 +17,4 @@ SeniorSurveySchema = new Schema(
     }
 );
 
-// virtual for survey url
-SeniorSurveySchema.virtual('url')
-    .get(function() {
-        return '/survey/senior/' + this._id;
-    });
-
 module.exports = mongoose.model('SeniorSurvey', SeniorSurveySchema);

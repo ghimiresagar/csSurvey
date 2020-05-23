@@ -140,15 +140,49 @@ exports.alumni_create_get = function(req, res){
 };
 
 exports.alumni_create_post = function(req, res){
-    res.send("alumni Survey Create Post");
+    function saveAlumniQuestion (question) {
+        const c = new AlumniSurvey(question)
+        return c.save()
+      }
+
+    saveAlumniQuestion({
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type
+    })
+        .then(doc => { 
+            console.log(doc)
+            res.json(doc)
+        })
+        .catch(err => { console.error(err)})
 };
 
 exports.alumni_update_get = function(req, res){
-    res.send("alumni Survey Update get");
+    async.parallel({
+        question: function(callback){
+            AlumniSurvey.find({}, callback)
+            .sort({_id: -1});
+        },
+        number_question: function(callback){
+            AlumniSurvey.countDocuments({}, callback);
+        }
+    }, function(err, result){
+        if (err) console.log(err);
+        res.send(result);
+    });
 };
 
 exports.alumni_update_post = function(req, res) {
-    res.send("alumni Survey Update post");
+    AlumniSurvey.findOneAndUpdate({"_id": req.body.id }, {
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type
+    })
+        .then(updated => {
+            console.log(updated)
+            res.send(updated)
+        })
+        .catch(err => console.log(err));
 };
 
 exports.alumni_delete_get = function(req, res) {
@@ -156,7 +190,12 @@ exports.alumni_delete_get = function(req, res) {
 };
 
 exports.alumni_delete_post = function(req, res) {
-    res.send("alumni Survey Delete post");
+    AlumniSurvey.findOneAndDelete({ "_id": req.body.id })
+    .then(deleted => {
+        console.log(deleted)
+        res.json(deleted)
+    })
+    .catch(err => console.log(err));
 };
 
 //--------------------- IBA SURVEY ----------------------------
@@ -186,15 +225,49 @@ exports.iba_create_get = function(req, res){
 };
 
 exports.iba_create_post = function(req, res){
-    res.send("iba Survey Create Post");
+    function saveIbaQuestion (question) {
+        const c = new IbaSurvey(question)
+        return c.save()
+      }
+
+    saveIbaQuestion({
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type
+    })
+        .then(doc => { 
+            console.log(doc)
+            res.json(doc)
+        })
+        .catch(err => { console.error(err)})
 };
 
 exports.iba_update_get = function(req, res){
-    res.send("iba Survey Update get");
+    async.parallel({
+        question: function(callback){
+            IbaSurvey.find({}, callback)
+            .sort({_id: -1});
+        },
+        number_question: function(callback){
+            IbaSurvey.countDocuments({}, callback);
+        }
+    }, function(err, result){
+        if (err) console.log(err);
+        res.send(result);
+    });
 };
 
 exports.iba_update_post = function(req, res) {
-    res.send("iba Survey Update post");
+    IbaSurvey.findOneAndUpdate({"_id": req.body.id }, {
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type
+    })
+        .then(updated => {
+            console.log(updated)
+            res.send(updated)
+        })
+        .catch(err => console.log(err));
 };
 
 exports.iba_delete_get = function(req, res) {
@@ -202,5 +275,10 @@ exports.iba_delete_get = function(req, res) {
 };
 
 exports.iba_delete_post = function(req, res) {
-    res.send("iba Survey Delete post");
+    IbaSurvey.findOneAndDelete({ "_id": req.body.id })
+    .then(deleted => {
+        console.log(deleted)
+        res.json(deleted)
+    })
+    .catch(err => console.log(err));
 };

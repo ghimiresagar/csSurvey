@@ -34,28 +34,28 @@ router.get('/senior/:id', user_controller.senior_detail_get);
 //--------------------- ALUMNI SURVEY ----------------------------
 router.get('/surveys/alumni', user_controller.alumni_survey_get);
 
-router.get('/alumni/create', user_controller.alumni_create_get);
-router.post('/alumni/create', user_controller.alumni_create_post);
+router.get('/surveys/alumni/create', user_controller.alumni_create_get);
+router.post('/surveys/alumni/create', user_controller.alumni_create_post);
 
-router.get('/alumni/:id/update', user_controller.alumni_update_get);
-router.post('/alumni/:id/update', user_controller.alumni_update_post);
+router.get('/surveys/alumni/edit', user_controller.alumni_update_get);
+router.post('/surveys/alumni/edit', user_controller.alumni_update_post);
 
-router.get('/alumni/:id/delete', user_controller.alumni_delete_get);
-router.post('/alumni/:id/delete', user_controller.alumni_delete_post);
+router.get('/surveys/alumni/delete', user_controller.alumni_delete_get);
+router.post('/surveys/alumni/delete', user_controller.alumni_delete_post);
 
 router.get('/alumni/:id', user_controller.alumni_detail_get);
 
 //--------------------- IBA SURVEY ----------------------------
 router.get('/surveys/iba', user_controller.iba_survey_get);
 
-router.get('/iba/create', user_controller.iba_create_get);
-router.post('surveys/iba/create', user_controller.iba_create_post);
+router.get('/surveys/iba/create', user_controller.iba_create_get);
+router.post('/surveys/iba/create', user_controller.iba_create_post);
 
-router.get('/iba/:id/update', user_controller.iba_update_get);
-router.post('/iba/:id/update', user_controller.iba_update_post);
+router.get('/surveys/iba/edit', user_controller.iba_update_get);
+router.post('/surveys/iba/edit', user_controller.iba_update_post);
 
-router.get('/iba/:id/delete', user_controller.iba_delete_get);
-router.post('/iba/:id/delete', user_controller.iba_delete_post);
+router.get('/surveys/iba/delete', user_controller.iba_delete_get);
+router.post('/surveys/iba/delete', user_controller.iba_delete_post);
 
 router.get('/iba/:id', user_controller.iba_detail_get);
 

@@ -35,7 +35,7 @@ class EditQuestion extends React.Component {
             input_type: this.state.input_type,
             question_type: this.state.question_type
         };
-        fetch("http://localhost:9000/users/surveys/senior/edit", {
+        fetch("http://localhost:9000/users/surveys/"+this.props.name+"/edit", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(body)
@@ -50,7 +50,7 @@ class EditQuestion extends React.Component {
         let body = {
             id: this.props.value._id
         }
-        fetch("http://localhost:9000/users/surveys/senior/delete", {
+        fetch("http://localhost:9000/users/surveys/"+this.props.name+"/delete", {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)

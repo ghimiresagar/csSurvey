@@ -31,7 +31,7 @@ class SeniorSurvey extends React.Component {
     }
 
     get_questions = async () => {
-        const data = await fetch("http://localhost:9000/users/surveys/senior/edit");
+        const data = await fetch("http://localhost:9000/users/surveys/"+this.props.name+"/edit");
         const body = await data.json();
         return body;
     }
@@ -40,12 +40,12 @@ class SeniorSurvey extends React.Component {
         const questions = []
         for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
-                <EditQuestion value={y} />
+                <EditQuestion value={y} name={this.props.name} />
             )
           }
         return(
             <Container>
-                <AddQuestion />
+                <AddQuestion name={this.props.name}/>
                 {questions}
             </Container>
         );
