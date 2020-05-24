@@ -11,9 +11,9 @@ class EditQuestion extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            title: "",
-            input_type: "Rate",
-            question_type: 1
+            title: this.props.value.title,
+            input_type: this.props.value.input_type,
+            question_type: this.props.value.question_type
         }
         // _id is never going to change, so don't put this on state
         // console.log(this.props.value._id)
@@ -77,7 +77,7 @@ class EditQuestion extends React.Component {
                                         Edit Question: 
                                     </Form.Label>
                                     <Col sm={10}>
-                                    <Form.Control type="text" placeholder="Question" name="title" defaultValue={this.props.value.title} onChange={this.handleChange} required/>
+                                    <Form.Control type="text" placeholder="Question" name="title" defaultValue={this.state.title} onChange={this.handleChange} required/>
                                     </Col>
                                 </Form.Group>
                                 <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
@@ -85,7 +85,7 @@ class EditQuestion extends React.Component {
                                         Input Type:
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control as="select" custom name="input_type" value={this.props.value.input_type} onChange={this.handleChange}>
+                                        <Form.Control as="select" custom name="input_type" defaultValue={this.state.input_type} onChange={this.handleChange}>
                                         <option>Rate</option>
                                         <option>Input</option>
                                         </Form.Control>
@@ -94,7 +94,7 @@ class EditQuestion extends React.Component {
                                         Question Type:
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control as="select" custom name="question_type" value={this.props.value.question_type} onChange={this.handleChange}>
+                                        <Form.Control as="select" custom name="question_type" defaultValue={this.state.question_type} onChange={this.handleChange}>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
