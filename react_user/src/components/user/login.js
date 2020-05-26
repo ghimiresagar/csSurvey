@@ -29,48 +29,52 @@ function Login() {
             <Form.Row>
                 <Form.Group as={Col} md="4">
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>Username:</Form.Label>
-                    <InputGroup>
-                    <Form.Control
-                        type="text"
-                        placeholder="Username"
-                        aria-describedby="inputGroupPrepend"
-                        required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        Please enter a username.
-                    </Form.Control.Feedback>
-                    </InputGroup>
+
+                <Form.Group as={Col} md="4" className="m-1 p-3">
+                    <h2 className="text-center">Login</h2> 
+                    <hr/> <br />
+                    <Form.Row>
+                        <Form.Group as={Col} md="12" controlId="validationCustomUsername">
+                            <Form.Label>Username:</Form.Label>
+                            <InputGroup>
+                            <Form.Control
+                                type="text"
+                                placeholder="Username"
+                                aria-describedby="inputGroupPrepend"
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter a username.
+                            </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} md="12" controlId="validationCustomPassword">
+                            <Form.Label>Password:</Form.Label>
+                            <InputGroup>
+                            <Form.Control
+                                type="password"
+                                placeholder="Password"
+                                aria-describedby="inputGroupPrepend"
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter a password.
+                            </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <div className="text-center">
+                        <Button type="submit">
+                            Submit
+                        </Button>
+                    </div>
                 </Form.Group>
+
                 <Form.Group as={Col} md="4">
                 </Form.Group>
             </Form.Row>
-            <Form.Row>
-                <Form.Group as={Col} md="4">
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomPassword">
-                    <Form.Label>Password:</Form.Label>
-                    <InputGroup>
-                    <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        aria-describedby="inputGroupPrepend"
-                        required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        Please enter a password.
-                    </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-                <Form.Group as={Col} md="4">
-                </Form.Group>
-            </Form.Row>
-            <div className="text-center">
-                <Button type="submit">
-                    Submit
-                </Button>
-            </div>
           </Form>
       </Container>
     );
