@@ -1,80 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import Container from 'react-bootstrap/Container';
 import'bootstrap/dist/css/bootstrap.css';
-import '../../App.css';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
+// import '../../App.css';
 
-class Login extends React.Component {
-  constructor(props){
-      super(props);
-      this.state = {
-          username: '',
-          password: '',
-          apiMessage: ""
-      };
-      this.handleSubmit = this.handleSubmit.bind(this);
-  }
+function Login() {
+    const crypto = require('crypto');
 
-  // server call to get message
-  callAPI() {
-      fetch("http://localhost:9000/users")
-        .then(res => res.text())
-        .then(res => this.setState({ apiMessage: res}));
-  }
+    const [validated, setValidated] = useState(false);
+  
+    const handleSubmit = (event) => {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      setValidated(true);
 
-  componentWillMount(){
-      this.callAPI();
-  }
-
-  handleChange = (e) => {
-      this.setState ({
-          [e.target.name]: [e.target.value]
-      });
-  }
-
-  handleSubmit = (e) => {
-      e.preventDefault();
-
-    //   window.alert(this.state.username + this.state.password);
-    // handle submit request, pass JWT to server as credentials and validate
-    fetch('http://localhost:9000/users', {
-        method: "POST",
-        body: JSON.stringify(this.state),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-        })
-        .then(res => res.json())
-        .then(data => this.setState({ apiMessage: data}));
-  }
-
-  render() {
-      return(
-        <div id="login">
-            <div className="container">
-                <div id="login-row" className="row justify-content-center align-items-center">
-                    <div id="login-column" className="col-md-6">
-                        <div id="login-box" className="col-md-12">
-                            <form id="login-form" className="form" onSubmit={this.handleSubmit}>
-                                <h2 className="text-center text-info">CS Survey Portal<hr></hr></h2>
-                                <div className="form-group">
-                                    <label htmlFor="username" className="text-info">Username:</label>
-                                    <input type="text" name="username" value={this.state.username} className="form-control" onChange={this.handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="password" className="text-info">Password:</label>
-                                    <input type="password" name="password" value={this.state.password} className="form-control" onChange={this.handleChange} />
-                                </div>
-                                <div className="form-group text-center">
-                                    <input type="submit" name="submit" className="btn btn-info btn-lg" value="submit" />
-                                </div>
-                                <p>{this.state.apiMessage}</p>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    };
+  
+    return (
+        <Container>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form.Row>
+                <Form.Group as={Col} md="4">
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+                    <Form.Label>Username:</Form.Label>
+                    <InputGroup>
+                    <Form.Control
+                        type="text"
+                        placeholder="Username"
+                        aria-describedby="inputGroupPrepend"
+                        required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        Please enter a username.
+                    </Form.Control.Feedback>
+                    </InputGroup>
+                </Form.Group>
+                <Form.Group as={Col} md="4">
+                </Form.Group>
+            </Form.Row>
+            <Form.Row>
+                <Form.Group as={Col} md="4">
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustomPassword">
+                    <Form.Label>Password:</Form.Label>
+                    <InputGroup>
+                    <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        aria-describedby="inputGroupPrepend"
+                        required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        Please enter a password.
+                    </Form.Control.Feedback>
+                    </InputGroup>
+                </Form.Group>
+                <Form.Group as={Col} md="4">
+                </Form.Group>
+            </Form.Row>
+            <div className="text-center">
+                <Button type="submit">
+                    Submit
+                </Button>
             </div>
-        </div>
-      );
+          </Form>
+      </Container>
+    );
   }
-}
 
-export default Login;
+  export default Login;
