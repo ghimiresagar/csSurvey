@@ -6,6 +6,7 @@ import Header from './components/header';
 import Login from './components/user/login';
 import Survey from './components/user/dashboard';
 import SurveyLayout from './components/user/survey_layout';
+import SurveyView from './components/survey_view';
 
 // This class only matches the url and renders the appropriate component for the url 
 class App extends React.Component {
@@ -24,14 +25,17 @@ class App extends React.Component {
             <Survey value="Iba"/>
           </Route>
           <Route exact path='/users/surveys/senior/edit'>
-            <SurveyLayout name="senior"/>
+            <SurveyLayout name="Senior"/>
           </Route>
           <Route exact path='/users/surveys/alumni/edit'>
-            <SurveyLayout name="alumni"/>
+            <SurveyLayout name="Alumni"/>
           </Route>
           <Route exact path='/users/surveys/iba/edit'>
-            <SurveyLayout name="iba"/>
+            <SurveyLayout name="Iba"/>
           </Route>
+          <Route exact path='/users/surveys/senior/url/:id' component={SurveyView} />
+            {/* <SurveyView name="senior"/>
+          </Route> */}
           <Route path='/'>
             <Redirect to="/users" />
           </Route>

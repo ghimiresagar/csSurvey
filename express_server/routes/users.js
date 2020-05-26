@@ -14,6 +14,31 @@ router.post('/', user_controller.authenticate);
 
 router.get('/surveys', user_controller.list_surveys);
 
+//--------------------- SURVEY URL ----------------------------
+// get's the url object's id to display on url
+router.get('/surveys/senior/url', user_controller.survey_url_get);
+// create a new url for senior survey
+router.post('/surveys/senior/url/create', user_controller.senior_url_create_post);
+// delete url for senior survey
+router.post('/surveys/senior/url/delete', user_controller.senior_url_delete_post);
+// check if the url exist
+router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
+
+
+// get's the url object's id to display on url
+router.get('/surveys/alumni/url', user_controller.alumni_url_get);
+// create a new url for alumni survey
+router.post('/surveys/alumni/url/create', user_controller.alumni_url_create_post);
+// delete url for alumni survey
+router.post('/surveys/alumni/url/delete', user_controller.alumni_url_delete_post);
+
+// get's the url object's id to display on url
+router.get('/surveys/iba/url', user_controller.iba_url_get);
+// create a new url for iba survey
+router.post('/surveys/iba/url/create', user_controller.iba_url_create_post);
+// delete url for iba survey
+router.post('/surveys/iba/url/delete', user_controller.iba_url_delete_post);
+
 //--------------------- SENIOR SURVEY ----------------------------
 router.get('/surveys/senior', user_controller.senior_survey_get);
 

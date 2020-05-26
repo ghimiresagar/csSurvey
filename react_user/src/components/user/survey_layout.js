@@ -3,6 +3,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import AddQuestion from './add_question';
 import EditQuestion from './edit_question';
+import Url from './url';
 
 class SeniorSurvey extends React.Component {
     constructor(props){
@@ -45,6 +46,7 @@ class SeniorSurvey extends React.Component {
           }
         return(
             <Container>
+                <Url name={this.props.name}/>
                 <AddQuestion name={this.props.name}/>
                 {questions}
             </Container>

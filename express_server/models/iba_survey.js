@@ -6,6 +6,7 @@ IbaSurveySchema = new Schema(
         title: {type: String, required: true, unique: true},
         input_type: {type: String, required: true},
         question_type: {type: Number, required: true},
+        type: {type: String, required: true, default: "question"},
         result: [
             {
                 semester: {type: String, default: "Fall"},

@@ -30,7 +30,7 @@ class AddQuestion extends React.Component {
         let body = {
             title: this.state.title,
             input_type: this.state.input_type,
-            question_type: this.state.question_type
+            question_type: this.state.question_type,
         };
         fetch("http://localhost:9000/users/surveys/"+this.props.name+"/create", {
            method: 'post',
