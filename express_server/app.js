@@ -12,9 +12,10 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 //Set up mongoose connection
-var mongoose = require('mongoose').set('debug', true);
+// .set('debug', true);
+var mongoose = require('mongoose')
 var mongoDB = 'mongodb+srv://sagardb:Somerville11@cluster0-z8jim.mongodb.net/cs_survey?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
 db.once('open', _ => {
