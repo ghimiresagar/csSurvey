@@ -1,5 +1,7 @@
 let express = require('express');
 let router = express.Router();
+const passport = require('passport');
+const passportConfig = require('../passport');
 
 // require control models
 let user_controller = require('../controllers/userController');
@@ -10,9 +12,13 @@ let user_controller = require('../controllers/userController');
 
 router.get('/', user_controller.index);
 
-router.post('/', user_controller.authenticate);
+// login
+router.post('/', passport.authenticate('local', {session: false}), user_controller.authenticate);
+// logout
+router.post('/logout', passport.authenticate('jwt', {session: false}), user_controller.logout);
 
-router.get('/surveys', user_controller.list_surveys);
+
+router.get('/surveys', passport.authenticate('jwt', {session: false}), user_controller.list_surveys);
 
 //--------------------- SURVEY URL ----------------------------
 // get's the url object's id to display on url

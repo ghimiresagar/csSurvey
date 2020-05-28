@@ -9,8 +9,6 @@ import Button from 'react-bootstrap/Button';
 // import '../../App.css';
 
 function Login() {
-    const crypto = require('crypto');
-
     const [validated, setValidated] = useState(false);
   
     const handleSubmit = (event) => {

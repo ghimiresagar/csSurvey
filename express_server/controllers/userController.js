@@ -4,14 +4,42 @@ let AlumniSurvey = require('../models/alumni_survey');
 let IbaSurvey = require('../models/iba_survey');
 let async = require('async');
 
-// /users
-exports.index = function (req, res, next) {
-    res.send("Login to manage surveys.");
+const jwt = require('jsonwebtoken');
+
+const signToken = userId => {
+    return jwt.sign({
+        iss: "highbornsky",
+        sub: userId
+    }, "cs_web_app_survey", { expiresIn: '1h'});
 }
 
-exports.authenticate = function (req, res, next) {
-    res.send("User authentication, NI, post");
+
+// /users
+//--------------------- ADMIN URL CONTROLLERS ----------------------------
+exports.index = function (req, res, next) {
+    res.status(200).json({ message: { msgBody: "Login to manage Surveys. ", msgError: false } });
+}
+
+exports.authenticate = function (req, res) {
+    if (req.isAuthenticated()) {
+        const { _id, username } = req.user;
+        const token = signToken(_id);
+        res.cookie('access_token', token, {httpOnly: true, sameSite: true });
+        res.status(200).json({ isAuthenticaed: true, user: {username} });
+    }
 };
+
+exports.logout = function(req, res) {
+    res.clearCookie('access_token');
+    res.json({ user: {username: ""}, success: true});
+}
+
+
+
+
+
+
+
 
 // /users/surveys
 exports.list_surveys = function(req, res){
