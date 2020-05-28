@@ -28,12 +28,18 @@ passport.use(new jwtStrategy({
 }));
 
 passport.use(new localStrategy((username, password, done) => {
+    console.log("here");
     User.findOne({username}, (err, user) => {
-        if (err)
+        if (err){
+            console.log("server error");
             return done(err);
-        if (!user)
-            return done(null, false);
-        if (user)
+        }
+        if (!user){
+            console.log("UserNotFound error");
+            return done(null, false, "usernotfound");
+        }
+        if (user){
             user.comparePassword(password, done);
+        }
     })
 }))

@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthService from '../../Services/AuthService';
+import { AuthContext } from '../../Context/AuthContext';
+import Message from '../message';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
@@ -7,18 +10,50 @@ import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
-function Login() {
+const Login = props => {
     const [validated, setValidated] = useState(false);
-  
+    const [ user, setUser ] = useState({
+        username: "",
+        password: ""
+    });
+    const [ message, setMessage ] = useState(null);
+    const authContext = useContext(AuthContext);
+
+    const onChange = e => {
+        e.preventDefault();
+        setUser({ ...user, [e.target.name]: e.target.value });
+    }
+
+    useEffect(() => {
+        fetch('http://localhost:9000/users')
+            .then(res => res.json())
+            .then(data => {
+                setMessage(data.message);
+            })
+            .catch(err => setMessage(err));
+    }, []);
+
     const handleSubmit = (event) => {
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
         event.preventDefault();
-        event.stopPropagation();
-      }
-      setValidated(true);
-      
-    };
+        // form validation
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        }
+        setValidated(true);
+
+        // check validation of username and password
+        AuthService.login(user).then(data => {
+            const { isAuthenticated, user, message } = data;
+            if (isAuthenticated) {
+                authContext.setUser(user);
+                authContext.setIsAuthenticated(isAuthenticated);
+                // props.history.push('/surveys');
+            } else {
+                setMessage(message);
+            }
+        })       
+    }
   
     return (
         <Container>
@@ -34,15 +69,17 @@ function Login() {
                         <Form.Group as={Col} md="12" controlId="validationCustomUsername">
                             <Form.Label>Username:</Form.Label>
                             <InputGroup>
-                            <Form.Control
-                                type="text"
-                                placeholder="Username"
-                                aria-describedby="inputGroupPrepend"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please enter a username.
-                            </Form.Control.Feedback>
+                                <Form.Control
+                                    type="text"
+                                    name="username"
+                                    placeholder="Username"
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                    onChange={onChange}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter a username.
+                                </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
                     </Form.Row>
@@ -52,9 +89,11 @@ function Login() {
                             <InputGroup>
                             <Form.Control
                                 type="password"
+                                name="password"
                                 placeholder="Password"
                                 aria-describedby="inputGroupPrepend"
                                 required
+                                onChange={onChange}
                             />
                             <Form.Control.Feedback type="invalid">
                                 Please enter a password.
@@ -66,6 +105,9 @@ function Login() {
                         <Button type="submit">
                             Submit
                         </Button>
+                    </div>
+                    <div className="m-1 p-1">
+                        {message ? <Message message={message} /> : null }
                     </div>
                 </Form.Group>
 

@@ -8,9 +8,12 @@ UserSchema = new Schema({
 
 // consider server error too
 UserSchema.methods.comparePassword = function(password, cb){
-  if (password === this.password) {
+  console.log("user error");
+  if (password == this.password) {
+    console.log("pass match")
     return cb(null, this);
   } else {
+    console.log("pass didn't match")
     return cb(null, false);
   }
 }

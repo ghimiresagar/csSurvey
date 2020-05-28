@@ -13,25 +13,25 @@ const signToken = userId => {
     }, "cs_web_app_survey", { expiresIn: '1h'});
 }
 
-
 // /users
 //--------------------- ADMIN URL CONTROLLERS ----------------------------
 exports.index = function (req, res, next) {
-    res.status(200).json({ message: { msgBody: "Login to manage Surveys. ", msgError: false } });
+    res.status(200).json({ message: { msgBody: "Login to manage Surveys.", msgError: false } });
 }
 
 exports.authenticate = function (req, res) {
+    console.log("checked auth");
     if (req.isAuthenticated()) {
         const { _id, username } = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token, {httpOnly: true, sameSite: true });
-        res.status(200).json({ isAuthenticaed: true, user: {username} });
+        res.status(200).json({ isAuthenticated: true, user: {username} });
     }
 };
 
 exports.logout = function(req, res) {
     res.clearCookie('access_token');
-    res.json({ user: {username: ""}, success: true});
+    res.json({ user: {username: ""}, success: true });
 }
 
 exports.authenticated = function (req, res) {
@@ -217,7 +217,7 @@ exports.senior_survey_get = function(req, res){
         }
     }, function(err, result){
         if (err) console.log(err);
-        res.send(result);
+        res.status(200).send(result);
     });
 };
 

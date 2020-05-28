@@ -4,7 +4,7 @@ export default {
             method: 'post',
             body: JSON.stringify(user),
             headers: {
-                'Context-Type': 'application/json'
+                'Content-Type': 'application/json'
             }
         }).then(res => res.json())
           .then(data => data);
