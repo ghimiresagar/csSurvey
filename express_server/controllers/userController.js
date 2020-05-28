@@ -34,12 +34,10 @@ exports.logout = function(req, res) {
     res.json({ user: {username: ""}, success: true});
 }
 
-
-
-
-
-
-
+exports.authenticated = function (req, res) {
+    const {usernama} = req.user;
+    res.status(200).json({ isAuthenticated: true, user: {username} });
+}
 
 // /users/surveys
 exports.list_surveys = function(req, res){

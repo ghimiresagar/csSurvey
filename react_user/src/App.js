@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.css';
 import { Route, Redirect, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from 'react-router-dom';
+import PrivateRoute from './hocs/PrivateRoute';
+
 import Header from './components/header';
 import Login from './components/user/login';
 import Survey from './components/user/dashboard';
@@ -12,7 +13,6 @@ import SurveyView from './components/survey_view';
 class App extends React.Component {
   render(){
     return (
-      
       <Router>
         <Header value="Survey Web App" />
         <Switch>
@@ -24,9 +24,7 @@ class App extends React.Component {
             <Survey value="Alumni"/>
             <Survey value="Iba"/>
           </Route>
-          <Route exact path='/users/surveys/senior/edit'>
-            <SurveyLayout name="Senior"/>
-          </Route>
+          <PrivateRoute exact path='/users/surveys/senior/edit' name="Senior" component={SurveyLayout} />
           <Route exact path='/users/surveys/alumni/edit'>
             <SurveyLayout name="Alumni"/>
           </Route>
