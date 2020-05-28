@@ -37,7 +37,7 @@ class SurveyView extends React.Component {
     }
 
     check_obj = async() => {
-        const data = await fetch("http://localhost:9000/users/surveys/senior/url/"+this.props.match.params.id);
+        const data = await fetch("http://localhost:9000/users/surveys/"+ this.props.name +"/url/"+this.props.match.params.id);
         const body = await data.json();
         if (body.value === null)
             return null;
@@ -54,6 +54,7 @@ class SurveyView extends React.Component {
           }
         return(
             <Container>
+                {this.props.name}<br/>
                 {questions}
             </Container>
         );

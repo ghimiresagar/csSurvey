@@ -33,9 +33,7 @@ class App extends React.Component {
           <Route exact path='/users/surveys/iba/edit'>
             <SurveyLayout name="Iba"/>
           </Route>
-          <Route exact path='/users/surveys/senior/url/:id' component={SurveyView} />
-            {/* <SurveyView name="senior"/>
-          </Route> */}
+          <Route exact path='/users/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
           <Route path='/'>
             <Redirect to="/users" />
           </Route>
