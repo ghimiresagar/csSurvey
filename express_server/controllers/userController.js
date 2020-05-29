@@ -35,7 +35,7 @@ exports.logout = function(req, res) {
 }
 
 exports.authenticated = function (req, res) {
-    const {usernama} = req.user;
+    const { username } = req.user;
     res.status(200).json({ isAuthenticated: true, user: {username} });
 }
 

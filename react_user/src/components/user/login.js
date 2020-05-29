@@ -24,14 +24,14 @@ const Login = props => {
         setUser({ ...user, [e.target.name]: e.target.value });
     }
 
-    useEffect(() => {
-        fetch('http://localhost:9000/users')
-            .then(res => res.json())
-            .then(data => {
-                setMessage(data.message);
-            })
-            .catch(err => setMessage(err));
-    }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:9000/users')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setMessage(data.message);
+    //         })
+    //         .catch(err => setMessage(err));
+    // }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -44,14 +44,15 @@ const Login = props => {
 
         // check validation of username and password
         AuthService.login(user).then(data => {
+            // console.log(data);
             const { isAuthenticated, user, message } = data;
             if (isAuthenticated) {
                 authContext.setUser(user);
                 authContext.setIsAuthenticated(isAuthenticated);
-                console.log(data)
-                // props.history.push('/surveys');
+                // console.log(localStorage.getItem("access_token"));
+                // props.history.push('/surveys/senior/edit');
             } else {
-                console.log(message);
+                // console.log(message);
                 setMessage(message);
             }
         })       

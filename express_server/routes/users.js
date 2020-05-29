@@ -15,7 +15,7 @@ router.get('/', user_controller.index);
 // login
 router.post('/', passport.authenticate('local', {session: false}), user_controller.authenticate);
 // logout
-router.post('/logout', passport.authenticate('jwt', {session: false}), user_controller.logout);
+router.get('/logout', passport.authenticate('jwt', {session: false}), user_controller.logout);
 // authentication
 router.get('/authenticated', passport.authenticate('jwt', {session: false}), user_controller.authenticated);
 
