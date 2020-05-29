@@ -20,7 +20,7 @@ exports.index = function (req, res, next) {
 }
 
 exports.authenticate = function (req, res) {
-    console.log("checked auth");
+    // console.log("checked auth");
     if (req.isAuthenticated()) {
         const { _id, username } = req.user;
         const token = signToken(_id);

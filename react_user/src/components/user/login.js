@@ -48,8 +48,10 @@ const Login = props => {
             if (isAuthenticated) {
                 authContext.setUser(user);
                 authContext.setIsAuthenticated(isAuthenticated);
+                console.log(data)
                 // props.history.push('/surveys');
             } else {
+                console.log(message);
                 setMessage(message);
             }
         })       

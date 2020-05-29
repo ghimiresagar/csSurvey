@@ -28,7 +28,7 @@ passport.use(new jwtStrategy({
 }));
 
 passport.use(new localStrategy((username, password, done) => {
-    console.log("here");
+    // console.log("here");
     User.findOne({username}, (err, user) => {
         if (err){
             console.log("server error");
@@ -36,7 +36,7 @@ passport.use(new localStrategy((username, password, done) => {
         }
         if (!user){
             console.log("UserNotFound error");
-            return done(null, false, "usernotfound");
+            return done(null, false);
         }
         if (user){
             user.comparePassword(password, done);

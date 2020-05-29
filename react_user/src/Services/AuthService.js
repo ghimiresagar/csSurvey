@@ -11,7 +11,7 @@ export default {
     },
     logout: () => {
         return fetch('http://localhost:9000/users/logout')
-                .then(res => res.json())
+                // .then(res => res.json())
                 .then(data => data);
     },
     isAuthenticated: () => {

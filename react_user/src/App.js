@@ -19,18 +19,17 @@ class App extends React.Component {
           <Route exact path='/users'>
             <Login />
           </Route>
-          <Route exact path='/users/surveys'>
+          {/* <PrivateRoute exact path='/users/surveys' name="Senior" component={SurveyLayout} /> */}
+
+          <PrivateRoute exact path='/users/surveys'>
             <Survey value="Senior"/>
             <Survey value="Alumni"/>
             <Survey value="Iba"/>
-          </Route>
+          </PrivateRoute>
+
           <PrivateRoute exact path='/users/surveys/senior/edit' name="Senior" component={SurveyLayout} />
-          <Route exact path='/users/surveys/alumni/edit'>
-            <SurveyLayout name="Alumni"/>
-          </Route>
-          <Route exact path='/users/surveys/iba/edit'>
-            <SurveyLayout name="Iba"/>
-          </Route>
+          <PrivateRoute exact path='/users/surveys/alumni/edit' name="Alumni" component={SurveyLayout} />
+          <PrivateRoute exact path='/users/surveys/iba/edit' name="Iba" component={SurveyLayout} />
           <Route exact path='/users/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
           <Route path='/'>
             <Redirect to="/users" />
