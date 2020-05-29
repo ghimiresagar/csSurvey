@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {Redirect} from 'react-router-dom';
-import AuthService from '../../Services/AuthService';
-import { AuthContext } from '../../Context/AuthContext';
+import AuthService from '../Services/AuthService';
+import { AuthContext } from '../Context/AuthContext';
 
-import Message from '../message';
+import Message from './message';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
@@ -31,7 +30,6 @@ const Login = props => {
             .then(res => res.json())
             .then(data => {
                 setMessage(data.message);
-                console.log(window.location.href);
             })
             .catch(err => setMessage(err));
     }, []);

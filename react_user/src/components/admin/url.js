@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
@@ -13,7 +12,6 @@ class Url extends React.Component {
         this.state = {
             name: "",     // name of the survey, is passed
             count: 0,
-            obj_id: [],
             obj: []
         };
     }
@@ -23,7 +21,6 @@ class Url extends React.Component {
         this.getQuery()
             .then(body => this.setState({ 
                 count: body.number_question,                
-                // obj_id: Object.keys(body.question).map(keys => body.question[keys]._id),
                 obj: Object.keys(body.question).map(keys => body.question[keys])
             }))
             .catch(err => console.log(err));
@@ -31,15 +28,17 @@ class Url extends React.Component {
 
     // gets the query from express url
     getQuery = async () => {
-        const data = await fetch("http://localhost:9000/users/surveys/"+this.props.name+"/url");
+        const data = await fetch("/users/surveys/"+this.props.name+"/url");
+        // console.log(data);
         const body = await data.json();
+        // console.log(body);
         return body;
     }
 
     createSurvey = (e) => {
         e.preventDefault();
 
-        fetch("http://localhost:9000/users/surveys/"+this.props.name+"/url/create", {
+        fetch("/users/surveys/"+this.props.name+"/url/create", {
            method: 'post'
         }).then(function(data){
             console.log(data)
@@ -50,7 +49,7 @@ class Url extends React.Component {
     deleteSurvey = (e) => {
         e.preventDefault();
 
-        fetch("http://localhost:9000/users/surveys/"+this.props.name+"/url/delete", {
+        fetch("/users/surveys/"+this.props.name+"/url/delete", {
            method: 'post'
         }).then(function(data){
             console.log(data)
@@ -63,11 +62,11 @@ class Url extends React.Component {
         const questions = []
         let id = ""
         if (this.state.count === 1) {
-            for (const [x, y] of this.state.obj.entries()) {
+            for (const [x , y] of this.state.obj.entries()) {
                 id = y._id;
             questions.push(
-                <Card.Text>
-                    {'http://localhost:3000/users/surveys/'+this.props.name+'/url/'+y._id}
+                <Card.Text key={x}>
+                    {'127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+y._id}
                 </Card.Text>
             )
             }
@@ -92,7 +91,7 @@ class Url extends React.Component {
                         
                         <Card.Title className="text-center">
                             { this.state.count === 1 &&         // link to go to the survey, nthg else
-                                <a href={'http://localhost:3000/users/surveys/'+this.props.name+'/url/'+id}>
+                                <a href={'127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+id}>
                                     <Button variant="success" className='m-1'>Go to Survey</Button>    
                                 </a>
                             }

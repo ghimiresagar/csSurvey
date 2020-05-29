@@ -41,7 +41,7 @@ class SeniorSurvey extends React.Component {
         const questions = []
         for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
-                <EditQuestion value={y} name={this.props.name} />
+                <EditQuestion key={x} value={y} name={this.props.name} />
             )
           }
         return(

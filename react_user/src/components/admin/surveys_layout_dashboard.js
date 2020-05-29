@@ -39,7 +39,7 @@ class Survey extends React.Component {
 
         for (const [x, y] of this.state.obj.entries()) {
           questions.push(
-            <Card.Text>
+            <Card.Text key={x}>
                 {y}
             </Card.Text>
           )

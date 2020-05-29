@@ -40,9 +40,9 @@ exports.authenticated = function (req, res) {
 }
 
 // /users/surveys
-exports.list_surveys = function(req, res){
-    res.send("List Surveys");
-};
+// exports.list_surveys = function(req, res){
+//     res.send("List Surveys");
+// };
 
 
 //--------------------- SURVEY URL CONTROLLERS ----------------------------
@@ -221,27 +221,26 @@ exports.senior_survey_get = function(req, res){
     });
 };
 
-exports.senior_detail_get = function(req, res){
-    res.send("Senior Survey Detail get: " + req.params.id);
-};
+// exports.senior_detail_get = function(req, res){
+//     res.send("Senior Survey Detail get: " + req.params.id);
+// };
 
-exports.senior_create_get = function(req, res){
-    res.send("Senior Survey Create Get");
-};
+// exports.senior_create_get = function(req, res){
+//     res.send("Senior Survey Create Get");
+// };
 
 exports.senior_create_post = function(req, res){
     function saveSeniorQuestion (question) {
         const c = new SeniorSurvey(question)
         return c.save()
       }
-
     saveSeniorQuestion({
         title: req.body.title,
         input_type: req.body.input_type,
         question_type: req.body.question_type
     })
         .then(doc => { 
-            console.log(doc)
+            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -271,7 +270,7 @@ exports.senior_update_post = function(req, res) {
         question_type: req.body.question_type
     })
         .then(updated => {
-            console.log(updated)
+            // console.log(updated)
             res.send(updated)
         })
         .catch(err => console.log(err));
@@ -284,7 +283,7 @@ exports.senior_delete_get = function(req, res) {
 exports.senior_delete_post = function(req, res) {
     SeniorSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
-        console.log(deleted)
+        // console.log(deleted)
         res.json(deleted)
     })
     .catch(err => console.log(err));
@@ -328,7 +327,7 @@ exports.alumni_create_post = function(req, res){
         question_type: req.body.question_type
     })
         .then(doc => { 
-            console.log(doc)
+            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -356,7 +355,7 @@ exports.alumni_update_post = function(req, res) {
         question_type: req.body.question_type
     })
         .then(updated => {
-            console.log(updated)
+            // console.log(updated)
             res.send(updated)
         })
         .catch(err => console.log(err));
@@ -369,7 +368,7 @@ exports.alumni_delete_get = function(req, res) {
 exports.alumni_delete_post = function(req, res) {
     AlumniSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
-        console.log(deleted)
+        // console.log(deleted)
         res.json(deleted)
     })
     .catch(err => console.log(err));
@@ -413,7 +412,7 @@ exports.iba_create_post = function(req, res){
         question_type: req.body.question_type
     })
         .then(doc => { 
-            console.log(doc)
+            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -441,7 +440,7 @@ exports.iba_update_post = function(req, res) {
         question_type: req.body.question_type
     })
         .then(updated => {
-            console.log(updated)
+            // console.log(updated)
             res.send(updated)
         })
         .catch(err => console.log(err));
@@ -454,7 +453,7 @@ exports.iba_delete_get = function(req, res) {
 exports.iba_delete_post = function(req, res) {
     IbaSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
-        console.log(deleted)
+        // console.log(deleted)
         res.json(deleted)
     })
     .catch(err => console.log(err));

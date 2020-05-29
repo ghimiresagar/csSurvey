@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { AuthContext } from '../Context/AuthContext';
 import AuthService from '../Services/AuthService';
@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 const Header = props => {
-    const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+    const { setUser, isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
     const authNavBar = () => {
         return (

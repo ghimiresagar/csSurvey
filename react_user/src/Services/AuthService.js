@@ -11,7 +11,7 @@ export default {
                 return res.json().then(data => data);
             else {
                 return {
-                    isAuthenticated: false, user: {username: ""}
+                    isAuthenticated: false, user: {username: ""}, message: { msgBody: "Error Loggin In!", msgError: true }
                 }
             }
         });
