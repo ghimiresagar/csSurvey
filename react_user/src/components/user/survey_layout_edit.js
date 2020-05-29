@@ -32,7 +32,7 @@ class SeniorSurvey extends React.Component {
     }
 
     get_questions = async () => {
-        const data = await fetch("http://localhost:9000/users/surveys/"+this.props.name+"/edit");
+        const data = await fetch("/users/surveys/"+this.props.name+"/edit");
         const body = await data.json();
         return body;
     }

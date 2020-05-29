@@ -47,7 +47,7 @@ router.post('/surveys/iba/url/create', user_controller.iba_url_create_post);
 router.post('/surveys/iba/url/delete', user_controller.iba_url_delete_post);
 
 //--------------------- SENIOR SURVEY ----------------------------
-router.get('/surveys/senior', passport.authenticate('jwt', {session: false}), user_controller.senior_survey_get);
+router.get('/surveys/senior', user_controller.senior_survey_get);
 
 // create senior survey
 router.get('/surveys/senior/create', passport.authenticate('jwt', {session: false}), user_controller.senior_create_get);

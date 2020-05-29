@@ -15,7 +15,7 @@ const Header = props => {
                 <Nav.Link href="/users/surveys/senior/edit" className="m-2 bg-light">Senior Survey</Nav.Link>
                 <Nav.Link href="/users/surveys/alumni/edit" className="m-2 bg-light">Alumni Survey</Nav.Link>
                 <Nav.Link href="/users/surveys/iba/edit" className="m-2 bg-light">Iba Survey</Nav.Link>
-                <Button className="m-2 bg-light" onClick={onClickLogout}>Logout</Button> 
+                <Button variant="light" className="m-2" onClick={onClickLogout}>Logout</Button> 
             </Nav>
         )
     }

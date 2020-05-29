@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
+import {Redirect} from 'react-router-dom';
 import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
+
 import Message from '../message';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -24,17 +26,19 @@ const Login = props => {
         setUser({ ...user, [e.target.name]: e.target.value });
     }
 
-    // useEffect(() => {
-    //     fetch('http://localhost:9000/users')
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setMessage(data.message);
-    //         })
-    //         .catch(err => setMessage(err));
-    // }, []);
+    useEffect(() => {
+        fetch('/users')
+            .then(res => res.json())
+            .then(data => {
+                setMessage(data.message);
+                console.log(window.location.href);
+            })
+            .catch(err => setMessage(err));
+    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         // form validation
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
@@ -44,15 +48,12 @@ const Login = props => {
 
         // check validation of username and password
         AuthService.login(user).then(data => {
-            // console.log(data);
             const { isAuthenticated, user, message } = data;
             if (isAuthenticated) {
                 authContext.setUser(user);
                 authContext.setIsAuthenticated(isAuthenticated);
-                // console.log(localStorage.getItem("access_token"));
-                // props.history.push('/surveys/senior/edit');
+                window.location.href += '/surveys';
             } else {
-                // console.log(message);
                 setMessage(message);
             }
         })       

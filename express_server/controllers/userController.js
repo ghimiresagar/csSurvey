@@ -213,7 +213,7 @@ exports.senior_survey_get = function(req, res){
             SeniorSurvey.find({"type": "question"}, {"title":1, "_id":0}, callback);
         },
         number_question: function(callback){
-            SeniorSurvey.countDocuments({}, callback);
+            SeniorSurvey.countDocuments({"type": "question"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -239,14 +239,6 @@ exports.senior_create_post = function(req, res){
         title: req.body.title,
         input_type: req.body.input_type,
         question_type: req.body.question_type
-        // result:[        // result is always default when created
-        //     {
-        //         semester: "Spring",
-        //         year: 2019,
-        //         number_of_parts: 0,
-        //         rate: [0,0,0,0,0]
-        //     }
-        // ]
     })
         .then(doc => { 
             console.log(doc)
@@ -263,7 +255,7 @@ exports.senior_update_get = function(req, res){
             .sort({_id: -1});
         },
         number_question: function(callback){
-            SeniorSurvey.countDocuments({}, callback);
+            SeniorSurvey.countDocuments({"type": "question"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -307,7 +299,7 @@ exports.alumni_survey_get = function(req, res){
             AlumniSurvey.find({"type": "question"}, {"title":1, "_id":0}, callback);
         },
         number_question: function(callback){
-            AlumniSurvey.countDocuments({}, callback);
+            AlumniSurvey.countDocuments({"type": "question"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
