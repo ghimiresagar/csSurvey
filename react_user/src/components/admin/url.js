@@ -29,9 +29,7 @@ class Url extends React.Component {
     // gets the query from express url
     getQuery = async () => {
         const data = await fetch("/users/surveys/"+this.props.name+"/url");
-        // console.log(data);
         const body = await data.json();
-        // console.log(body);
         return body;
     }
 
@@ -66,7 +64,7 @@ class Url extends React.Component {
                 id = y._id;
             questions.push(
                 <Card.Text key={x}>
-                    {'127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+y._id}
+                    {'http://127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+y._id}
                 </Card.Text>
             )
             }
@@ -91,7 +89,7 @@ class Url extends React.Component {
                         
                         <Card.Title className="text-center">
                             { this.state.count === 1 &&         // link to go to the survey, nthg else
-                                <a href={'127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+id}>
+                                <a href={'http://127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+id}>
                                     <Button variant="success" className='m-1'>Go to Survey</Button>    
                                 </a>
                             }

@@ -30,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // cross origin resourse sharing
-app.use(cors({ origin: '127.0.0.1' }));
+app.use(cors({ origin: 'http://127.0.0.1' }));
 // app.use(logger('dev'));
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));

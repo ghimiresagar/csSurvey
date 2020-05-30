@@ -1,8 +1,15 @@
 import React from 'react';
 
+import Container from 'react-bootstrap/Container';
+
 function TakeQuestion(props) {
     return(
-        props.value.title
+        <Container>
+            {props.number}.  
+            {props.value.title} 
+            
+            <br/>
+        </Container>
     );
 }
 

@@ -16,13 +16,11 @@ class SurveyView extends React.Component {
     componentWillMount(){
         this.check_obj()
             .then((body) => {
-                // since body is a single object, we don't need to map it
-                // check if body status is ok
-                if (body === null) {
-                    console.log(body);
+                // if (body === null) {
+                //     console.log(body);
                     // TODO:
                     // don't set anything, need to render 404 not found page
-                } else {
+                // } else {
                     console.log(body);
                     // set id, url exists
                     this.setState({
@@ -30,7 +28,7 @@ class SurveyView extends React.Component {
                         res_body: Object.keys(body.question).map(keys => body.question[keys])
                     })
                         .catch(err => console.log(err));
-                }
+                // }
                 
             })
             .catch( err => console.log(err));
@@ -39,8 +37,8 @@ class SurveyView extends React.Component {
     check_obj = async() => {
         const data = await fetch("/users/surveys/"+ this.props.name +"/url/"+this.props.match.params.id);
         const body = await data.json();
-        if (body.value === null)
-            return null;
+        // if (body.value === null)
+        //     return null;
         return body;
     }
  
@@ -49,12 +47,13 @@ class SurveyView extends React.Component {
         const questions = []
         for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
-                <TakeQuestion value={y} />
+                <TakeQuestion key={x} value={y} number={x+1} />
             )
           }
         return(
             <Container>
-                {this.props.name}<br/>
+                <h1 className="m-1 p-2 text-center bg-light" >{this.props.name} Survey</h1>
+                <br/>
                 {questions}
             </Container>
         );

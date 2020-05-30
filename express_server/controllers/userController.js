@@ -39,12 +39,6 @@ exports.authenticated = function (req, res) {
     res.status(200).json({ isAuthenticated: true, user: {username} });
 }
 
-// /users/surveys
-// exports.list_surveys = function(req, res){
-//     res.send("List Surveys");
-// };
-
-
 //--------------------- SURVEY URL CONTROLLERS ----------------------------
 exports.survey_url_get = function(req, res){
     async.parallel({
@@ -74,7 +68,7 @@ exports.senior_url_create_post = function(req, res){
         }
     )
         .then(doc => { 
-            console.log(doc)
+            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -83,7 +77,7 @@ exports.senior_url_create_post = function(req, res){
 exports.senior_url_delete_post = function(req, res){
     SeniorSurvey.findOneAndDelete({ "type": "url" })
     .then(deleted => {
-        console.log(deleted)
+        // console.log(deleted)
         res.json(deleted)
     })
     .catch(err => console.log(err));
@@ -145,7 +139,7 @@ exports.alumni_url_create_post = function(req, res){
         }
     )
         .then(doc => { 
-            console.log(doc)
+            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -154,7 +148,7 @@ exports.alumni_url_create_post = function(req, res){
 exports.alumni_url_delete_post = function(req, res){
     AlumniSurvey.findOneAndDelete({ "type": "url" })
     .then(deleted => {
-        console.log(deleted)
+        // console.log(deleted)
         res.json(deleted)
     })
     .catch(err => console.log(err));
@@ -189,7 +183,7 @@ exports.iba_url_create_post = function(req, res){
         }
     )
         .then(doc => { 
-            console.log(doc)
+            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -198,7 +192,7 @@ exports.iba_url_create_post = function(req, res){
 exports.iba_url_delete_post = function(req, res){
     IbaSurvey.findOneAndDelete({ "type": "url" })
     .then(deleted => {
-        console.log(deleted)
+        // console.log(deleted)
         res.json(deleted)
     })
     .catch(err => console.log(err));

@@ -29,7 +29,7 @@ router.post('/surveys/senior/url/create', passport.authenticate('jwt', {session:
 // delete url for senior survey
 router.post('/surveys/senior/url/delete', passport.authenticate('jwt', {session: false}), user_controller.senior_url_delete_post);
 // check if the url exist
-router.get('/surveys/senior/url/:id', passport.authenticate('jwt', {session: false}), user_controller.senior_url_check_get);
+router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
 
 
 // get's the url object's id to display on url
