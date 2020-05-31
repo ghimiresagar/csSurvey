@@ -8,7 +8,7 @@ import Header from './components/header';
 import Login from './components/login';
 import Dashboard from './components/admin/dashboard';
 import SurveyLayoutEdit from './components/admin/survey_layout_edit';
-import SurveyView from './components/survey_view';
+import SurveyView from './components/listSurvey/survey_view';
 
 /**
  * This class only matches the url and renders the appropriate component for the url 

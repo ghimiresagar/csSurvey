@@ -23,7 +23,8 @@ router.get('/authenticated', passport.authenticate('jwt', {session: false}), use
 
 //--------------------- SURVEY URL ----------------------------
 // get's the url object's id to display on url
-router.get('/surveys/senior/url', passport.authenticate('jwt', {session: false}), user_controller.survey_url_get);
+router.get('/surveys/senior/url', passport.authenticate('jwt', {session: false}), user_controller.senior_url_get);
+router.post('/surveys/senior/url', passport.authenticate('jwt', {session: false}), user_controller.senior_url_post);
 // create a new url for senior survey
 router.post('/surveys/senior/url/create', passport.authenticate('jwt', {session: false}), user_controller.senior_url_create_post);
 // delete url for senior survey
@@ -34,6 +35,8 @@ router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
 
 // get's the url object's id to display on url
 router.get('/surveys/alumni/url', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_get);
+router.post('/surveys/alumni/url', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_post);
+
 // create a new url for alumni survey
 router.post('/surveys/alumni/url/create', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_create_post);
 // delete url for alumni survey
@@ -41,6 +44,8 @@ router.post('/surveys/alumni/url/delete', passport.authenticate('jwt', {session:
 
 // get's the url object's id to display on url
 router.get('/surveys/iba/url', passport.authenticate('jwt', {session: false}), user_controller.iba_url_get);
+router.post('/surveys/iba/url', passport.authenticate('jwt', {session: false}), user_controller.iba_url_post);
+
 // create a new url for iba survey
 router.post('/surveys/iba/url/create', passport.authenticate('jwt', {session: false}), user_controller.iba_url_create_post);
 // delete url for iba survey

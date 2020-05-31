@@ -40,13 +40,14 @@ exports.authenticated = function (req, res) {
 }
 
 //--------------------- SURVEY URL CONTROLLERS ----------------------------
-exports.survey_url_get = function(req, res){
+// get for display
+exports.senior_url_get = function(req, res){
     async.parallel({
         question: function(callback){
-            SeniorSurvey.find({"title": "url"}, callback);
+            SeniorSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
-            SeniorSurvey.countDocuments({"title": "url"}, callback);
+            SeniorSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -54,6 +55,22 @@ exports.survey_url_get = function(req, res){
     });
 }
 
+// update url details part
+exports.senior_url_post = function(req, res) {
+    SeniorSurvey.findOneAndUpdate({"_id": req.body.id }, {
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type,
+        type: 'url'
+    })
+        .then(updated => {
+            // console.log(updated)
+            res.send(updated)
+        })
+        .catch(err => console.log(err));
+};
+
+// create url
 exports.senior_url_create_post = function(req, res){
     function saveSeniorUrl (question) {
         const c = new SeniorSurvey(question)
@@ -61,9 +78,13 @@ exports.senior_url_create_post = function(req, res){
       }
     saveSeniorUrl(
         {
-        title: 'url',
-        input_type: 'url',
-        question_type: 0,
+        title: 'Computer Science Department is very interested in your opinions. '+
+                'We believe that, as a graduating senior, you can provide us with useful '+
+                'information to help us evaluate and improve the BS in Computer Science '+
+                '(BS in CS) program. We appreciate your taking the time to answer these '+
+                'questions.',
+        input_type: 'Spring',
+        question_type: new Date().getFullYear(),
         type: 'url'
         }
     )
@@ -74,6 +95,7 @@ exports.senior_url_create_post = function(req, res){
         .catch(err => { console.error(err)})
 }
 
+// delete url
 exports.senior_url_delete_post = function(req, res){
     SeniorSurvey.findOneAndDelete({ "type": "url" })
     .then(deleted => {
@@ -83,6 +105,7 @@ exports.senior_url_delete_post = function(req, res){
     .catch(err => console.log(err));
 }
 
+// if url exists, get all the questions
 exports.senior_url_check_get = function(req, res){
     if (req.params.id){
         SeniorSurvey.findOne({ "_id": req.params.id }, function(err, result){
@@ -100,10 +123,13 @@ exports.senior_url_check_get = function(req, res){
                     },
                     number_question: function(callback){
                         SeniorSurvey.countDocuments({"type": "question"}, callback);
+                    },
+                    detail: function(callback){
+                        SeniorSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
                     }
-                }, function(err, result){
+                }, function(err, results){
                     if (err) console.log(err);
-                    res.send(result);
+                    res.send(results);
                 });
             }
         })
@@ -114,16 +140,31 @@ exports.senior_url_check_get = function(req, res){
 exports.alumni_url_get = function(req, res){
     async.parallel({
         question: function(callback){
-            AlumniSurvey.find({"title": "url"}, callback);
+            AlumniSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
-            AlumniSurvey.countDocuments({"title": "url"}, callback);
+            AlumniSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
         res.send(result);
     });
 }
+
+// update url details part
+exports.alumni_url_post = function(req, res) {
+    AlumniSurvey.findOneAndUpdate({"_id": req.body.id }, {
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type,
+        type: 'url'
+    })
+        .then(updated => {
+            // console.log(updated)
+            res.send(updated)
+        })
+        .catch(err => console.log(err));
+};
 
 exports.alumni_url_create_post = function(req, res){
     function saveSeniorUrl (question) {
@@ -132,9 +173,11 @@ exports.alumni_url_create_post = function(req, res){
       }
     saveSeniorUrl(
         {
-        title: 'url',
-        input_type: 'url',
-        question_type: 0,
+        title: 'The Computer Science department constantly improve the quality of its \
+        services to the students. Your feedback will be used to help to determine how \
+        we can best serve students in the future. ',
+        input_type: 'Spring',
+        question_type: new Date().getFullYear(),
         type: 'url'
         }
     )
@@ -158,16 +201,32 @@ exports.alumni_url_delete_post = function(req, res){
 exports.iba_url_get = function(req, res){
     async.parallel({
         question: function(callback){
-            IbaSurvey.find({"title": "url"}, callback);
+            IbaSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
-            IbaSurvey.countDocuments({"title": "url"}, callback);
+            IbaSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
         res.send(result);
     });
 }
+
+
+// update url details part
+exports.iba_url_post = function(req, res) {
+    IbaSurvey.findOneAndUpdate({"_id": req.body.id }, {
+        title: req.body.title,
+        input_type: req.body.input_type,
+        question_type: req.body.question_type,
+        type: 'url'
+    })
+        .then(updated => {
+            // console.log(updated)
+            res.send(updated)
+        })
+        .catch(err => console.log(err));
+};
 
 exports.iba_url_create_post = function(req, res){
     function saveSeniorUrl (question) {
@@ -176,11 +235,13 @@ exports.iba_url_create_post = function(req, res){
       }
     saveSeniorUrl(
         {
-        title: 'url',
-        input_type: 'url',
-        question_type: 0,
-        type: 'url'
-        }
+            title: 'The Computer Science department constantly improve the quality of its \
+            services to the students. Your feedback will be used to help to determine how \
+            we can best serve students in the future. ',
+            input_type: 'Spring',
+            question_type: new Date().getFullYear(),
+            type: 'url'
+            }
     )
         .then(doc => { 
             // console.log(doc)

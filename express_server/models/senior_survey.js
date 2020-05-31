@@ -9,7 +9,7 @@ SeniorSurveySchema = new Schema(
         type: {type: String, required: true, default: "question"},
         result: [
             {
-                semester: {type: String, default: "fall"},
+                semester: {type: String, default: "Fall"},
                 year: {type: Number},
                 number_of_parts: {type: Number, default: 0},
                 rate: {type: Array, default: [0, 0, 0, 0, 0]}
