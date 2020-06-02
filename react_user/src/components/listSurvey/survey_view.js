@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -97,6 +97,7 @@ class SurveyView extends React.Component {
                     <Card.Body>
                         <Form>
                             {questions}
+
                             <div className="text-center">
                                 <Button variant="primary">Submit</Button>    
                             </div>

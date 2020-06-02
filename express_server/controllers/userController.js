@@ -60,7 +60,7 @@ exports.senior_url_post = function(req, res) {
     SeniorSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
         input_type: req.body.input_type,
-        question_type: req.body.question_type,
+        question_type: new Date().getFullYear(),
         type: 'url'
     })
         .then(updated => {
@@ -156,7 +156,7 @@ exports.alumni_url_post = function(req, res) {
     AlumniSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
         input_type: req.body.input_type,
-        question_type: req.body.question_type,
+        question_type: new Date().getFullYear(),
         type: 'url'
     })
         .then(updated => {
@@ -218,7 +218,7 @@ exports.iba_url_post = function(req, res) {
     IbaSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
         input_type: req.body.input_type,
-        question_type: req.body.question_type,
+        question_type: new Date().getFullYear(),
         type: 'url'
     })
         .then(updated => {

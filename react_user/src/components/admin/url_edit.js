@@ -61,7 +61,7 @@ class EditUrl extends React.Component {
                     <Card.Body>  
                             <Form>
                                 <Form.Group as={Row}>
-                                    <Col sm={12}>
+                                    <Col sm={10}>
                                         <Form.Group as={Row}>
                                             <Form.Label column sm={2}>
                                                 Edit Detail: 
@@ -84,22 +84,33 @@ class EditUrl extends React.Component {
                                                 Year:
                                             </Form.Label>
                                             <Col sm={4}>
-                                                <Form.Control type="text" placeholder="Year" name="question_type" defaultValue={this.state.question_type} onChange={this.handleChange} required/>
+                                                <Form.Control type="text" placeholder="Year" name="question_type" value={this.state.question_type} required/>
                                             </Col>
                                         </Form.Group>
                                     </Col>
+                                    <Col sm={2}>
+                                    <Card.Text className="text-center">
+                                        <Button variant="primary m-2" onClick={this.updateQuestion}>Update Details</Button> 
+                                        <Button variant="danger" className='m-2' onClick={this.deleteSurvey}>Close Survey</Button>    
+                                    </Card.Text>
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} >
+                                    <Col sm={2}>
+                                    Survey Link: 
+                                    </Col>
+                                    <Col sm={8}>
+                                        <Card.Text>  
+                                            {'http://127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+this.props.value._id}
+                                        </Card.Text>
+                                    </Col>
+                                    <Col sm={2} className="text-center">
+                                        <a href={'http://127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+this.props.value._id}>
+                                            <Button variant="success">Preview Survey</Button>    
+                                        </a>
+                                    </Col>
                                 </Form.Group>
                             </Form>  
-                        <Card.Title>  
-                            {'http://127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+this.props.value._id}
-                        </Card.Title>
-                        <Card.Text className="text-center">
-                            <a href={'http://127.0.0.1:3000/users/surveys/'+this.props.name+'/url/'+this.props.value._id}>
-                                <Button variant="success" className='m-1'>Go to</Button>    
-                            </a>
-                            <Button variant="primary m-1" onClick={this.updateQuestion}>Update</Button> 
-                            <Button variant="danger" className='m-1' onClick={this.deleteSurvey}>Delete</Button>    
-                        </Card.Text>
                     </Card.Body>
                 </Card>
         );

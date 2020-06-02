@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
@@ -64,9 +65,20 @@ class EditQuestion extends React.Component {
         return(     
             <Accordion>
                 <Card>
-                    <Accordion.Toggle as={Card.Header} eventKey="0">
-                    {this.props.value.title}
-                    </Accordion.Toggle>
+                    <Card.Header>
+                        <Container>
+                            <Row>
+                                <Col sm={10}>
+                                    {this.props.value.title}
+                                </Col>
+                                <Col sm={2} className="text-right">
+                                    <Accordion.Toggle as={Button} eventKey="0">
+                                        Edit Question
+                                    </Accordion.Toggle>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Card.Header>
                     <Accordion.Collapse eventKey="0">
                     <Card.Body>
                     <Form>
@@ -77,7 +89,7 @@ class EditQuestion extends React.Component {
                                         Edit Question: 
                                     </Form.Label>
                                     <Col sm={10}>
-                                    <Form.Control type="text" placeholder="Question" name="title" defaultValue={this.state.title} onChange={this.handleChange} required/>
+                                    <Form.Control as="textarea" rows="2" placeholder="Question" name="title" defaultValue={this.state.title} onChange={this.handleChange} required/>
                                     </Col>
                                 </Form.Group>
                                 <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
