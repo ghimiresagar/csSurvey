@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -13,9 +13,9 @@ class SurveyView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            url_id: "",
             res_body: [],
-            detail_body: ""
+            detail_body: "",
+            results: null
         }
     }
 
@@ -28,9 +28,9 @@ class SurveyView extends React.Component {
                 } else {
                     // set id, url exists
                     this.setState({
-                        url_id: Object.keys(body.detail).map(keys => body.detail[keys]),
                         res_body: Object.keys(body.question).map(keys => body.question[keys]),
                         detail_body: Object.keys(body.detail).map(keys => body.detail[keys]),
+                        results: Array(body.number_question).fill(null)
                     })
                         .catch(err => console.log(err));
                 }
@@ -45,13 +45,30 @@ class SurveyView extends React.Component {
             return null;
         return body;
     }
- 
 
+    // talks to child providing the values
+    callOnChangeParent = e => {     
+        const new_results = this.state.results.slice();
+        new_results[e.target.getAttribute("num")] = {
+            "id": e.target.id,
+            "value": e.target.value
+        };
+        this.setState({
+            results: new_results,
+        });
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        console.log(this.state.results);
+
+    }
+ 
     render(){
         const questions = []
         for (const [x, y] of this.state.res_body.entries()) {
             questions.push(
-                <TakeQuestion key={x} value={y} number={x+1} />
+                <TakeQuestion key={x} value={y} number={x+1} handleChange={this.callOnChangeParent} />
             )
           }
         return(
@@ -66,40 +83,42 @@ class SurveyView extends React.Component {
                     <Card.Header as="h5"> 
                         <Container>
                             <Row>
-                                <Col className="col-sm-1">
+                                <Col sm={1}>
                                     #
                                 </Col>
                                 <Col sm={9} className="text-center">
                                     Question
                                 </Col>
-                                <Col className="col-sm-2">
+                                <Col sm={2}>
                                     <Row>
-                                        <Col className="col-sm-1">
-                                            1
-                                        </Col>
-                                        <Col className="col-sm-1">
-                                            2
-                                        </Col>
-                                        <Col className="col-sm-1">
-                                            3
-                                        </Col>
-                                        <Col className="col-sm-1">
-                                            4
-                                        </Col>
-                                        <Col className="col-sm-1">
+                                        <div className="m-1">
                                             5
-                                        </Col>
+                                        </div>
+                                        <div className="m-1">
+                                            4
+                                        </div>
+                                        <div className="m-1">
+                                            3
+                                        </div>
+                                        <div className="m-1">
+                                            2
+                                        </div>
+                                        <div className="mt-1">
+                                            1
+                                        </div>
                                     </Row>
                                 </Col>
                             </Row>
                         </Container>
                     </Card.Header>
                     <Card.Body>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             {questions}
 
                             <div className="text-center">
-                                <Button variant="primary">Submit</Button>    
+                                <Button type="submit">
+                                    Submit
+                                </Button>
                             </div>
                         </Form>
                     </Card.Body>

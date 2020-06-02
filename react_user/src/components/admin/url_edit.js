@@ -84,7 +84,9 @@ class EditUrl extends React.Component {
                                                 Year:
                                             </Form.Label>
                                             <Col sm={4}>
-                                                <Form.Control type="text" placeholder="Year" name="question_type" value={this.state.question_type} required/>
+                                                <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
+                                                    {this.state.question_type}
+                                                </Form.Label>
                                             </Col>
                                         </Form.Group>
                                     </Col>
