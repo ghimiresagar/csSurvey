@@ -136,6 +136,25 @@ exports.senior_url_check_get = function(req, res){
     }
 }
 
+// post the result to the respective question
+exports.senior_url_check_post = function(req, res){
+    // let x = undefined;
+    (req.body).forEach(element => {
+        let x = "result.0.rate.";
+        SeniorSurvey.updateOne({"_id": element.id}, 
+                { $inc: { [x + element.value ] : 1} })
+                // because in a loop can't send response now, send at the end
+            .then(result => {
+                console.log(`Success updating ${element.id}`);
+            })
+            .catch(err => {
+                console.log(err);
+                res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+            })
+    });
+    res.json({ message: {msgBody: "Success", msgError: false} });
+}
+
 // alumni
 exports.alumni_url_get = function(req, res){
     async.parallel({

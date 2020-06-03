@@ -29,8 +29,10 @@ router.post('/surveys/senior/url', passport.authenticate('jwt', {session: false}
 router.post('/surveys/senior/url/create', passport.authenticate('jwt', {session: false}), user_controller.senior_url_create_post);
 // delete url for senior survey
 router.post('/surveys/senior/url/delete', passport.authenticate('jwt', {session: false}), user_controller.senior_url_delete_post);
-// check if the url exist
+// check if the url exist, if it does get the questions
 router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
+// sending the request to the server for posting results
+router.post('/surveys/senior/url/:id', user_controller.senior_url_check_post);
 
 
 // get's the url object's id to display on url

@@ -32,17 +32,30 @@ class SurveyView extends React.Component {
                         detail_body: Object.keys(body.detail).map(keys => body.detail[keys]),
                         results: Array(body.number_question).fill(null)
                     })
-                        .catch(err => console.log(err));
+                        // .catch(err => console.log(err));
                 }
             })
             .catch( err => console.log(err));
     }
 
+    // get request
     check_obj = async() => {
         const data = await fetch("/users/surveys/"+ this.props.name +"/url/"+this.props.match.params.id);
         const body = await data.json();
         if (body.value === null)
             return null;
+        return body;
+    }
+
+    // post request
+    post_results = async() => {
+        const data = await fetch("/users/surveys/"+this.props.name+"/url/"+this.props.match.params.id, {
+                        method: "post",
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(this.state.results)
+                    });
+        const body = await data.json();
+        console.log(body);
         return body;
     }
 
@@ -61,7 +74,7 @@ class SurveyView extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         console.log(this.state.results);
-
+        // this.post_results();
     }
  
     render(){
