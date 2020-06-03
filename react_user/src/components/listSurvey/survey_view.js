@@ -55,7 +55,7 @@ class SurveyView extends React.Component {
                         body: JSON.stringify(this.state.results)
                     });
         const body = await data.json();
-        console.log(body);
+        // console.log(body);
         return body;
     }
 
@@ -74,7 +74,10 @@ class SurveyView extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         console.log(this.state.results);
-        // this.post_results();
+        this.post_results().then(body => {
+            // if the post is a success, we need to make so one we can't take it any more
+            console.log(body);
+        })
     }
  
     render(){
