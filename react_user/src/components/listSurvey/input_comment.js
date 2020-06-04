@@ -12,6 +12,7 @@ function InputComment(props) {
                         name={"question-"+props.number} 
                         num = {props.number-1} 
                         id={props.id}
+                        typeval="Input Comment"
                         onChange={props.handleChange}
                         required/>
         </Row>

@@ -11,6 +11,7 @@ function InputSmall(props) {
                         name={"question-"+props.number} 
                         num = {props.number-1} 
                         id={props.id}
+                        typeval="Input Small"
                         onChange={props.handleChange}
                         required/>
         </Row>

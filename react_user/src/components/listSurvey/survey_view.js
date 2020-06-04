@@ -64,7 +64,8 @@ class SurveyView extends React.Component {
         const new_results = this.state.results.slice();
         new_results[e.target.getAttribute("num")] = {
             "id": e.target.id,
-            "value": e.target.value
+            "value": e.target.value,
+            "input_val": e.target.getAttribute("typeval")
         };
         this.setState({
             results: new_results,
