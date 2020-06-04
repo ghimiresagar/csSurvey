@@ -4,8 +4,10 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-// import InputRate from './input_rate';
+
+import InputRate from './input_rate';
+import InputSmall from './input_small';
+import InputComment from './input_comment';
 
 class TakeQuestion extends React.Component {
     render() {
@@ -15,45 +17,36 @@ class TakeQuestion extends React.Component {
                     <Col sm={1}>
                         {this.props.number}.
                     </Col>
-                    <Col sm={9}>
-                        {this.props.value.title}
-                    </Col>
-                    <Col sm={2}>
-                        {/* <InputRate name={"question-"+props.number+"-radio"}/> */}
-                        <Row>
-                            <Form.Check type="radio" 
-                                        name={"question-"+this.props.number} 
-                                        num = {this.props.number-1}
-                                        value={5} 
-                                        id={this.props.value._id}
-                                        onChange={this.props.handleChange}
-                                        required/>
-                            <Form.Check type="radio" 
-                                        name={"question-"+this.props.number} 
-                                        value={4} 
-                                        num = {this.props.number-1}
-                                        id={this.props.value._id}
-                                        onChange={this.props.handleChange}/>
-                            <Form.Check type="radio" 
-                                        name={"question-"+this.props.number} 
-                                        value={3} 
-                                        num = {this.props.number-1}
-                                        id={this.props.value._id}
-                                        onChange={this.props.handleChange}/>
-                            <Form.Check type="radio" 
-                                        name={"question-"+this.props.number} 
-                                        value={2} 
-                                        num = {this.props.number-1}
-                                        id={this.props.value._id}
-                                        onChange={this.props.handleChange}/>
-                            <Form.Check type="radio" 
-                                        name={"question-"+this.props.number} 
-                                        value={1} 
-                                        num = {this.props.number-1}
-                                        id={this.props.value._id}
-                                        onChange={this.props.handleChange}/>
-                        </Row>
-                    </Col>
+                    {(this.props.value.input_type === "Rate") && 
+                    <>
+                        <Col sm={9}>
+                            {this.props.value.title}
+                        </Col>
+                        <Col sm={2}>
+                            <InputRate number={this.props.number} id={this.props.value._id} handleChange={this.props.handleChange} />
+                        </Col>
+                    </>
+                    }
+                    {(this.props.value.input_type === "Input Small") && 
+                    <>
+                        <Col sm={8}>
+                            {this.props.value.title}
+                        </Col>
+                        <Col sm={3}>
+                            <InputSmall number={this.props.number} id={this.props.value._id} handleChange={this.props.handleChange} />
+                        </Col>
+                    </>
+                    }
+                    {(this.props.value.input_type === "Input Comment") && 
+                    <>
+                        <Col sm={5}>
+                            {this.props.value.title}
+                        </Col>
+                        <Col sm={6}>
+                            <InputComment number={this.props.number} id={this.props.value._id} handleChange={this.props.handleChange} />
+                        </Col>
+                    </>
+                    }
                 </Row> <hr />
             </Container>
         );

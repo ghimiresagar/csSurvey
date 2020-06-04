@@ -99,7 +99,8 @@ class EditQuestion extends React.Component {
                                     <Col sm={4}>
                                         <Form.Control as="select" custom name="input_type" defaultValue={this.state.input_type} onChange={this.handleChange}>
                                         <option>Rate</option>
-                                        <option>Input</option>
+                                        <option>Input Small</option>
+                                        <option>Input Comment</option>
                                         </Form.Control>
                                     </Col>
                                     <Form.Label column sm={2}>

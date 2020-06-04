@@ -6,45 +6,39 @@ import Col from 'react-bootstrap/Col';
 
 function InputRate(props) {
     return(
-        <fieldset>
-            <Row>
-                <Col sm={1}>
-                    <Form.Check
-                    type="radio"
-                    name= {props.name}
-                    value="1"
-                    />
-                </Col>
-                <Col sm={1}>
-                    <Form.Check
-                    type="radio"
-                    name={props.name}
-                    value="2"
-                    />
-                </Col>
-                <Col sm={1}>
-                    <Form.Check
-                    type="radio"
-                    name={props.name}
-                    value="3"
-                    />
-                </Col>
-                <Col sm={1}>
-                    <Form.Check
-                    type="radio"
-                    name={props.name}
-                    value="4"
-                    />
-                </Col>
-                <Col sm={1}>
-                    <Form.Check
-                    type="radio"
-                    name={props.name}
-                    value="5"
-                    />
-                </Col>
-            </Row>
-        </fieldset>
+        <Row>
+            <Form.Check type="radio" 
+                        name={"question-"+props.number} 
+                        num = {props.number-1}
+                        value={5} 
+                        id={props.id}
+                        onChange={props.handleChange}
+                        required/>
+            <Form.Check type="radio" 
+                        name={"question-"+props.number} 
+                        value={4} 
+                        num = {props.number-1}
+                        id={props.id}
+                        onChange={props.handleChange}/>
+            <Form.Check type="radio" 
+                        name={"question-"+props.number} 
+                        value={3} 
+                        num = {props.number-1}
+                        id={props.id}
+                        onChange={props.handleChange}/>
+            <Form.Check type="radio" 
+                        name={"question-"+props.number} 
+                        value={2} 
+                        num = {props.number-1}
+                        id={props.id}
+                        onChange={props.handleChange}/>
+            <Form.Check type="radio" 
+                        name={"question-"+props.number} 
+                        value={1} 
+                        num = {props.number-1}
+                        id={props.id}
+                        onChange={props.handleChange}/>
+        </Row>
     );
 }
 

@@ -119,7 +119,7 @@ exports.senior_url_check_get = function(req, res){
                 async.parallel({
                     question: function(callback){
                         SeniorSurvey.find({"type": "question"}, callback)
-                        .sort({_id: -1});
+                        .sort({input_type: -1});
                     },
                     number_question: function(callback){
                         SeniorSurvey.countDocuments({"type": "question"}, callback);
