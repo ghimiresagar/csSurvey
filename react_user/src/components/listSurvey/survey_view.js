@@ -25,6 +25,9 @@ class SurveyView extends React.Component {
                 if (body === null) {
                     // url doesn't exist
                     window.location.href = '/';
+                } else if (body === "taken") {
+                    // survey is already taken
+                    window.location.href = '/';
                 } else {
                     // set id, url exists
                     this.setState({
@@ -32,7 +35,7 @@ class SurveyView extends React.Component {
                         detail_body: Object.keys(body.detail).map(keys => body.detail[keys]),
                         results: Array(body.number_question).fill(null)
                     })
-                        // .catch(err => console.log(err));
+                    .catch(err => console.log(err));
                 }
             })
             .catch( err => console.log(err));
@@ -44,6 +47,8 @@ class SurveyView extends React.Component {
         const body = await data.json();
         if (body.value === null)
             return null;
+        if (body.value === "taken")
+            return "taken";
         return body;
     }
 

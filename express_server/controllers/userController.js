@@ -14,12 +14,15 @@ const signToken = userId => {
     }, "cs_web_app_survey", { expiresIn: '1h'});
 }
 
+const getIp = (req) => {
+    return req.headers['x-forwarded-for'] || 
+            req.connection.remoteAddress || 
+            req.socket.remoteAddress ||
+            (req.connection.socket ? req.connection.socket.remoteAddress : null);
+}
+
 const checkIp = (req) => {
-    let ip = req.headers['x-forwarded-for'] || 
-                req.connection.remoteAddress || 
-                req.socket.remoteAddress ||
-                (req.connection.socket ? req.connection.socket.remoteAddress : null);
-    return IpAddress.countDocuments({ ip: ip });
+    return IpAddress.countDocuments({ ip: getIp(req) });
 }
 
 // /users
@@ -147,7 +150,10 @@ exports.senior_url_check_get = function(req, res){
                 });
             } else {
                 console.log("You already took the survey.");
-                res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
+                res.json({ 
+                    "value": "taken"
+                    // message: {msgBody: "Error already took the survey.", msgError: true} 
+                });
             }
         });
         
@@ -190,7 +196,7 @@ exports.senior_url_check_post = function(req, res){
             // after all the request is done, the code comes here
             const address = new IpAddress({
                 url: req.params.id,
-                ip: ip
+                ip: getIp(req)
             });
             address.save()
             .catch(err => console.log(err));
