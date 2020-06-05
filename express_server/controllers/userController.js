@@ -2,6 +2,7 @@ var User = require('../models/user');
 var SeniorSurvey = require('../models/senior_survey');
 let AlumniSurvey = require('../models/alumni_survey');
 let IbaSurvey = require('../models/iba_survey');
+let IpAddress = require('../models/ip_addresses');
 let async = require('async');
 
 const jwt = require('jsonwebtoken');
@@ -11,6 +12,14 @@ const signToken = userId => {
         iss: "highbornsky",
         sub: userId
     }, "cs_web_app_survey", { expiresIn: '1h'});
+}
+
+const checkIp = (req) => {
+    let ip = req.headers['x-forwarded-for'] || 
+                req.connection.remoteAddress || 
+                req.socket.remoteAddress ||
+                (req.connection.socket ? req.connection.socket.remoteAddress : null);
+    return IpAddress.countDocuments({ ip: ip });
 }
 
 // /users
@@ -107,66 +116,90 @@ exports.senior_url_delete_post = function(req, res){
 
 // if url exists, get all the questions
 exports.senior_url_check_get = function(req, res){
-    if (req.params.id){
-        SeniorSurvey.findOne({ "_id": req.params.id }, function(err, result){
-            if (err) console.log(err);
-            if (!result) {
-                res.json({"value": null});
-            }
-            if (result){
-                // take all the questions and pass them back,
-                // basically same as senior update get
-                async.parallel({
-                    question: function(callback){
-                        SeniorSurvey.find({"type": "question"}, callback)
-                        .sort({input_type: -1});
-                    },
-                    number_question: function(callback){
-                        SeniorSurvey.countDocuments({"type": "question"}, callback);
-                    },
-                    detail: function(callback){
-                        SeniorSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
-                    }
-                }, function(err, results){
+    if (req.params.id){     // if url id is present in the link, check this
+        // check if the ip address passed is not present on the list
+        checkIp(req).then(doc => {
+            if (doc === 0) {    // ip is not found
+                SeniorSurvey.findOne({ "_id": req.params.id }, function(err, result){
                     if (err) console.log(err);
-                    res.send(results);
+                    if (!result) {
+                        res.json({"value": null});
+                    }
+                    if (result){
+                        // take all the questions and pass them back,
+                        // basically same as senior update get
+                        async.parallel({
+                            question: function(callback){
+                                SeniorSurvey.find({"type": "question"}, callback)
+                                .sort({input_type: -1});
+                            },
+                            number_question: function(callback){
+                                SeniorSurvey.countDocuments({"type": "question"}, callback);
+                            },
+                            detail: function(callback){
+                                SeniorSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
+                            }
+                        }, function(err, results){
+                            if (err) console.log(err);
+                            res.send(results);
+                        });
+                    }
                 });
+            } else {
+                console.log("You already took the survey.");
+                res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
             }
-        })
+        });
+        
+        
     }
 }
 
 // post the result to the respective question
 exports.senior_url_check_post = function(req, res){
-    // let x = undefined;
-    (req.body).forEach(element => {
-        if (element.input_val === "Rate"){
-            let x = "result.0.rate.";
-            SeniorSurvey.updateOne({"_id": element.id}, 
-                    { $inc: { [x + element.value ] : 1} })
-                    // because in a loop can't send response now, send at the end
-                .then(result => {
-                    console.log(`Success updating ${element.id}`);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.json({ message: {msgBody: "Error Inserting", msgError: true} });
-                })
+    checkIp(req)
+    .then(doc => {
+        if (doc === 0) {    // nothing found
+            (req.body).forEach(element => {
+                if (element.input_val === "Rate"){
+                    let x = "result.0.rate.";
+                    SeniorSurvey.updateOne({"_id": element.id}, 
+                            { $inc: { [x + element.value ] : 1} })
+                            // because in a loop can't send response now, send at the end
+                        .then(result => {
+                            console.log(`Success updating ${element.id}`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+                        });
+                } else {
+                    let x = "result.0.comment";
+                    SeniorSurvey.updateOne({"_id": element.id}, 
+                            { $set: { [x] : element.value } })
+                            // because in a loop can't send response now, send at the end
+                        .then(result => {
+                            console.log(`Success updating ${element.id}`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+                        });
+                }
+            });
+            // after all the request is done, the code comes here
+            const address = new IpAddress({
+                url: req.params.id,
+                ip: ip
+            });
+            address.save()
+            .catch(err => console.log(err));
+            res.json({ message: {msgBody: "Success", msgError: false} });
         } else {
-            let x = "result.0.comment";
-            SeniorSurvey.updateOne({"_id": element.id}, 
-                    { $set: { [x] : element.value } })
-                    // because in a loop can't send response now, send at the end
-                .then(result => {
-                    console.log(`Success updating ${element.id}`);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.json({ message: {msgBody: "Error Inserting", msgError: true} });
-                })
+            console.log("You already took the survey.");
+            res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
         }
     });
-    res.json({ message: {msgBody: "Success", msgError: false} });
 }
 
 // alumni
