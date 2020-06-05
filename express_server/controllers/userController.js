@@ -109,12 +109,17 @@ exports.senior_url_create_post = function(req, res){
 
 // delete url
 exports.senior_url_delete_post = function(req, res){
-    SeniorSurvey.findOneAndDelete({ "type": "url" })
-    .then(deleted => {
-        // console.log(deleted)
-        res.json(deleted)
-    })
-    .catch(err => console.log(err));
+    async.parallel({
+        deleteIp: function(callback){
+            IpAddress.remove({ "url": req.params.id }, callback);
+        },
+        deleteUrl: function(callback){
+            SeniorSurvey.findOneAndDelete({ "type": "url" }, callback);
+        }, function (err, result){
+            if (err) console.log(err);
+            res.send(result);
+        }
+    });
 }
 
 // if url exists, get all the questions
@@ -149,7 +154,7 @@ exports.senior_url_check_get = function(req, res){
                     }
                 });
             } else {
-                console.log("You already took the survey.");
+                // console.log("You already took the survey.");
                 res.json({ 
                     "value": "taken"
                     // message: {msgBody: "Error already took the survey.", msgError: true} 
@@ -202,7 +207,7 @@ exports.senior_url_check_post = function(req, res){
             .catch(err => console.log(err));
             res.json({ message: {msgBody: "Success", msgError: false} });
         } else {
-            console.log("You already took the survey.");
+            // console.log("You already took the survey.");
             res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
         }
     });

@@ -10,7 +10,7 @@ UserSchema = new Schema({
 UserSchema.methods.comparePassword = function(password, cb){
   // console.log("passcheckr");
   if (password == this.password) {
-    console.log("pass match")
+    // console.log("pass match")
     return cb(null, this);
   } else {
     console.log("pass didn't match")

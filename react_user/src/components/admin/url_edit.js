@@ -44,7 +44,7 @@ class EditUrl extends React.Component {
     deleteSurvey = (e) => {
         e.preventDefault();
 
-        fetch("/users/surveys/"+this.props.name+"/url/delete", {
+        fetch("/users/surveys/"+this.props.name+"/url/delete/"+this.props.value._id, {
             method: 'post'
         }).then(function(data){
             console.log(data)
