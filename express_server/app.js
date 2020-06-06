@@ -2,9 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-// var logger = require('morgan');
 var cors = require('cors');
-// const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,7 +10,6 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 //Set up mongoose connection
-// 
 var mongoose = require('mongoose').set('debug', true);
 var mongoDB = 'mongodb+srv://sagardb:Somerville11@cluster0-z8jim.mongodb.net/cs_survey?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -25,18 +22,16 @@ db.once('open', _ => {
 db.on('error', err => {
   console.error('[WARNING] connection error!')
 });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // cross origin resourse sharing
 app.use(cors({ origin: 'http://127.0.0.1' }));
-// app.use(logger('dev'));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

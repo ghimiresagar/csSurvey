@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import TakeQuestion from './take_question';
+import Message from '../message';
 
 class SurveyView extends React.Component {
     constructor(props){
@@ -15,7 +16,11 @@ class SurveyView extends React.Component {
         this.state = {
             res_body: [],
             detail_body: "",
-            results: null
+            results: null,
+            message: {
+                msgBody: "Press submit when done",
+                msgError: false
+            }
         }
     }
 
@@ -81,8 +86,17 @@ class SurveyView extends React.Component {
         e.preventDefault();
         console.log(this.state.results);
         this.post_results().then(body => {
-            // if the post is a success, we need to make so one we can't take it any more
-            console.log(body);
+            if (!body.message.msgError) {   // if error is false
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 3000);
+            };
+            this.setState({
+                message: {
+                    msgBody: body.message.msgBody,
+                    msgError: body.message.msgError
+                }
+            });
         })
     }
  
@@ -137,6 +151,9 @@ class SurveyView extends React.Component {
                         <Form onSubmit={this.handleSubmit}>
                             {questions}
 
+                            <div className="m-1 p-1">
+                                {this.state.message ? <Message message={this.state.message} /> : null }
+                            </div>
                             <div className="text-center">
                                 <Button type="submit">
                                     Submit

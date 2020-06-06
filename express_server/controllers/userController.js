@@ -205,7 +205,7 @@ exports.senior_url_check_post = function(req, res){
             });
             address.save()
             .catch(err => console.log(err));
-            res.json({ message: {msgBody: "Success", msgError: false} });
+            res.json({ message: {msgBody: "Success. You will be soon redirected.", msgError: false} });
         } else {
             // console.log("You already took the survey.");
             res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
@@ -250,9 +250,7 @@ exports.alumni_url_create_post = function(req, res){
       }
     saveSeniorUrl(
         {
-        title: 'The Computer Science department constantly improve the quality of its \
-        services to the students. Your feedback will be used to help to determine how \
-        we can best serve students in the future. ',
+        title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
         input_type: 'Spring',
         question_type: new Date().getFullYear(),
         type: 'url'
@@ -409,9 +407,7 @@ exports.iba_url_create_post = function(req, res){
       }
     saveSeniorUrl(
         {
-            title: 'The Computer Science department constantly improve the quality of its \
-            services to the students. Your feedback will be used to help to determine how \
-            we can best serve students in the future. ',
+            title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future. ',
             input_type: 'Spring',
             question_type: new Date().getFullYear(),
             type: 'url'
@@ -536,9 +532,12 @@ exports.iba_url_check_post = function(req, res){
 // users/senior
 
 exports.senior_survey_get = function(req, res){
+    // show url
+    // number of questions
+    // number of ppl who took the survey
     async.parallel({
         question: function(callback){
-            SeniorSurvey.find({"type": "question"}, {"title":1, "_id":0}, callback);
+            SeniorSurvey.find({"type": "url"}, {"title":1, "_id":0}, callback);
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({"type": "question"}, callback);

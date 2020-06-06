@@ -60,7 +60,7 @@ class Url extends React.Component {
                 { this.state.count === 0 &&
                     <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
                         <Card.Header as="h5" className="text-center"> 
-                            {this.props.name} Survey Url: {this.state.count} 
+                            {this.props.name} Survey 
                         </Card.Header>
                         <Card.Body>
                             <p>No link for this survey! Create One.</p>

@@ -22,7 +22,7 @@ class Survey extends React.Component {
         this.getQuery()
             .then(body => this.setState({ 
                 count: body.number_question,
-                obj: Object.keys(body.question).map(keys => body.question[keys].title)
+                // obj: Object.keys(body.question).map(keys => body.question[keys].title)
             }))
             .catch(err => console.log(err));
     }
@@ -35,23 +35,23 @@ class Survey extends React.Component {
     }
 
     render(){
-        const questions = []
+        // const questions = []
 
-        for (const [x, y] of this.state.obj.entries()) {
-          questions.push(
-            <Card.Text key={x}>
-                {y}
-            </Card.Text>
-          )
-        }
+        // for (const [x, y] of this.state.obj.entries()) {
+        //   questions.push(
+        //     <Card.Text key={x}>
+        //         {y}
+        //     </Card.Text>
+        //   )
+        // }
 
         return(
             <Container>
                 <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
-                    <Card.Header as="h5" className="text-center"> {this.state.name} Survey Questions: {this.state.count} </Card.Header>
+                    <Card.Header as="h5" className="text-center"> {this.state.name} Survey Details </Card.Header>
                     <Card.Body>
-                        <Card.Title>Questions</Card.Title>
-                        {questions}
+                        <Card.Title>Number of Questions: {this.state.count}</Card.Title> 
+                        {/* {questions} */}
                         <div className="text-center">
                         <Link to={`/users/surveys/${this.state.name}/edit`} className="active">
                             <Button variant="primary">Edit Survey</Button>    
