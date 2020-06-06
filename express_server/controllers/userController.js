@@ -265,13 +265,110 @@ exports.alumni_url_create_post = function(req, res){
         .catch(err => { console.error(err)})
 }
 
+// delete url
 exports.alumni_url_delete_post = function(req, res){
-    AlumniSurvey.findOneAndDelete({ "type": "url" })
-    .then(deleted => {
-        // console.log(deleted)
-        res.json(deleted)
-    })
-    .catch(err => console.log(err));
+    async.parallel({
+        deleteIp: function(callback){
+            IpAddress.remove({ "url": req.params.id }, callback);
+        },
+        deleteUrl: function(callback){
+            AlumniSurvey.findOneAndDelete({ "type": "url" }, callback);
+        }, function (err, result){
+            if (err) console.log(err);
+            res.send(result);
+        }
+    });
+}
+
+// if url exists, get all the questions
+exports.alumni_url_check_get = function(req, res){
+    if (req.params.id){     // if url id is present in the link, check this
+        // check if the ip address passed is not present on the list
+        checkIp(req).then(doc => {
+            if (doc === 0) {    // ip is not found
+                AlumniSurvey.findOne({ "_id": req.params.id }, function(err, result){
+                    if (err) console.log(err);
+                    if (!result) {
+                        res.json({"value": null});
+                    }
+                    if (result){
+                        // take all the questions and pass them back,
+                        // basically same as senior update get
+                        async.parallel({
+                            question: function(callback){
+                                AlumniSurvey.find({"type": "question"}, callback)
+                                .sort({input_type: -1});
+                            },
+                            number_question: function(callback){
+                                AlumniSurvey.countDocuments({"type": "question"}, callback);
+                            },
+                            detail: function(callback){
+                                AlumniSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
+                            }
+                        }, function(err, results){
+                            if (err) console.log(err);
+                            res.send(results);
+                        });
+                    }
+                });
+            } else {
+                // console.log("You already took the survey.");
+                res.json({ 
+                    "value": "taken"
+                    // message: {msgBody: "Error already took the survey.", msgError: true} 
+                });
+            }
+        });
+        
+        
+    }
+}
+
+// post the result to the respective question
+exports.alumni_url_check_post = function(req, res){
+    checkIp(req)
+    .then(doc => {
+        if (doc === 0) {    // nothing found
+            (req.body).forEach(element => {
+                if (element.input_val === "Rate"){
+                    let x = "result.0.rate.";
+                    AlumniSurvey.updateOne({"_id": element.id}, 
+                            { $inc: { [x + element.value ] : 1} })
+                            // because in a loop can't send response now, send at the end
+                        .then(result => {
+                            console.log(`Success updating ${element.id}`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+                        });
+                } else {
+                    let x = "result.0.comment";
+                    AlumniSurvey.updateOne({"_id": element.id}, 
+                            { $set: { [x] : element.value } })
+                            // because in a loop can't send response now, send at the end
+                        .then(result => {
+                            console.log(`Success updating ${element.id}`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+                        });
+                }
+            });
+            // after all the request is done, the code comes here
+            const address = new IpAddress({
+                url: req.params.id,
+                ip: getIp(req)
+            });
+            address.save()
+            .catch(err => console.log(err));
+            res.json({ message: {msgBody: "Success", msgError: false} });
+        } else {
+            // console.log("You already took the survey.");
+            res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
+        }
+    });
 }
 
 // iba
@@ -327,14 +424,113 @@ exports.iba_url_create_post = function(req, res){
         .catch(err => { console.error(err)})
 }
 
+
+// delete url
 exports.iba_url_delete_post = function(req, res){
-    IbaSurvey.findOneAndDelete({ "type": "url" })
-    .then(deleted => {
-        // console.log(deleted)
-        res.json(deleted)
-    })
-    .catch(err => console.log(err));
+    async.parallel({
+        deleteIp: function(callback){
+            IpAddress.remove({ "url": req.params.id }, callback);
+        },
+        deleteUrl: function(callback){
+            IbaSurvey.findOneAndDelete({ "type": "url" }, callback);
+        }, function (err, result){
+            if (err) console.log(err);
+            res.send(result);
+        }
+    });
 }
+
+// if url exists, get all the questions
+exports.iba_url_check_get = function(req, res){
+    if (req.params.id){     // if url id is present in the link, check this
+        // check if the ip address passed is not present on the list
+        checkIp(req).then(doc => {
+            if (doc === 0) {    // ip is not found
+                IbaSurvey.findOne({ "_id": req.params.id }, function(err, result){
+                    if (err) console.log(err);
+                    if (!result) {
+                        res.json({"value": null});
+                    }
+                    if (result){
+                        // take all the questions and pass them back,
+                        // basically same as senior update get
+                        async.parallel({
+                            question: function(callback){
+                                IbaSurvey.find({"type": "question"}, callback)
+                                .sort({input_type: -1});
+                            },
+                            number_question: function(callback){
+                                IbaSurvey.countDocuments({"type": "question"}, callback);
+                            },
+                            detail: function(callback){
+                                IbaSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
+                            }
+                        }, function(err, results){
+                            if (err) console.log(err);
+                            res.send(results);
+                        });
+                    }
+                });
+            } else {
+                // console.log("You already took the survey.");
+                res.json({ 
+                    "value": "taken"
+                    // message: {msgBody: "Error already took the survey.", msgError: true} 
+                });
+            }
+        });
+        
+        
+    }
+}
+
+// post the result to the respective question
+exports.iba_url_check_post = function(req, res){
+    checkIp(req)
+    .then(doc => {
+        if (doc === 0) {    // nothing found
+            (req.body).forEach(element => {
+                if (element.input_val === "Rate"){
+                    let x = "result.0.rate.";
+                    IbaSurvey.updateOne({"_id": element.id}, 
+                            { $inc: { [x + element.value ] : 1} })
+                            // because in a loop can't send response now, send at the end
+                        .then(result => {
+                            console.log(`Success updating ${element.id}`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+                        });
+                } else {
+                    let x = "result.0.comment";
+                    IbaSurvey.updateOne({"_id": element.id}, 
+                            { $set: { [x] : element.value } })
+                            // because in a loop can't send response now, send at the end
+                        .then(result => {
+                            console.log(`Success updating ${element.id}`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.json({ message: {msgBody: "Error Inserting", msgError: true} });
+                        });
+                }
+            });
+            // after all the request is done, the code comes here
+            const address = new IpAddress({
+                url: req.params.id,
+                ip: getIp(req)
+            });
+            address.save()
+            .catch(err => console.log(err));
+            res.json({ message: {msgBody: "Success", msgError: false} });
+        } else {
+            // console.log("You already took the survey.");
+            res.json({message: {msgBody: "Error already took the survey.", msgError: true} });
+        }
+    });
+}
+
 
 //--------------------- SENIOR SURVEY CONTROLLERS ----------------------------
 // users/senior

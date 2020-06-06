@@ -25,6 +25,8 @@ function App() {
           <PrivateRoute exact path='/users/surveys/alumni/edit' name="Alumni" component={SurveyLayoutEdit} />
           <PrivateRoute exact path='/users/surveys/iba/edit' name="Iba" component={SurveyLayoutEdit} />
           <Route exact path='/users/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
+          <Route exact path='/users/surveys/alumni/url/:id' render={(props) => <SurveyView {...props} name="Alumni"/> } />
+          <Route exact path='/users/surveys/iba/url/:id' render={(props) => <SurveyView {...props} name="Iba"/> } />
           <Route path='/'>
             <Redirect to="/users" />
           </Route>
