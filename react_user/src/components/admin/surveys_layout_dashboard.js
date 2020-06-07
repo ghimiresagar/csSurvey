@@ -50,7 +50,7 @@ class Survey extends React.Component {
                 <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
                     <Card.Header as="h5" className="text-center"> {this.state.name} Survey Details </Card.Header>
                     <Card.Body>
-                        <Card.Title>Number of Questions: {this.state.count}</Card.Title> 
+                        <Card.Text>Number of Questions: {this.state.count}</Card.Text> 
                         {/* {questions} */}
                         <div className="text-center">
                         <Link to={`/users/surveys/${this.state.name}/edit`} className="active">

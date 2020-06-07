@@ -537,7 +537,7 @@ exports.senior_survey_get = function(req, res){
     // number of ppl who took the survey
     async.parallel({
         question: function(callback){
-            SeniorSurvey.find({"type": "url"}, {"title":1, "_id":0}, callback);
+            SeniorSurvey.find({"type": "url"}, {"_id": 1}, callback);
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({"type": "question"}, callback);
