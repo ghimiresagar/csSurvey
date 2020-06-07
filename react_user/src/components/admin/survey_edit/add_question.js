@@ -36,7 +36,13 @@ function AddQuestion(props) {
            body: JSON.stringify(body)
         }).then(data => {
             setTimeout(() => {
-                window.location.reload(false);
+                props.onChangeHandle();
+                setMessage(null);
+                setBody({
+                    title: "",
+                    input_type: "Rate",
+                    question_type: "1"
+                });
             }, 750)
             setMessage({
                 msgBody: "Question Set",
@@ -71,7 +77,7 @@ function AddQuestion(props) {
                                 name="title"
                                 value={body.title}
                                 onChange={handleChange}
-                                required />
+                            />
                         </Col>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.SelectCustom" as={Row}>

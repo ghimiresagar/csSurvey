@@ -39,7 +39,8 @@ function EditQuestion(props) {
            body: JSON.stringify(body)
         }).then(data => {
             setTimeout(() => {
-                window.location.reload(false);
+                props.onChangeHandle();
+                setMessage(null);
             }, 750)
             setMessage({
                 msgBody: "Question Set",
@@ -64,7 +65,8 @@ function EditQuestion(props) {
             body: JSON.stringify(body2)
         }).then(data => {
             setTimeout(() => {
-                window.location.reload(false);
+                props.onChangeHandle();
+                setMessage(null);
             }, 750)
             setMessage({
                 msgBody: "Question Deleted",
