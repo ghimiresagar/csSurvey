@@ -12,9 +12,9 @@ import Container from 'react-bootstrap/Container';
 function Dashboard() {
     return (
         <Container>
-            <Survey value="Senior" />
-            <Survey value="Alumni" />
-            <Survey value="Iba" />
+            <Survey name="Senior" />
+            <Survey name="Alumni" />
+            <Survey name="Iba" />
         </Container>
     );
 }

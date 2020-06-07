@@ -6,8 +6,8 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 
 import Header from './components/header';
 import Login from './components/login';
-import Dashboard from './components/admin/dashboard';
-import SurveyLayoutEdit from './components/admin/survey_layout_edit';
+import Dashboard from './components/admin/dashboard/dashboard';
+import SurveyLayoutEdit from './components/admin/survey_edit/survey_layout_edit';
 import SurveyView from './components/listSurvey/survey_view';
 
 /**
