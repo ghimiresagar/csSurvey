@@ -29,10 +29,10 @@ class SurveyView extends React.Component {
             .then((body) => {
                 if (body === null) {
                     // url doesn't exist
-                    window.location.href = '/';
+                    window.location.href = '/users';
                 } else if (body === "taken") {
                     // survey is already taken
-                    window.location.href = '/';
+                    window.location.href = '/users';
                 } else {
                     // set id, url exists
                     this.setState({
@@ -88,7 +88,7 @@ class SurveyView extends React.Component {
         this.post_results().then(body => {
             if (!body.message.msgError) {   // if error is false
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = '/users';
                 }, 3000);
             };
             this.setState({
