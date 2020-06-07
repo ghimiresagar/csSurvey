@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-
 function Survey(props) {
     const [count, setCount] = useState(0);
 
@@ -14,7 +13,7 @@ function Survey(props) {
         getQuery()
             .then(body => setCount(body.number_question))
             .catch(err => console.log(err));
-    });
+    }, []);
 
     async function getQuery() {
         const data = await fetch("/users/surveys/"+props.name);
