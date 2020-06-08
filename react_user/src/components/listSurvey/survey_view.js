@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 import TakeQuestion from './take_question';
 import Message from '../message';
+import AuthService from '../../Services/AuthService'; 
 
 function SurveyView(props) {
     const [message, setMessage] = useState(null);
@@ -16,7 +17,13 @@ function SurveyView(props) {
     const [detailBody, setDetailBody] = useState("");
     const [results, setResults] = useState(null);
 
+    const [logged, setLogged] = useState(false);
+
     useEffect(() => {
+        // checks for logged in user
+        AuthService.isAuthenticated().then(data => {                   
+            setLogged(data.isAuthenticated);
+        })
         check_obj()
             .then((body) => {
                 if (body === null) {
@@ -112,6 +119,7 @@ function SurveyView(props) {
                 <Card.Text className="p-2">
                     {detailBody}
                 </Card.Text>
+                <Card.Title className="text-center">Please input n/a for anything not applicable.</Card.Title>
                 <Card.Header as="h5"> 
                     <Container>
                         <Row>
@@ -150,11 +158,13 @@ function SurveyView(props) {
                         <div className="m-1 p-1">
                             {message ? <Message message={message} /> : null }
                         </div>
-                        <div className="text-center">
-                            <Button type="submit">
-                                Submit
-                            </Button>
-                        </div>
+                        { !logged &&
+                            <div className="text-center">
+                                <Button type="submit">
+                                    Submit
+                                </Button>
+                            </div>
+                        }
                     </Form>
                 </Card.Body>
             </Card>

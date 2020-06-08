@@ -139,6 +139,7 @@ exports.senior_url_check_get = function(req, res){
                         async.parallel({
                             question: function(callback){
                                 SeniorSurvey.find({"type": "question"}, callback)
+                                .sort({question_type: 1})
                                 .sort({input_type: -1});
                             },
                             number_question: function(callback){
@@ -295,6 +296,7 @@ exports.alumni_url_check_get = function(req, res){
                         async.parallel({
                             question: function(callback){
                                 AlumniSurvey.find({"type": "question"}, callback)
+                                .sort({question_type: 1})
                                 .sort({input_type: -1});
                             },
                             number_question: function(callback){
@@ -453,6 +455,7 @@ exports.iba_url_check_get = function(req, res){
                         async.parallel({
                             question: function(callback){
                                 IbaSurvey.find({"type": "question"}, callback)
+                                .sort({question_type: 1})
                                 .sort({input_type: -1});
                             },
                             number_question: function(callback){
@@ -578,7 +581,8 @@ exports.senior_update_get = function(req, res){
     async.parallel({
         question: function(callback){
             SeniorSurvey.find({"type": "question"}, callback)
-            .sort({_id: -1});
+            .sort({question_type: 1})
+            .sort({input_type: -1});
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({"type": "question"}, callback);
@@ -664,7 +668,8 @@ exports.alumni_update_get = function(req, res){
     async.parallel({
         question: function(callback){
             AlumniSurvey.find({"type": "question"}, callback)
-            .sort({_id: -1});
+            .sort({question_type: 1})
+            .sort({input_type: -1});
         },
         number_question: function(callback){
             AlumniSurvey.countDocuments({}, callback);
@@ -749,7 +754,8 @@ exports.iba_update_get = function(req, res){
     async.parallel({
         question: function(callback){
             IbaSurvey.find({"type": "question"}, callback)
-            .sort({_id: -1});
+            .sort({question_type: 1})
+            .sort({input_type: -1});
         },
         number_question: function(callback){
             IbaSurvey.countDocuments({}, callback);

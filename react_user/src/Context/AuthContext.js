@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AuthService from '../Services/AuthService';
 
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 export const AuthContext = createContext();
 
 export default ({ children }) => {
@@ -18,7 +20,9 @@ export default ({ children }) => {
 
     return(
         <div>
-            { !isLoaded ? <h1> Loading </h1> :
+            { !isLoaded ? <ProgressBar 
+                            animated 
+                            now={70} /> :
             <AuthContext.Provider value={{user, setUser, isAuthenticated, setIsAuthenticated}} >
                 { children }
             </AuthContext.Provider>

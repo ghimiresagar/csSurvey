@@ -18,20 +18,20 @@ export default {
     },
     logout: () => {
         return fetch('/users/logout')
-                .then(res => res.json())
-                .then(data => data);
+            .then(res => res.json())
+            .then(data => data);
     },
     isAuthenticated: () => {
         return fetch('/users/authenticated')
-                .then(res => {
-                    if ( res.status !== 401 ){
-                        return res.json().then(data => data);
+            .then(res => {
+                if ( res.status !== 401 ){
+                    return res.json().then(data => data);
+                }
+                else {
+                    return {
+                        isAuthenticated: false, user: {username: ""}
                     }
-                    else {
-                        return {
-                            isAuthenticated: false, user: {username: ""}
-                        }
-                    }
-                });
+                }
+            });
     }
 }

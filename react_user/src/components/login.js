@@ -89,17 +89,17 @@ const Login = props => {
                         <Form.Group as={Col} md="12" controlId="validationCustomPassword">
                             <Form.Label>Password:</Form.Label>
                             <InputGroup>
-                            <Form.Control
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                aria-describedby="inputGroupPrepend"
-                                required
-                                onChange={onChange}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please enter a password.
-                            </Form.Control.Feedback>
+                                <Form.Control
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                    onChange={onChange}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter a password.
+                                </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
                     </Form.Row>
