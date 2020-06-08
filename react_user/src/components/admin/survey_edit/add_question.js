@@ -33,7 +33,7 @@ function AddQuestion(props) {
             });
             return null
         }
-        await fetch("/users/surveys/"+props.name+"/create", {
+        fetch("/users/surveys/"+props.name+"/create", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(body)
