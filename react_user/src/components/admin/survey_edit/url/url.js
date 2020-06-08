@@ -1,84 +1,100 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import EditUrl from './url_edit';
+import Message from '../../../message';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-class Url extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            count: 0,
-            obj: []
-        };
-    }
+function Url(props) {
+    const [change, setChange] = useState(0);
+    const [message, setMessage] = useState(null);
 
-    // when the component mounts, get express query of surveys
-    componentDidMount(){
-        this.getQuery()
-            .then(body => this.setState({ 
-                count: body.number_question,                
-                obj: Object.keys(body.question).map(keys => body.question[keys])
-            }))
-            .catch(err => console.log(err));
-    }
+    const [count, setCount] = useState(0);
+    const [obj, setObj] = useState([]);
 
-    // gets the query from express url
-    getQuery = async () => {
-        const data = await fetch("/users/surveys/"+this.props.name+"/url");
+    useEffect(() => {
+        getQuery()
+        .then(body => {
+            setCount(body.number_question);
+            setObj(Object.keys(body.question).map(keys => body.question[keys]));
+        })
+        .catch(err => console.log(err));
+    }, [change]);
+
+    async function getQuery() {
+        const data = await fetch("/users/surveys/"+props.name+"/url");
         const body = await data.json();
         return body;
     }
 
-    createSurvey = (e) => {
+    const onChangeHandle = () => {
+        setChange(change + 1);
+    }
+
+    function createSurvey(e) {
         e.preventDefault();
 
-        fetch("/users/surveys/"+this.props.name+"/url/create", {
+        fetch("/users/surveys/"+props.name+"/url/create", {
             method: 'post'
         }).then(function(data){
-            console.log(data)
-            window.location.reload(false);
-        }).catch(err => console.log(err));
+            setTimeout(() => {
+                onChangeHandle();
+            }, 750);
+            setMessage({
+                msgBody: "Creating Survey",
+                msgError: false
+            });
+        }).catch(err => {
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 750);
+            setMessage({
+                msgBody: "Error",
+                msgError: true
+            });
+        });
     }
-
-    render(){
         
-        const questions = []
-        if (this.state.count === 1) {
-            for (const [x , y] of this.state.obj.entries()) {
-            questions.push(
-                <EditUrl key={x} value={y} name={this.props.name} count={this.state.count}/>
-            )
-            }
+    const questions = []
+    if (count === 1) {
+        for (const [x , y] of obj.entries()) {
+        questions.push(
+            <EditUrl key={x} value={y} name={props.name} count={count} onChangeHandle={onChangeHandle}/>
+        )
         }
-
-        return(
-            <Container>
-                { this.state.count === 0 &&
-                    <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
-                        <Card.Header as="h5" className="text-center"> 
-                            {this.props.name} Survey 
-                        </Card.Header>
-                        <Card.Body>
-                            <p>No link for this survey! Create One.</p>
-                            <div className="text-center m-2">
-                                <Button variant="info" className='m-1' onClick={this.createSurvey}>Create {this.props.name} Survey Url</Button>    
-                            </div>
-                        </Card.Body>
-                    </Card>
-                }
-                { this.state.count === 1 && 
-                    questions
-                }
-                { this.props.count > 1 &&
-                    <p>There's a problem. 2 links are present. Please call Sagar!</p>
-                }
-            </Container>
-        );
     }
+
+    return(
+        <Container>
+            { count === 0 &&
+                <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
+                    <Card.Header as="h5" className="text-center"> 
+                        {props.name} Survey 
+                    </Card.Header>
+                    <Card.Body>
+                        <p>No link for this survey! Create One.</p>
+                        <div className="text-center m-2">
+                            <Button variant="info" className='m-1' onClick={createSurvey}>Create {props.name} Survey Url</Button>    
+                        </div>
+                        
+                        <div className="m-1 p-1">
+                            {message ? <Message message={message} /> : null }
+                        </div>
+                    </Card.Body>
+                </Card>
+            }
+            { count === 1 && 
+                questions
+            }
+            { props.count > 1 &&
+                <p>There's a problem. 2 links are present. Please call Sagar!</p>
+            }
+        </Container>
+    );
 }
 
 export default Url;

@@ -24,13 +24,16 @@ function AddQuestion(props) {
     function postQuestion(e) {
         e.preventDefault();
         if (body.title === "") {
+            setTimeout(() => {
+                setMessage(null);
+            }, 1000)
             setMessage({
                 msgBody: "Empty Question",
                 msgError: true
             });
             return null
         }
-        fetch("/users/surveys/"+props.name+"/create", {
+        await fetch("/users/surveys/"+props.name+"/create", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(body)

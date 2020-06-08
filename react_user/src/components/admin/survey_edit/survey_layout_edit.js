@@ -34,11 +34,11 @@ function SeniorSurvey(props) {
             name={props.name}
             onChangeHandle={onChangeHandle}
         />
-    ))
+    ));
 
     return(
         <Container>
-            <Url name={props.name}/>
+            <Url name={props.name} />
             <AddQuestion name={props.name} onChangeHandle={onChangeHandle} />
             {questions}
         </Container>
