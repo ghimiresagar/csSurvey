@@ -10,6 +10,7 @@ function InputSmall(props) {
                         name={"question-"+props.number} 
                         num = {props.number-1} 
                         id={props.id}
+                        placeholder="N/A if not"
                         typeval="Input Small"
                         onChange={props.handleChange}
                         required/>
