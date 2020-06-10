@@ -71,12 +71,13 @@ exports.senior_url_get = function(req, res){
 exports.senior_url_post = function(req, res) {
     SeniorSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
-        input_type: req.body.input_type,
-        question_type: new Date().getFullYear(),
-        type: 'url'
+        type: 'url',
+        result: {
+            semester: req.body.semester,
+            year: new Date().getFullYear()
+        }
     })
         .then(updated => {
-            // console.log(updated)
             res.send(updated)
         })
         .catch(err => console.log(err));
@@ -95,19 +96,21 @@ exports.senior_url_create_post = function(req, res){
                 'information to help us evaluate and improve the BS in Computer Science '+
                 '(BS in CS) program. We appreciate your taking the time to answer these '+
                 'questions.',
-        input_type: 'Spring',
-        question_type: new Date().getFullYear(),
-        type: 'url'
+        type: 'url',
+        result: {
+            semester: 'Spring',
+            year: new Date().getFullYear()
+        }
         }
     )
         .then(doc => { 
-            // console.log(doc)
             res.json(doc)
         })
-        .catch(err => { console.error(err)})
+        .catch(err => { console.error(err) });
 }
 
 // delete url
+// while deleting take all the results and put it into archive folder
 exports.senior_url_delete_post = function(req, res){
     async.parallel({
         deleteIp: function(callback){
@@ -122,7 +125,7 @@ exports.senior_url_delete_post = function(req, res){
     });
 }
 
-// if url exists, get all the questions
+// if url exists, get all the questions for survey layout
 exports.senior_url_check_get = function(req, res){
     if (req.params.id){     // if url id is present in the link, check this
         // check if the ip address passed is not present on the list
@@ -174,7 +177,7 @@ exports.senior_url_check_post = function(req, res){
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
                 if (element.input_val === "Rate"){
-                    let x = "result.0.rate.";
+                    let x = "result.rate.";
                     SeniorSurvey.updateOne({"_id": element.id}, 
                             { $inc: { [x + element.value ] : 1} })
                             // because in a loop can't send response now, send at the end
@@ -186,7 +189,7 @@ exports.senior_url_check_post = function(req, res){
                             res.json({ message: {msgBody: "Error Inserting", msgError: true} });
                         });
                 } else {
-                    let x = "result.0.comment";
+                    let x = "result.comment";
                     SeniorSurvey.updateOne({"_id": element.id}, 
                             { $set: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end
@@ -233,9 +236,11 @@ exports.alumni_url_get = function(req, res){
 exports.alumni_url_post = function(req, res) {
     AlumniSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
-        input_type: req.body.input_type,
-        question_type: new Date().getFullYear(),
-        type: 'url'
+        type: 'url',
+        result: {
+            semester: req.body.semester,
+            year: new Date().getFullYear()
+        }
     })
         .then(updated => {
             // console.log(updated)
@@ -252,9 +257,11 @@ exports.alumni_url_create_post = function(req, res){
     saveSeniorUrl(
         {
         title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
-        input_type: 'Spring',
-        question_type: new Date().getFullYear(),
-        type: 'url'
+        type: 'url',
+        result: {
+            semester: 'Spring',
+            year: new Date().getFullYear()
+        }
         }
     )
         .then(doc => { 
@@ -331,7 +338,7 @@ exports.alumni_url_check_post = function(req, res){
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
                 if (element.input_val === "Rate"){
-                    let x = "result.0.rate.";
+                    let x = "result.rate.";
                     AlumniSurvey.updateOne({"_id": element.id}, 
                             { $inc: { [x + element.value ] : 1} })
                             // because in a loop can't send response now, send at the end
@@ -343,7 +350,7 @@ exports.alumni_url_check_post = function(req, res){
                             res.json({ message: {msgBody: "Error Inserting", msgError: true} });
                         });
                 } else {
-                    let x = "result.0.comment";
+                    let x = "result.comment";
                     AlumniSurvey.updateOne({"_id": element.id}, 
                             { $set: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end
@@ -391,9 +398,11 @@ exports.iba_url_get = function(req, res){
 exports.iba_url_post = function(req, res) {
     IbaSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
-        input_type: req.body.input_type,
-        question_type: new Date().getFullYear(),
-        type: 'url'
+        type: 'url',
+        result: {
+            semester: req.body.semester,
+            year: new Date().getFullYear()
+        }
     })
         .then(updated => {
             // console.log(updated)
@@ -410,9 +419,11 @@ exports.iba_url_create_post = function(req, res){
     saveSeniorUrl(
         {
             title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future. ',
-            input_type: 'Spring',
-            question_type: new Date().getFullYear(),
-            type: 'url'
+            type: 'url',
+            result: {
+                semester: 'Spring',
+                year: new Date().getFullYear()
+            }
             }
     )
         .then(doc => { 
@@ -490,7 +501,7 @@ exports.iba_url_check_post = function(req, res){
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
                 if (element.input_val === "Rate"){
-                    let x = "result.0.rate.";
+                    let x = "result.rate.";
                     IbaSurvey.updateOne({"_id": element.id}, 
                             { $inc: { [x + element.value ] : 1} })
                             // because in a loop can't send response now, send at the end
@@ -502,7 +513,7 @@ exports.iba_url_check_post = function(req, res){
                             res.json({ message: {msgBody: "Error Inserting", msgError: true} });
                         });
                 } else {
-                    let x = "result.0.comment";
+                    let x = "result.comment";
                     IbaSurvey.updateOne({"_id": element.id}, 
                             { $set: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end

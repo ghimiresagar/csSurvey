@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var app = express();
 
 // const hostname = "cs_survey.salemstate.edu"
-const hostname = "http://127.0.0.1"
+// const hostname = "http://127.0.0.1"
 const port = 5000;
 
 //Set up mongoose connection
@@ -28,37 +28,40 @@ db.on('error', err => {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 // cross origin resourse sharing
 // app.use(cors({ origin: 'http://cs_survey.salemstate.edu' }));
 app.use(cors({ origin: 'http://127.0.0.1' }));
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'/build/index.html'));
+// });
 
 app.listen(port, () => {
   console.log(`Server running at ${port}`);
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// // error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
 module.exports = app;

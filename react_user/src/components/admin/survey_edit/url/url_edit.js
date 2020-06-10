@@ -13,8 +13,8 @@ function EditUrl(props) {
     const [body, setBody] = useState({
         id: props.value._id,
         title: props.value.title,
-        input_type: props.value.input_type,
-        question_type: props.value.question_type
+        semester: props.value.result.semester,
+        year: props.value.result.year
     });
 
     function handleChange(e) {
@@ -68,7 +68,7 @@ function EditUrl(props) {
                                 <Col sm={10}>
                                     <Form.Group as={Row}>
                                         <Form.Label column sm={2}>
-                                            Edit Detail: 
+                                            Description: 
                                         </Form.Label>
                                         <Col sm={10}>
                                         <Form.Control 
@@ -87,8 +87,8 @@ function EditUrl(props) {
                                         <Col sm={4}>
                                             <Form.Control 
                                                 as="select" 
-                                                custom name="input_type" 
-                                                defaultValue={props.input_type} 
+                                                custom name="semester" 
+                                                defaultValue={body.semester} 
                                                 onChange={handleChange}>
                                             <option>Spring</option>
                                             <option>Fall</option>
@@ -99,7 +99,7 @@ function EditUrl(props) {
                                         </Form.Label>
                                         <Col sm={4}>
                                             <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
-                                                {body.question_type}
+                                                {body.year}
                                             </Form.Label>
                                         </Col>
                                     </Form.Group>

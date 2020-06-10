@@ -4,17 +4,16 @@ let Schema = mongoose.Schema;
 IbaSurveySchema = new Schema(
     {
         title: {type: String, required: true, unique: true},
-        input_type: {type: String, required: true},
-        question_type: {type: Number, required: true},
+        input_type: {type: String},
+        question_type: {type: Number},
         type: {type: String, required: true, default: "question"},
-        result: [
+        result:
             {
-                semester: {type: String, default: "Fall"},
+                semester: {type: String},
                 year: {type: Number},
-                number_of_parts: {type: Number, default: 0},
-                rate: {type: Array, default: [0, 0, 0, 0, 0]}
+                rate: {type: Array, default: [0, 0, 0, 0, 0]},
+                comment: {type: String}
             }
-        ],
     }
 );
 
