@@ -33,7 +33,7 @@ function EditQuestion(props) {
             });
             return null
         }
-        fetch("/users/surveys/"+props.name+"/edit", {
+        fetch("/surveys/"+props.name+"/edit", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(body)
@@ -59,7 +59,7 @@ function EditQuestion(props) {
         let body2 = {
             id: body.id
         }
-        fetch("/users/surveys/"+props.name+"/delete", {
+        fetch("/surveys/"+props.name+"/delete", {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body2)

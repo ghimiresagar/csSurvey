@@ -16,7 +16,7 @@ function Survey(props) {
     }, []);
 
     async function getQuery() {
-        const data = await fetch("/users/surveys/"+props.name);
+        const data = await fetch("/surveys/"+props.name);
         const body = await data.json();
         return body;
     }
@@ -28,7 +28,7 @@ function Survey(props) {
                 <Card.Body>
                     <Card.Text>Number of Questions: {count}</Card.Text> 
                     <div className="text-center">
-                    <Link to={`/users/surveys/${props.name}/edit`} className="active">
+                    <Link to={`/surveys/${props.name}/edit`} className="active">
                         <Button variant="primary">Edit Survey</Button>    
                     </Link>
                     </div>

@@ -29,7 +29,7 @@ function SurveyView(props) {
                 if (body === null) {
                     // url doesn't exist
                     setTimeout(() => {
-                        window.location.href = '/users';
+                        window.location.href = '/';
                         setMessage(null);
                     }, 1000);
                     setMessage({
@@ -39,7 +39,7 @@ function SurveyView(props) {
                 } else if (body === "taken") {
                     // survey is already taken
                     setTimeout(() => {
-                        window.location.href = '/users';
+                        window.location.href = '/';
                         setMessage(null);
                     }, 1000);
                     setMessage({
@@ -57,7 +57,7 @@ function SurveyView(props) {
     }, [])
 
     async function check_obj() {
-        const data = await fetch("/users/surveys/"+ props.name +"/url/"+props.match.params.id);
+        const data = await fetch("/surveys/"+ props.name +"/url/"+props.match.params.id);
         const body = await data.json();
         if (body.value === null)
             return null;
@@ -67,7 +67,7 @@ function SurveyView(props) {
     }
 
     async function post_results() {
-        const data = await fetch("/users/surveys/"+props.name+"/url/"+props.match.params.id, {
+        const data = await fetch("/surveys/"+props.name+"/url/"+props.match.params.id, {
                         method: "post",
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(results)
@@ -93,7 +93,7 @@ function SurveyView(props) {
             if (!body.message.msgError) {   // if error is false
                 setTimeout(() => {
                     setMessage(null);
-                    window.location.href = '/users';
+                    window.location.href = '/';
                 }, 3000);
             };
             setMessage({

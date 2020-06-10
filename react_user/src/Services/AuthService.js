@@ -1,6 +1,6 @@
 export default {
     login: user => {
-        return fetch('/users', {
+        return fetch('/', {
             method: 'post',
             body: JSON.stringify(user),
             headers: {
@@ -17,12 +17,12 @@ export default {
         });
     },
     logout: () => {
-        return fetch('/users/logout')
+        return fetch('/logout')
             .then(res => res.json())
             .then(data => data);
     },
     isAuthenticated: () => {
-        return fetch('/users/authenticated')
+        return fetch('/authenticated')
             .then(res => {
                 if ( res.status !== 401 ){
                     return res.json().then(data => data);

@@ -22,7 +22,7 @@ function SeniorSurvey(props) {
     }
 
     async function getQuestions() {
-        const data = await fetch("/users/surveys/"+props.name+"/edit");
+        const data = await fetch("/surveys/"+props.name+"/edit");
         const body = await data.json();
         return body;
     }

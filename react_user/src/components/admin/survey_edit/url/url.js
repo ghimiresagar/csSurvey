@@ -26,7 +26,7 @@ function Url(props) {
     }, [change]);
 
     async function getQuery() {
-        const data = await fetch("/users/surveys/"+props.name+"/url");
+        const data = await fetch("/surveys/"+props.name+"/url");
         const body = await data.json();
         return body;
     }
@@ -38,7 +38,7 @@ function Url(props) {
     function createSurvey(e) {
         e.preventDefault();
 
-        fetch("/users/surveys/"+props.name+"/url/create", {
+        fetch("/surveys/"+props.name+"/url/create", {
             method: 'post'
         }).then(function(data){
             setTimeout(() => {
