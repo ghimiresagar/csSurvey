@@ -9,10 +9,10 @@ AlumniSurveySchema = new Schema(
         type: {type: String, required: true, default: "question"},
         result:
             {
-                semester: {type: String},
+                semester: {type: String},      
                 year: {type: Number},
                 rate: {type: Array, default: [0, 0, 0, 0, 0]},
-                comment: {type: String}
+                comment: {type: Array}
             }
     }
 );

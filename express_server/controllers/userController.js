@@ -193,7 +193,7 @@ exports.senior_url_check_post = function(req, res){
                 } else {
                     let x = "result.comment";
                     SeniorSurvey.updateOne({"_id": element.id}, 
-                            { $set: { [x] : element.value } })
+                            { $push: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end
                         .then(result => {
                             console.log(`Success updating ${element.id}`);
@@ -339,7 +339,9 @@ exports.alumni_url_check_post = function(req, res){
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
-                if (element.input_val === "Rate"){
+                if (element === null) {
+                    console.log(); // empty log for null
+                } else if (element.input_val === "Rate"){
                     let x = "result.rate.";
                     AlumniSurvey.updateOne({"_id": element.id}, 
                             { $inc: { [x + element.value ] : 1} })
@@ -354,7 +356,7 @@ exports.alumni_url_check_post = function(req, res){
                 } else {
                     let x = "result.comment";
                     AlumniSurvey.updateOne({"_id": element.id}, 
-                            { $set: { [x] : element.value } })
+                            { $push: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end
                         .then(result => {
                             console.log(`Success updating ${element.id}`);
@@ -502,7 +504,9 @@ exports.iba_url_check_post = function(req, res){
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
-                if (element.input_val === "Rate"){
+                if (element === null) {
+                    console.log(); // empty log for null
+                } else if (element.input_val === "Rate"){
                     let x = "result.rate.";
                     IbaSurvey.updateOne({"_id": element.id}, 
                             { $inc: { [x + element.value ] : 1} })
@@ -517,7 +521,7 @@ exports.iba_url_check_post = function(req, res){
                 } else {
                     let x = "result.comment";
                     IbaSurvey.updateOne({"_id": element.id}, 
-                            { $set: { [x] : element.value } })
+                            { $push: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end
                         .then(result => {
                             console.log(`Success updating ${element.id}`);

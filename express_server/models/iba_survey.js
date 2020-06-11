@@ -12,7 +12,7 @@ IbaSurveySchema = new Schema(
                 semester: {type: String},
                 year: {type: Number},
                 rate: {type: Array, default: [0, 0, 0, 0, 0]},
-                comment: {type: String}
+                comment: {type: Array}
             }
     }
 );
