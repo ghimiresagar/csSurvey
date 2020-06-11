@@ -42,8 +42,9 @@ function Url(props) {
             method: 'post'
         }).then(function(data){
             setTimeout(() => {
+                setMessage(null);
                 onChangeHandle();
-            }, 750);
+            }, 1000);
             setMessage({
                 msgBody: "Creating Survey",
                 msgError: false
@@ -51,7 +52,7 @@ function Url(props) {
         }).catch(err => {
             setTimeout(() => {
                 window.location.reload(false);
-            }, 750);
+            }, 1000);
             setMessage({
                 msgBody: "Error",
                 msgError: true
@@ -76,11 +77,10 @@ function Url(props) {
                         {props.name} Survey : {props.num}
                     </Card.Header>
                     <Card.Body>
-                        <p>No active survey! Create one.</p>
+                        <p>No active survey!</p>
                         <div className="text-center m-2">
                             <Button variant="info" className='m-1' onClick={createSurvey}>Create {props.name} Survey</Button>    
                         </div>
-                        
                         <div className="m-1 p-1">
                             {message ? <Message message={message} /> : null }
                         </div>

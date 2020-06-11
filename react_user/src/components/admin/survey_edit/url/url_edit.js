@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';    
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
  
 function EditUrl(props) {
     const [message, setMessage] = useState(null);
@@ -14,7 +16,8 @@ function EditUrl(props) {
         id: props.value._id,
         title: props.value.title,
         semester: props.value.result.semester,
-        year: props.value.result.year
+        year: props.value.result.year,
+        numberOfTakers: props.value.result.numberOfParts
     });
 
     function handleChange(e) {
@@ -45,17 +48,25 @@ function EditUrl(props) {
 
         fetch("/surveys/"+props.name+"/url/delete/"+props.value._id, {
             method: 'post'
-        }).then(data => {
+        })
+        .then(res => res.json())
+        .then(data => {
             setTimeout(() => {
                 props.onChangeHandle();
                 setMessage(null);
-            }, 750);
-            setMessage({
-                msgBody: "Deleting",
-                msgError: false
-            });
+            }, 5000);
+            setMessage( data.message );
         }).catch(err => console.log(err));
     }
+
+    const popover = (
+        <Popover id="popover-basic">
+          <Popover.Title as="h3">Closing Survey</Popover.Title>
+          <Popover.Content>
+            After closing the survey you won't be able to <strong>update</strong> the results anymore. Double Click to close the survey.
+          </Popover.Content>
+        </Popover>
+    );
 
     return(
         <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
@@ -107,8 +118,20 @@ function EditUrl(props) {
                                 <Col sm={2}>
                                 <Card.Text className="text-center">
                                     <Button variant="primary m-2" onClick={updateQuestion}>Update Details</Button> 
-                                    <Button variant="danger" className='m-2' onClick={deleteSurvey}>Close Survey</Button>    
+                                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                                        <Button variant="danger" className='m-2' onDoubleClick={deleteSurvey}>
+                                            Close Survey
+                                        </Button>
+                                    </OverlayTrigger>
                                 </Card.Text>
+                                </Col>
+                            </Form.Group>
+                            <Form.Group as={Row}>
+                                <Col sm={2}>
+                                    Survey Takers:
+                                </Col>
+                                <Col sm={10}>
+                                    {body.numberOfTakers}
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row} >

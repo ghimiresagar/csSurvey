@@ -40,6 +40,14 @@ function UrlView(props) {
         </Row>
         <Row>
             <Col sm={3}>
+                Survey Takers:
+            </Col>
+            <Col sm={9}>
+                {props.value.result.numberOfParts}
+            </Col>
+        </Row>
+        <Row>
+            <Col sm={3}>
                 Survey Link:
             </Col>
             <Col sm={9}>

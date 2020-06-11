@@ -3,6 +3,7 @@ var SeniorSurvey = require('../models/senior_survey');
 let AlumniSurvey = require('../models/alumni_survey');
 let IbaSurvey = require('../models/iba_survey');
 let IpAddress = require('../models/ip_addresses');
+let ArchiveResult = require('../models/archive_results');
 let async = require('async');
 
 const jwt = require('jsonwebtoken');
@@ -23,6 +24,10 @@ const getIp = (req) => {
 
 const checkIp = (req) => {
     return IpAddress.countDocuments({ ip: getIp(req) });
+}
+
+const checkResult = (body) => {
+    return ArchiveResult.countDocuments({ semester: body.semester, year: body.year});
 }
 
 // /users
@@ -110,19 +115,90 @@ exports.senior_url_create_post = function(req, res){
 }
 
 // delete url
-// while deleting take all the results and put it into archive folder
+// while deleting take all the results and put it into archive table
 exports.senior_url_delete_post = function(req, res){
-    async.parallel({
-        deleteIp: function(callback){
-            IpAddress.remove({ "url": req.params.id }, callback);
-        },
-        deleteUrl: function(callback){
-            SeniorSurvey.findOneAndDelete({ "type": "url" }, callback);
-        }, function (err, result){
+    // check if we have valid id being passed as type url is only one
+    if (req.params.id) {        // see if we have id present
+        const body = {
+            semester: "",
+            year: "",
+            result: []
+        };
+        // get things in parallel
+        async.parallel({
+            detail: function(callback) {
+                SeniorSurvey.findOne({ $and: [{"_id" : req.params.id}, {"type": "url"} ] },  
+                callback);
+            },
+            question: function(callback) {
+                SeniorSurvey.find({ "type": "question" }, 
+                 callback);
+            }
+        }, function (err, result) {     // when we get our url and questions
             if (err) console.log(err);
-            res.send(result);
-        }
-    });
+            if (!result)
+                res.json({message: { msgBody: "Error", msgError: true }});
+            if (result.detail) {
+                body.semester = result.detail.result.semester;
+                body.year = result.detail.result.year;
+            }
+            if (result.question) {
+                (result.question).forEach(element => {
+                    body.result.push({
+                        q_title: element.title,
+                        rate: element.result.rate,
+                        comment: element.result.comment
+                    });
+                });
+            }
+            // now we have an object "body" with all the necessary values
+            // put it into Archive Collection
+            checkResult(body).then(doc => {     // check if this date's survey is already present
+                if (doc === 0) {                // if new add     
+                    const doc = new ArchiveResult(body);
+                    doc.save();
+
+                    async.parallel({
+                        deleteIp: function(callback){
+                            IpAddress.remove({ "url": req.params.id }, callback);
+                        },
+                        deleteUrl: function(callback){
+                            SeniorSurvey.findOneAndDelete({ "type": "url" }, callback);
+                        },
+                        deleteQuestionResults: function(callback){
+                            SeniorSurvey.update({ "type": "question" }, {
+                                $unset: { "result": {} } 
+                            }, { multi: true } , callback);
+                        }, function (err, result){
+                            if (err) console.log(err);
+                            res.json({message: { msgBody: "Saving Result!", msgError: false }});
+                        }
+                    });
+                } else {                        // if old update
+                    async.parallel({
+                        deleteIp: function(callback){
+                            IpAddress.remove({ "url": req.params.id }, callback);
+                        },
+                        deleteUrl: function(callback){
+                            SeniorSurvey.findOneAndDelete({ "type": "url" }, callback);
+                        },
+                        deleteQuestionResults: function(callback){
+                            SeniorSurvey.update({ "type": "question" }, {
+                                $unset: { "result": {} } 
+                            }, { multi: true } , callback);
+                        }, function (err, result){
+                            if (err) console.log(err);
+                            res.json({message: { msgBody: "Can't update result for this semester and year as it already exists.", msgError: true }});           
+                        }
+                    });
+                }    
+                
+                res.json({message: { msgBody: "Something went wrong!", msgError: true }});           
+            });
+
+            
+        });
+    }
 }
 
 // if url exists, get all the questions for survey layout
@@ -158,7 +234,6 @@ exports.senior_url_check_get = function(req, res){
                     }
                 });
             } else {
-                // console.log("You already took the survey.");
                 res.json({ 
                     "value": "taken"
                     // message: {msgBody: "Error already took the survey.", msgError: true} 
@@ -210,6 +285,9 @@ exports.senior_url_check_post = function(req, res){
                 ip: getIp(req)
             });
             address.save()
+            .catch(err => console.log(err));
+            // update number of survey takers
+            SeniorSurvey.updateOne({"type": "url"}, { $inc: {"result.numberOfParts": 1} })
             .catch(err => console.log(err));
             res.json({ message: {msgBody: "Success. You will be soon redirected.", msgError: false} });
         } else {

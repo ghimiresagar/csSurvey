@@ -11,6 +11,7 @@ SeniorSurveySchema = new Schema(
             {
                 semester: {type: String},                           // used with url only
                 year: {type: Number},                               // used with url only
+                numberOfParts: {type: Number, default: 0},          // used with url
                 rate: {type: Array, default: [0, 0, 0, 0, 0]},      // used with question results
                 comment: {type: Array}                              // used with question results
             }
