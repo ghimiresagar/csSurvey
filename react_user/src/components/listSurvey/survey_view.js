@@ -31,7 +31,7 @@ function SurveyView(props) {
                     setTimeout(() => {
                         window.location.href = '/';
                         setMessage(null);
-                    }, 1000);
+                    }, 3000);
                     setMessage({
                         msgBody: "No survey for this link available!",
                         msgError: true
@@ -41,7 +41,7 @@ function SurveyView(props) {
                     setTimeout(() => {
                         window.location.href = '/';
                         setMessage(null);
-                    }, 1000);
+                    }, 3000);
                     setMessage({
                         msgBody: `You already took the ${props.name} survey!`,
                         msgError: false
@@ -88,7 +88,7 @@ function SurveyView(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(results);
+        // console.log(results);
         post_results().then(body => {
             if (!body.message.msgError) {   // if error is false
                 setTimeout(() => {
@@ -119,7 +119,6 @@ function SurveyView(props) {
                 <Card.Text className="p-2">
                     {detailBody}
                 </Card.Text>
-                <Card.Title className="text-center">Please input n/a for anything not applicable.</Card.Title>
                 <Card.Header as="h5"> 
                     <Container>
                         <Row>
