@@ -11,9 +11,10 @@ function InputComment(props) {
                         name={"question-"+props.number} 
                         num = {props.number-1} 
                         id={props.id}
-                        typeval="Input Comment"
+                        typeval="Longer Comment"
+                        placeholder="Leave blank if not applicable"
                         onChange={props.handleChange}
-                        required/>
+                        />
         </Row>
     );
 }

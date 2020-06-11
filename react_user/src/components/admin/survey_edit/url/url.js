@@ -63,7 +63,7 @@ function Url(props) {
     if (count === 1) {
         for (const [x , y] of obj.entries()) {
         questions.push(
-            <EditUrl key={x} value={y} name={props.name} count={count} onChangeHandle={onChangeHandle}/>
+            <EditUrl key={x} value={y} name={props.name} num={props.num} count={count} onChangeHandle={onChangeHandle}/>
         )
         }
     }
@@ -73,12 +73,12 @@ function Url(props) {
             { count === 0 &&
                 <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
                     <Card.Header as="h5" className="text-center"> 
-                        {props.name} Survey 
+                        {props.name} Survey : {props.num}
                     </Card.Header>
                     <Card.Body>
-                        <p>No link for this survey! Create One.</p>
+                        <p>No active survey! Create one.</p>
                         <div className="text-center m-2">
-                            <Button variant="info" className='m-1' onClick={createSurvey}>Create {props.name} Survey Url</Button>    
+                            <Button variant="info" className='m-1' onClick={createSurvey}>Create {props.name} Survey</Button>    
                         </div>
                         
                         <div className="m-1 p-1">

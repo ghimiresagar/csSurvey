@@ -10,10 +10,10 @@ function InputSmall(props) {
                         name={"question-"+props.number} 
                         num = {props.number-1} 
                         id={props.id}
-                        placeholder="N/A if not"
-                        typeval="Input Small"
+                        placeholder="Leave blank if not applicable"
+                        typeval="Short Answer"
                         onChange={props.handleChange}
-                        required/>
+                        />
         </Row>
     );
 }

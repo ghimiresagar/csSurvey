@@ -7,13 +7,16 @@ import Url from './url/url';
 
 function SeniorSurvey(props) {
     const [questionList, setQuestionList] = useState([]);
+    const [questionCount, setQuestionCount] = useState(0);
     const [change, setChange] = useState(1);
 
     useEffect(() => {
         getQuestions()
-        .then(body => setQuestionList(
-            Object.keys(body.question).map(keys => body.question[keys])
-        ))
+        .then(body => {
+            setQuestionList(Object.keys(body.question).map(keys => body.question[keys]));
+            setQuestionCount(body.number_question);
+        }
+        )
         .catch(err => console.log(err));
     }, [change]);
 
@@ -38,7 +41,7 @@ function SeniorSurvey(props) {
 
     return(
         <Container>
-            <Url name={props.name} />
+            <Url name={props.name} num={questionCount} />
             <AddQuestion name={props.name} onChangeHandle={onChangeHandle} />
             {questions}
         </Container>

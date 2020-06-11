@@ -94,8 +94,8 @@ function AddQuestion(props) {
                                 value={body.input_type} 
                                 onChange={handleChange}>
                             <option>Rate</option>
-                            <option>Input Small</option>
-                            <option>Input Comment</option>
+                            <option>Short Answer</option>
+                            <option>Longer Comment</option>
                             </Form.Control>
                         </Col>
                         <Form.Label column sm={2}>

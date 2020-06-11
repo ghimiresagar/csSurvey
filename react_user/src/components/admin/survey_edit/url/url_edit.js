@@ -60,7 +60,7 @@ function EditUrl(props) {
     return(
         <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
                 <Card.Header as="h5" className="text-center"> 
-                    {props.name} Survey 
+                    {props.name} Survey : {props.num}
                 </Card.Header>
                 <Card.Body>  
                         <Form>

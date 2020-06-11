@@ -543,18 +543,18 @@ exports.iba_url_check_post = function(req, res){
 
 
 //--------------------- SENIOR SURVEY CONTROLLERS ----------------------------
-// users/senior
 
+// users/senior - dashboard
 exports.senior_survey_get = function(req, res){
-    // show url
-    // number of questions
-    // number of ppl who took the survey
     async.parallel({
         question: function(callback){
-            SeniorSurvey.find({"type": "url"}, {"_id": 1}, callback);
+            SeniorSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({"type": "question"}, callback);
+        },
+        number_url: function(callback){
+            SeniorSurvey.countDocuments({'type': 'url'}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -637,10 +637,13 @@ exports.senior_delete_post = function(req, res) {
 exports.alumni_survey_get = function(req, res){
     async.parallel({
         question: function(callback){
-            AlumniSurvey.find({"type": "question"}, {"title":1, "_id":0}, callback);
+            AlumniSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
             AlumniSurvey.countDocuments({"type": "question"}, callback);
+        },
+        number_url: function(callback){
+            AlumniSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -683,7 +686,7 @@ exports.alumni_update_get = function(req, res){
             .sort({input_type: -1});
         },
         number_question: function(callback){
-            AlumniSurvey.countDocuments({}, callback);
+            AlumniSurvey.countDocuments({"type": "question"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -723,10 +726,13 @@ exports.alumni_delete_post = function(req, res) {
 exports.iba_survey_get = function(req, res){
     async.parallel({
         question: function(callback){
-            IbaSurvey.find({"type": "question"}, {"title":1, "_id":0}, callback);
+            IbaSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
-            IbaSurvey.countDocuments({}, callback);
+            IbaSurvey.countDocuments({"type": "question"}, callback);
+        },
+        number_url: function(callback){
+            IbaSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -769,7 +775,7 @@ exports.iba_update_get = function(req, res){
             .sort({input_type: -1});
         },
         number_question: function(callback){
-            IbaSurvey.countDocuments({}, callback);
+            IbaSurvey.countDocuments({"type": "question"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);

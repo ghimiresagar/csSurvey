@@ -25,7 +25,7 @@ function TakeQuestion(props) {
                     </Col>
                 </>
                 }
-                {(props.value.input_type === "Input Small") && 
+                {(props.value.input_type === "Short Answer") && 
                 <>
                     <Col sm={8}>
                         {props.value.title}
@@ -35,7 +35,7 @@ function TakeQuestion(props) {
                     </Col>
                 </>
                 }
-                {(props.value.input_type === "Input Comment") && 
+                {(props.value.input_type === "Longer Comment") && 
                 <>
                     <Col sm={5}>
                         {props.value.title}
