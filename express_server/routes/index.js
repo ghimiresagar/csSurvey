@@ -28,7 +28,9 @@ router.post('/surveys/senior/url', passport.authenticate('jwt', {session: false}
 // create a new url for senior survey
 router.post('/surveys/senior/url/create', passport.authenticate('jwt', {session: false}), user_controller.senior_url_create_post);
 // delete url for senior survey
+router.post('/surveys/senior/url/archive/:id', passport.authenticate('jwt', {session: false}), user_controller.senior_url_archive_post);
 router.post('/surveys/senior/url/delete/:id', passport.authenticate('jwt', {session: false}), user_controller.senior_url_delete_post);
+
 // check if the url exist, if it does get the questions
 router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
 // sending the request to the server for posting results
@@ -42,6 +44,7 @@ router.post('/surveys/alumni/url', passport.authenticate('jwt', {session: false}
 router.post('/surveys/alumni/url/create', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_create_post);
 // delete url for alumni survey
 router.post('/surveys/alumni/url/delete/:id', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_delete_post);
+router.post('/surveys/alumni/url/archive/:id', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_archive_post);
 // check if the url exist, if it does get the questions
 router.get('/surveys/alumni/url/:id', user_controller.alumni_url_check_get);
 // sending the request to the server for posting results
@@ -54,6 +57,7 @@ router.post('/surveys/iba/url', passport.authenticate('jwt', {session: false}), 
 router.post('/surveys/iba/url/create', passport.authenticate('jwt', {session: false}), user_controller.iba_url_create_post);
 // delete url for iba survey
 router.post('/surveys/iba/url/delete/:id', passport.authenticate('jwt', {session: false}), user_controller.iba_url_delete_post);
+router.post('/surveys/iba/url/archive/:id', passport.authenticate('jwt', {session: false}), user_controller.iba_url_archive_post);
 // check if the url exist, if it does get the questions
 router.get('/surveys/iba/url/:id', user_controller.iba_url_check_get);
 // sending the request to the server for posting results

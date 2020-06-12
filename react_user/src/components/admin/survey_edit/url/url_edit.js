@@ -45,7 +45,6 @@ function EditUrl(props) {
 
     function deleteSurvey(e) {
         e.preventDefault();
-
         fetch("/surveys/"+props.name+"/url/delete/"+props.value._id, {
             method: 'post'
         })
@@ -54,7 +53,23 @@ function EditUrl(props) {
             setTimeout(() => {
                 props.onChangeHandle();
                 setMessage(null);
-            }, 5000);
+            }, 1000);
+            setMessage( data.message );
+        }).catch(err => console.log(err));
+    }
+
+    function archiveSurvey(e) {
+        e.preventDefault();
+
+        fetch("/surveys/"+props.name+"/url/archive/"+props.value._id, {
+            method: 'post'
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTimeout(() => {
+                props.onChangeHandle();
+                setMessage(null);
+            }, 3000);
             setMessage( data.message );
         }).catch(err => console.log(err));
     }
@@ -117,10 +132,15 @@ function EditUrl(props) {
                                 </Col>
                                 <Col sm={2}>
                                 <Card.Text className="text-center">
-                                    <Button variant="primary m-2" onClick={updateQuestion}>Update Details</Button> 
-                                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                                        <Button variant="danger" className='m-2' onDoubleClick={deleteSurvey}>
+                                    <Button variant="primary m-2" onClick={updateQuestion}>
+                                        Update Details
+                                    </Button> 
+                                    <Button variant="warning" className='m-2' onClick={deleteSurvey}>
                                             Close Survey
+                                        </Button>
+                                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                                        <Button variant="danger" className='m-2' onDoubleClick={archiveSurvey}>
+                                            Archive Survey
                                         </Button>
                                     </OverlayTrigger>
                                 </Card.Text>
