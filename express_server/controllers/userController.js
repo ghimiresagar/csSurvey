@@ -22,8 +22,8 @@ const getIp = (req) => {
             (req.connection.socket ? req.connection.socket.remoteAddress : null);
 }
 
-const checkIp = (req) => {
-    return IpAddress.countDocuments({ ip: getIp(req) });
+const checkIp = (req, name) => {
+    return IpAddress.countDocuments({ ip: getIp(req), name: name });
 }
 
 const checkResult = (body) => {
@@ -189,7 +189,7 @@ exports.senior_url_archive_post = function(req, res){
                         }
                     });
                 } else {                        // if old update
-                    res.json({message: { msgBody: "The results are already available for this semester and year. Can't update them anymore.", msgError: true }});           
+                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
 
                     // async.parallel({
                     //     deleteIp: function(callback){
@@ -263,7 +263,7 @@ exports.senior_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.senior_url_check_post = function(req, res){
-    checkIp(req)
+    checkIp(req, 'senior')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -298,7 +298,8 @@ exports.senior_url_check_post = function(req, res){
             // after all the request is done, the code comes here
             const address = new IpAddress({
                 url: req.params.id,
-                ip: getIp(req)
+                ip: getIp(req),
+                name: 'senior'
             });
             address.save()
             .catch(err => console.log(err));
@@ -442,7 +443,7 @@ exports.alumni_url_archive_post = function(req, res){
                         }
                     });
                 } else {                        // if old update
-                    res.json({message: { msgBody: "The results are already available for this semester and year. Can't update them anymore.", msgError: true }});           
+                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
 
                     // async.parallel({
                     //     deleteIp: function(callback){
@@ -517,7 +518,7 @@ exports.alumni_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.alumni_url_check_post = function(req, res){
-    checkIp(req)
+    checkIp(req, 'alumni')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -552,7 +553,8 @@ exports.alumni_url_check_post = function(req, res){
             // after all the request is done, the code comes here
             const address = new IpAddress({
                 url: req.params.id,
-                ip: getIp(req)
+                ip: getIp(req),
+                name: 'alumni'
             });
             address.save()
             .catch(err => console.log(err));
@@ -698,7 +700,7 @@ exports.iba_url_archive_post = function(req, res){
                         }
                     });
                 } else {                        // if old update
-                    res.json({message: { msgBody: "The results are already available for this semester and year. Can't update them anymore.", msgError: true }});           
+                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
                     // async.parallel({
                     //     deleteIp: function(callback){
                     //         IpAddress.remove({ "url": req.params.id }, callback);
@@ -774,7 +776,7 @@ exports.iba_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.iba_url_check_post = function(req, res){
-    checkIp(req)
+    checkIp(req, 'iba')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -809,7 +811,8 @@ exports.iba_url_check_post = function(req, res){
             // after all the request is done, the code comes here
             const address = new IpAddress({
                 url: req.params.id,
-                ip: getIp(req)
+                ip: getIp(req),
+                name: 'iba'
             });
             address.save()
             .catch(err => console.log(err));

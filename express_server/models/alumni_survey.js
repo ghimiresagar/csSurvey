@@ -12,6 +12,7 @@ AlumniSurveySchema = new Schema(
                 semester: {type: String},      
                 year: {type: Number},
                 name: {type: String}, 
+                numberOfParts: {type: Number, default: 0},  
                 rate: {type: Array, default: [0, 0, 0, 0, 0]},
                 comment: {type: Array}
             }
