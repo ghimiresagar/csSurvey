@@ -51,7 +51,7 @@ const Login = props => {
             if (isAuthenticated) {
                 authContext.setUser(user);
                 authContext.setIsAuthenticated(isAuthenticated);
-                window.location.href += '/surveys';
+                window.location.href += '/admin/surveys';
             } else {
                 setMessage(message);
             }

@@ -20,13 +20,13 @@ function App() {
         <Header value="Survey Web App" />
         <Switch>
           <UnPrivateRoute exact path='/' component={Login} />
-          <PrivateRoute exact path='/surveys' component={Dashboard}/>
-          <PrivateRoute exact path='/surveys/senior/edit' name="Senior" component={SurveyLayoutEdit} />
-          <PrivateRoute exact path='/surveys/alumni/edit' name="Alumni" component={SurveyLayoutEdit} />
-          <PrivateRoute exact path='/surveys/iba/edit' name="Iba" component={SurveyLayoutEdit} />
-          <Route exact path='/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
-          <Route exact path='/surveys/alumni/url/:id' render={(props) => <SurveyView {...props} name="Alumni"/> } />
-          <Route exact path='/surveys/iba/url/:id' render={(props) => <SurveyView {...props} name="Iba"/> } />
+          <PrivateRoute exact path='/admin/surveys' component={Dashboard}/>
+          <PrivateRoute exact path='/admin/surveys/senior/edit' name="Senior" component={SurveyLayoutEdit} />
+          <PrivateRoute exact path='/admin/surveys/alumni/edit' name="Alumni" component={SurveyLayoutEdit} />
+          <PrivateRoute exact path='/admin/surveys/iba/edit' name="Iba" component={SurveyLayoutEdit} />
+          <Route exact path='/admin/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
+          <Route exact path='/admin/surveys/alumni/url/:id' render={(props) => <SurveyView {...props} name="Alumni"/> } />
+          <Route exact path='/admin/surveys/iba/url/:id' render={(props) => <SurveyView {...props} name="Iba"/> } />
           <Route path='/'>
             <Redirect to="/" />
           </Route>

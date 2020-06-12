@@ -12,9 +12,9 @@ const Header = props => {
     const authNavBar = () => {
         return (
             <Nav className="bg-light">
-                <Nav.Link href="/surveys/senior/edit" className="m-2 bg-light">Senior Survey</Nav.Link>
-                <Nav.Link href="/surveys/alumni/edit" className="m-2 bg-light">Alumni Survey</Nav.Link>
-                <Nav.Link href="/surveys/iba/edit" className="m-2 bg-light">Iba Survey</Nav.Link>
+                <Nav.Link href="/admin/surveys/senior/edit" className="m-2 bg-light">Senior Survey</Nav.Link>
+                <Nav.Link href="/admin/surveys/alumni/edit" className="m-2 bg-light">Alumni Survey</Nav.Link>
+                <Nav.Link href="/admin/surveys/iba/edit" className="m-2 bg-light">Iba Survey</Nav.Link>
                 <Button variant="light" className="m-2" onClick={onClickLogout}>Logout</Button> 
             </Nav>
         )

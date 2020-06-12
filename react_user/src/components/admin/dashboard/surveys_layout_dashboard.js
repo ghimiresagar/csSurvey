@@ -44,7 +44,7 @@ function Survey(props) {
                         </p>
                     }
                     <div className="text-center">
-                    <Link to={`/surveys/${props.name}/edit`} className="active">
+                    <Link to={`/admin/surveys/${props.name}/edit`} className="active">
                         <Button variant="primary">
                 { urlCount !== 0 ? "Edit Survey" : "Create Survey"}
                         </Button>    

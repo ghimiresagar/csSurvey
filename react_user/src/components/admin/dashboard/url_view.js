@@ -51,7 +51,7 @@ function UrlView(props) {
                 Survey Link:
             </Col>
             <Col sm={9}>
-                {'http://127.0.0.1:3000/surveys/'+props.name+'/url/'+props.value._id}
+                {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.value._id}
                 <br/><br/>
             </Col>
         </Row>

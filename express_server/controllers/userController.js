@@ -188,7 +188,7 @@ exports.senior_url_delete_post = function(req, res){
                             }, { multi: true } , callback);
                         }, function (err, result){
                             if (err) console.log(err);
-                            res.json({message: { msgBody: "Can't update result for this semester and year as it already exists.", msgError: true }});           
+                            res.json({message: { msgBody: "The results are already available. Can't update them anymore.", msgError: true }});           
                         }
                     });
                 }    
