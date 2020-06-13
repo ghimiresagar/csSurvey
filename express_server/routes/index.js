@@ -5,6 +5,7 @@ const passportConfig = require('../passport');
 
 // require control models
 let user_controller = require('../controllers/userController');
+const user = require('../models/user');
 
 /* url - / 
    everything is under this url as other's can only do surveys
@@ -35,6 +36,8 @@ router.post('/surveys/senior/url/delete/:id', passport.authenticate('jwt', {sess
 router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
 // sending the request to the server for posting results
 router.post('/surveys/senior/url/:id', user_controller.senior_url_check_post);
+
+router.post('/surveys/results/all', passport.authenticate('jwt', {session: false}), user_controller.get_senior_result);
 
 
 // get's the url object's id to display on url

@@ -30,6 +30,26 @@ const checkResult = (body) => {
     return ArchiveResult.countDocuments({ semester: body.semester, year: body.year, name: body.name });
 }
 
+// results
+exports.get_senior_result = function (req, res) {
+    console.log(req.body);
+    const survey = {
+        name: req.body.type,
+        year: req.body.year,
+        semester: req.body.semester
+    }
+    ArchiveResult.findOne({ name: survey.name, year: survey.year, semester: survey.semester })
+        .then(result => {
+            res.json({ "result": result });
+            // console.log(result);
+            // res.send(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({ "result": err });
+        });
+}
+
 // /users
 //--------------------- ADMIN URL CONTROLLERS ----------------------------
 exports.index = function (req, res, next) {
@@ -80,7 +100,7 @@ exports.senior_url_post = function(req, res) {
         result: {
             semester: req.body.semester,
             year: new Date().getFullYear(),
-            name: 'senior'
+            name: 'Senior'
         }
     })
         .then(updated => {
@@ -106,7 +126,7 @@ exports.senior_url_create_post = function(req, res){
         result: {
                 semester: 'Spring',
                 year: new Date().getFullYear(),
-                name: 'senior'
+                name: 'Senior'
             }
         }
     )
@@ -263,7 +283,7 @@ exports.senior_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.senior_url_check_post = function(req, res){
-    checkIp(req, 'senior')
+    checkIp(req, 'Senior')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -299,7 +319,7 @@ exports.senior_url_check_post = function(req, res){
             const address = new IpAddress({
                 url: req.params.id,
                 ip: getIp(req),
-                name: 'senior'
+                name: 'Senior'
             });
             address.save()
             .catch(err => console.log(err));
@@ -337,7 +357,7 @@ exports.alumni_url_post = function(req, res) {
         result: {
             semester: req.body.semester,
             year: new Date().getFullYear(),
-            name: 'senior'
+            name: 'Senior'
         }
     })
         .then(updated => {
@@ -358,7 +378,7 @@ exports.alumni_url_create_post = function(req, res){
         result: {
             semester: 'Spring',
             year: new Date().getFullYear(),
-            name: 'alumni'
+            name: 'Alumni'
         }
         }
     )
@@ -518,7 +538,7 @@ exports.alumni_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.alumni_url_check_post = function(req, res){
-    checkIp(req, 'alumni')
+    checkIp(req, 'Alumni')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -554,7 +574,7 @@ exports.alumni_url_check_post = function(req, res){
             const address = new IpAddress({
                 url: req.params.id,
                 ip: getIp(req),
-                name: 'alumni'
+                name: 'Alumni'
             });
             address.save()
             .catch(err => console.log(err));
@@ -593,7 +613,7 @@ exports.iba_url_post = function(req, res) {
         result: {
             semester: req.body.semester,
             year: new Date().getFullYear(),
-            name: 'senior'
+            name: 'Iba'
         }
     })
         .then(updated => {
@@ -615,7 +635,7 @@ exports.iba_url_create_post = function(req, res){
             result: {
                 semester: 'Spring',
                 year: new Date().getFullYear(),
-                name: 'iba'
+                name: 'Iba'
             }
             }
     )
@@ -776,7 +796,7 @@ exports.iba_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.iba_url_check_post = function(req, res){
-    checkIp(req, 'iba')
+    checkIp(req, 'Iba')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -812,7 +832,7 @@ exports.iba_url_check_post = function(req, res){
             const address = new IpAddress({
                 url: req.params.id,
                 ip: getIp(req),
-                name: 'iba'
+                name: 'Iba'
             });
             address.save()
             .catch(err => console.log(err));
