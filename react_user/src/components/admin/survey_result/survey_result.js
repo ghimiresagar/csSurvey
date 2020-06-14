@@ -15,6 +15,7 @@ function SurveyResult() {
     });
     const [obj, setObj] = useState([]);
     const [message, setMessage] = useState('');
+    const [contains, setContains] = useState(false);
 
     useEffect(() => {
         fetchResults()
@@ -27,6 +28,7 @@ function SurveyResult() {
             } else {
                 const got = Object.keys(result).map(keys => result[keys]);
                 setObj(got[0]['result']);           // array of objects
+                setContains(true);
             }
         })
     }, [change]);
@@ -46,18 +48,17 @@ function SurveyResult() {
         
         setSurvey({ ...survey, [e.target.name]: e.target.value });
         setObj([]);
+        setContains(false);
         setMessage(null);
         setChange(change + 1);
     }
 
-    // console.log(values);
-    console.log(obj);
     return (
         <Container>
             <SurveySearch onChangeHandle={onChangeHandle} />
             {message ? <Message message={message} /> : null }
             <br />
-            <ResultLayoutMain value={obj} />
+            {contains ? <ResultLayoutMain value={obj} /> : null }
         </Container>
     );
 }

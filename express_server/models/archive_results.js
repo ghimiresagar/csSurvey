@@ -8,8 +8,9 @@ ArchiveResultSchema = new Schema(
         year: { type: Number, require: true},
         result: [
             {
-                q_title: { type: String },
-                rate: { type: Array, default: [ 0, 0, 0, 0, 0 ] },
+                q_title: { type: String, required: true },
+                q_type: { type: String, required: true },
+                rate: { type: Object },
                 comment: { type: Array }
             }
         ]

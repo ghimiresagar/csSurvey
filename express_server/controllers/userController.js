@@ -211,23 +211,6 @@ exports.senior_url_archive_post = function(req, res){
                     });
                 } else {                        // if old update
                     res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
-
-                    // async.parallel({
-                    //     deleteIp: function(callback){
-                    //         IpAddress.remove({ "url": req.params.id }, callback);
-                    //     },
-                    //     deleteUrl: function(callback){
-                    //         SeniorSurvey.findOneAndDelete({ "type": "url" }, callback);
-                    //     },
-                    //     deleteQuestionResults: function(callback){
-                    //         SeniorSurvey.update({ "type": "question" }, {
-                    //             $unset: { "result": {} } 
-                    //         }, { multi: true } , callback);
-                    //     }, function (err, result){
-                    //         if (err) console.log(err);
-                    //         res.json({message: { msgBody: "The results are already available. Can't update them anymore.", msgError: true }});           
-                    //     }
-                    // });
                 }    
                 
                 res.json({message: { msgBody: "Something went wrong!", msgError: true }});           

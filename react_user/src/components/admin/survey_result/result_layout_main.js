@@ -3,26 +3,24 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import BootstrapTable from 'react-bootstrap-table-next';
 
-import ResultLayoutRate from './result_layout_rate';
-import ResultLayoutComment from './result_layout_comment';
-
 function ResultLayoutMain(props) {
 
-    const [values, setValues] = useState([]);
+    const [valuesRates, setValuesRates] = useState([]);
+    const [valuesComments, setValuesComments] = useState([]);
 
     for (const [x, y] of props.value.entries()) {
         if (y.q_type === "Rate") {
-            values.push({
+            valuesRates.push({
                 id: x+1,
                 title: y.q_title,
-                rate1: y.rate[0][1],
-                rate2: y.rate[0][2],
-                rate3: y.rate[0][3],
-                rate4: y.rate[0][4],
-                rate5: y.rate[0][5]
+                rate1: y.rate['1'],
+                rate2: y.rate['2'],
+                rate3: y.rate['3'],
+                rate4: y.rate['4'],
+                rate5: y.rate['5']
             });
         } else {
-            values.push({
+            valuesComments.push({
                 id: x+1,
                 title: y.q_title,
                 comment: y.comment
@@ -30,14 +28,17 @@ function ResultLayoutMain(props) {
         }
     }
 
-    const columns = [{
+    const columnsRates = [{
         dataField: 'id',
         text: '#',
         sort: true
       }, {
         dataField: 'title',
         text: 'Question',
-        sort: true
+        sort: true,
+        headerStyle: {
+          width: '70%', textAlign: 'center'
+        }
       }, {
         dataField: 'rate5',
         text: '5'
@@ -53,17 +54,37 @@ function ResultLayoutMain(props) {
       }, {
         dataField: 'rate1',
         text: '1'
+      }];
+
+      const columnsComments = [{
+        dataField: 'id',
+        text: '#',
+        sort: true
+      }, {
+        dataField: 'title',
+        text: 'Question',
+        sort: true,
+        headerStyle: {
+          width: '70%', textAlign: 'center'
+        }
       }, {
         dataField: 'comment',
         text: 'Comments'
       }];
 
     return (
+      <>
         <BootstrapTable 
             keyField="id"
-            data={ values }
-            columns={ columns } />
-    )
+            data={ valuesRates }
+            columns={ columnsRates } />
+            <br />
+          <BootstrapTable 
+              keyField="id"
+              data={ valuesComments }
+              columns={ columnsComments } />
+      </>
+    );
 }
 
 export default ResultLayoutMain;
