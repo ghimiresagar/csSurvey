@@ -10,14 +10,17 @@ function ResultLayoutMain(props) {
 
     for (const [x, y] of props.value.entries()) {
         if (y.q_type === "Rate") {
+            let rateArr = [y.rate['1'], y.rate['2'], y.rate['3'], y.rate['4'], y.rate['5']];
+            let rateAvg = (rateArr[0]+rateArr[1]+rateArr[2]+rateArr[3]+rateArr[4]) / rateArr.length;
             valuesRates.push({
                 id: x+1,
                 title: y.q_title,
-                rate1: y.rate['1'],
-                rate2: y.rate['2'],
-                rate3: y.rate['3'],
-                rate4: y.rate['4'],
-                rate5: y.rate['5']
+                rate1: rateArr[0],
+                rate2: rateArr[1],
+                rate3: rateArr[2],
+                rate4: rateArr[3],
+                rate5: rateArr[4],
+                avg: rateAvg
             });
         } else {
             valuesComments.push({
@@ -54,6 +57,9 @@ function ResultLayoutMain(props) {
       }, {
         dataField: 'rate1',
         text: '1'
+      }, {
+        dataField: 'avg',
+        text: 'Avg'
       }];
 
       const columnsComments = [{
