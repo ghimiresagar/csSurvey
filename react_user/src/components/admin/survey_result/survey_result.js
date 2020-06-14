@@ -3,11 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 
 import SurveySearch from './survey_search';
-import ResultLayout from './result_layout';
+import ResultLayoutMain from './result_layout_main';
 import Message from '../../message';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
 
 function SurveyResult() {
     const [change, setChange] = useState(0);
@@ -29,7 +26,7 @@ function SurveyResult() {
                 });
             } else {
                 const got = Object.keys(result).map(keys => result[keys]);
-                setObj(got[0]['result']);
+                setObj(got[0]['result']);           // array of objects
             }
         })
     }, [change]);
@@ -46,26 +43,21 @@ function SurveyResult() {
 
     const onChangeHandle = (e) => {
         e.preventDefault();
-        // if (survey.year.length !== 4) 
+        
         setSurvey({ ...survey, [e.target.name]: e.target.value });
-        setMessage(null);
         setObj([]);
+        setMessage(null);
         setChange(change + 1);
     }
 
-    const questions = obj.map(element => (
-        <ResultLayout 
-            key={element._id}
-            value={element} />
-    ));
-
-
-
+    // console.log(values);
+    console.log(obj);
     return (
         <Container>
             <SurveySearch onChangeHandle={onChangeHandle} />
             {message ? <Message message={message} /> : null }
-            {questions}
+            <br />
+            <ResultLayoutMain value={obj} />
         </Container>
     );
 }

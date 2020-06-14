@@ -180,6 +180,7 @@ exports.senior_url_archive_post = function(req, res){
                 (result.question).forEach(element => {
                     body.result.push({
                         q_title: element.title,
+                        q_type: element.input_type,
                         rate: element.result.rate,
                         comment: element.result.comment
                     });
@@ -434,6 +435,7 @@ exports.alumni_url_archive_post = function(req, res){
                 (result.question).forEach(element => {
                     body.result.push({
                         q_title: element.title,
+                        q_type: element.input_type,
                         rate: element.result.rate,
                         comment: element.result.comment
                     });
@@ -691,6 +693,7 @@ exports.iba_url_archive_post = function(req, res){
                 (result.question).forEach(element => {
                     body.result.push({
                         q_title: element.title,
+                        q_type: element.input_type,
                         rate: element.result.rate,
                         comment: element.result.comment
                     });
