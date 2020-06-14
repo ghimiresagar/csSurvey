@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-IbaSurveySchema = new Schema(
+IabSurveySchema = new Schema(
     {
         title: {type: String, required: true, unique: true},
         input_type: {type: String},
@@ -25,4 +25,4 @@ IbaSurveySchema = new Schema(
     }
 );
 
-module.exports = mongoose.model('IbaSurvey', IbaSurveySchema);
+module.exports = mongoose.model('IabSurvey', IabSurveySchema);

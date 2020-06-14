@@ -1,7 +1,7 @@
 var User = require('../models/user');
 var SeniorSurvey = require('../models/senior_survey');
 let AlumniSurvey = require('../models/alumni_survey');
-let IbaSurvey = require('../models/iba_survey');
+let IabSurvey = require('../models/iab_survey');
 let IpAddress = require('../models/ip_addresses');
 let ArchiveResult = require('../models/archive_results');
 let async = require('async');
@@ -574,14 +574,14 @@ exports.alumni_url_check_post = function(req, res){
     });
 }
 
-// iba
-exports.iba_url_get = function(req, res){
+// iab
+exports.iab_url_get = function(req, res){
     async.parallel({
         question: function(callback){
-            IbaSurvey.find({"type": "url"}, callback);
+            IabSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
-            IbaSurvey.countDocuments({"type": "url"}, callback);
+            IabSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -591,14 +591,14 @@ exports.iba_url_get = function(req, res){
 
 
 // update url details part
-exports.iba_url_post = function(req, res) {
-    IbaSurvey.findOneAndUpdate({"_id": req.body.id }, {
+exports.iab_url_post = function(req, res) {
+    IabSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
         type: 'url',
         result: {
             semester: req.body.semester,
             year: new Date().getFullYear(),
-            name: 'Iba'
+            name: 'Iab'
         }
     })
         .then(updated => {
@@ -608,9 +608,9 @@ exports.iba_url_post = function(req, res) {
         .catch(err => console.log(err));
 };
 
-exports.iba_url_create_post = function(req, res){
+exports.iab_url_create_post = function(req, res){
     function saveSeniorUrl (question) {
-        const c = new IbaSurvey(question)
+        const c = new IabSurvey(question)
         return c.save()
       }
     saveSeniorUrl(
@@ -620,7 +620,7 @@ exports.iba_url_create_post = function(req, res){
             result: {
                 semester: 'Spring',
                 year: new Date().getFullYear(),
-                name: 'Iba'
+                name: 'Iab'
             }
             }
     )
@@ -632,9 +632,9 @@ exports.iba_url_create_post = function(req, res){
 
 
 // delete url
-exports.iba_url_delete_post = function(req, res){
+exports.iab_url_delete_post = function(req, res){
     if (req.params.id) {
-        IbaSurvey.findOneAndDelete({ "type": "url" })
+        IabSurvey.findOneAndDelete({ "type": "url" })
         .then(data => {
             res.json({message: { msgBody: "Deleting Survey Link.", msgError: true }});           
         })
@@ -644,7 +644,7 @@ exports.iba_url_delete_post = function(req, res){
 
 // archive url
 // while deleting take all the results and put it into archive table
-exports.iba_url_archive_post = function(req, res){
+exports.iab_url_archive_post = function(req, res){
     // check if we have valid id being passed as type url is only one
     if (req.params.id) {        // see if we have id present
         const body = {
@@ -656,11 +656,11 @@ exports.iba_url_archive_post = function(req, res){
         // get things in parallel
         async.parallel({
             detail: function(callback) {
-                IbaSurvey.findOne({ $and: [{"_id" : req.params.id}, {"type": "url"} ] },  
+                IabSurvey.findOne({ $and: [{"_id" : req.params.id}, {"type": "url"} ] },  
                 callback);
             },
             question: function(callback) {
-                IbaSurvey.find({ "type": "question" }, 
+                IabSurvey.find({ "type": "question" }, 
                  callback);
             }
         }, function (err, result) {     // when we get our url and questions
@@ -694,10 +694,10 @@ exports.iba_url_archive_post = function(req, res){
                             IpAddress.remove({ "url": req.params.id }, callback);
                         },
                         deleteUrl: function(callback){
-                            IbaSurvey.findOneAndDelete({ "type": "url" }, callback);
+                            IabSurvey.findOneAndDelete({ "type": "url" }, callback);
                         },
                         deleteQuestionResults: function(callback){
-                            IbaSurvey.update({ "type": "question" }, {
+                            IabSurvey.update({ "type": "question" }, {
                                 $unset: { "result": {} } 
                             }, { multi: true } , callback);
                         }, function (err, result){
@@ -712,10 +712,10 @@ exports.iba_url_archive_post = function(req, res){
                     //         IpAddress.remove({ "url": req.params.id }, callback);
                     //     },
                     //     deleteUrl: function(callback){
-                    //         IbaSurvey.findOneAndDelete({ "type": "url" }, callback);
+                    //         iabSurvey.findOneAndDelete({ "type": "url" }, callback);
                     //     },
                     //     deleteQuestionResults: function(callback){
-                    //         IbaSurvey.update({ "type": "question" }, {
+                    //         iabSurvey.update({ "type": "question" }, {
                     //             $unset: { "result": {} } 
                     //         }, { multi: true } , callback);
                     //     }, function (err, result){
@@ -736,12 +736,12 @@ exports.iba_url_archive_post = function(req, res){
 
 
 // if url exists, get all the questions
-exports.iba_url_check_get = function(req, res){
+exports.iab_url_check_get = function(req, res){
     if (req.params.id){     // if url id is present in the link, check this
         // check if the ip address passed is not present on the list
         checkIp(req).then(doc => {
             if (doc === 0) {    // ip is not found
-                IbaSurvey.findOne({ "_id": req.params.id }, function(err, result){
+                IabSurvey.findOne({ "_id": req.params.id }, function(err, result){
                     if (err) console.log(err);
                     if (!result) {
                         res.json({"value": null});
@@ -751,15 +751,15 @@ exports.iba_url_check_get = function(req, res){
                         // basically same as senior update get
                         async.parallel({
                             question: function(callback){
-                                IbaSurvey.find({"type": "question"}, callback)
+                                IabSurvey.find({"type": "question"}, callback)
                                 .sort({question_type: 1})
                                 .sort({input_type: -1});
                             },
                             number_question: function(callback){
-                                IbaSurvey.countDocuments({"type": "question"}, callback);
+                                IabSurvey.countDocuments({"type": "question"}, callback);
                             },
                             detail: function(callback){
-                                IbaSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
+                                IabSurvey.findOne({"_id":req.params.id}, {"title": 1, "_id":0}, callback);
                             }
                         }, function(err, results){
                             if (err) console.log(err);
@@ -781,8 +781,8 @@ exports.iba_url_check_get = function(req, res){
 }
 
 // post the result to the respective question
-exports.iba_url_check_post = function(req, res){
-    checkIp(req, 'Iba')
+exports.iab_url_check_post = function(req, res){
+    checkIp(req, 'Iab')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -790,7 +790,7 @@ exports.iba_url_check_post = function(req, res){
                     console.log(); // empty log for null
                 } else if (element.input_val === "Rate"){
                     let x = "result.rate.";
-                    IbaSurvey.updateOne({"_id": element.id}, 
+                    IabSurvey.updateOne({"_id": element.id}, 
                             { $inc: { [x + element.value ] : 1} })
                             // because in a loop can't send response now, send at the end
                         .then(result => {
@@ -802,7 +802,7 @@ exports.iba_url_check_post = function(req, res){
                         });
                 } else {
                     let x = "result.comment";
-                    IbaSurvey.updateOne({"_id": element.id}, 
+                    IabSurvey.updateOne({"_id": element.id}, 
                             { $push: { [x] : element.value } })
                             // because in a loop can't send response now, send at the end
                         .then(result => {
@@ -818,12 +818,12 @@ exports.iba_url_check_post = function(req, res){
             const address = new IpAddress({
                 url: req.params.id,
                 ip: getIp(req),
-                name: 'Iba'
+                name: 'Iab'
             });
             address.save()
             .catch(err => console.log(err));
             // update number of survey takers
-            IbaSurvey.updateOne({"type": "url"}, { $inc: {"result.numberOfParts": 1} })
+            IabSurvey.updateOne({"type": "url"}, { $inc: {"result.numberOfParts": 1} })
             .catch(err => console.log(err));
             res.json({ message: {msgBody: "Success. You will be soon redirected.", msgError: false} });
         
@@ -1013,19 +1013,19 @@ exports.alumni_delete_post = function(req, res) {
     .catch(err => console.log(err));
 };
 
-//--------------------- IBA SURVEY ----------------------------
-// users/iba/
+//--------------------- IAB SURVEY ----------------------------
+// users/iab/
 
-exports.iba_survey_get = function(req, res){
+exports.iab_survey_get = function(req, res){
     async.parallel({
         question: function(callback){
-            IbaSurvey.find({"type": "url"}, callback);
+            IabSurvey.find({"type": "url"}, callback);
         },
         number_question: function(callback){
-            IbaSurvey.countDocuments({"type": "question"}, callback);
+            IabSurvey.countDocuments({"type": "question"}, callback);
         },
         number_url: function(callback){
-            IbaSurvey.countDocuments({"type": "url"}, callback);
+            IabSurvey.countDocuments({"type": "url"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -1034,21 +1034,21 @@ exports.iba_survey_get = function(req, res){
     });
 };
 
-exports.iba_detail_get = function(req, res){
-    res.send("iba Survey Detail get" + req.params.id);
+exports.iab_detail_get = function(req, res){
+    res.send("iab Survey Detail get" + req.params.id);
 };
 
-exports.iba_create_get = function(req, res){
-    res.send("iba Survey Create Get");
+exports.iab_create_get = function(req, res){
+    res.send("iab Survey Create Get");
 };
 
-exports.iba_create_post = function(req, res){
-    function saveIbaQuestion (question) {
-        const c = new IbaSurvey(question)
+exports.iab_create_post = function(req, res){
+    function saveIabQuestion (question) {
+        const c = new IabSurvey(question)
         return c.save()
       }
 
-    saveIbaQuestion({
+    saveIabQuestion({
         title: req.body.title,
         input_type: req.body.input_type,
         question_type: req.body.question_type
@@ -1060,15 +1060,15 @@ exports.iba_create_post = function(req, res){
         .catch(err => { console.error(err)})
 };
 
-exports.iba_update_get = function(req, res){
+exports.iab_update_get = function(req, res){
     async.parallel({
         question: function(callback){
-            IbaSurvey.find({"type": "question"}, callback)
+            IabSurvey.find({"type": "question"}, callback)
             .sort({question_type: 1})
             .sort({input_type: -1});
         },
         number_question: function(callback){
-            IbaSurvey.countDocuments({"type": "question"}, callback);
+            IabSurvey.countDocuments({"type": "question"}, callback);
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -1076,8 +1076,8 @@ exports.iba_update_get = function(req, res){
     });
 };
 
-exports.iba_update_post = function(req, res) {
-    IbaSurvey.findOneAndUpdate({"_id": req.body.id }, {
+exports.iab_update_post = function(req, res) {
+    IabSurvey.findOneAndUpdate({"_id": req.body.id }, {
         title: req.body.title,
         input_type: req.body.input_type,
         question_type: req.body.question_type
@@ -1089,12 +1089,12 @@ exports.iba_update_post = function(req, res) {
         .catch(err => console.log(err));
 };
 
-exports.iba_delete_get = function(req, res) {
-    res.send("iba Survey Delete get");
+exports.iab_delete_get = function(req, res) {
+    res.send("iab Survey Delete get");
 };
 
-exports.iba_delete_post = function(req, res) {
-    IbaSurvey.findOneAndDelete({ "_id": req.body.id })
+exports.iab_delete_post = function(req, res) {
+    IabSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
         // console.log(deleted)
         res.json(deleted)

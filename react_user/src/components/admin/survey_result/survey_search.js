@@ -18,7 +18,7 @@ function SurveySearch(props) {
                         onChange={props.onChangeHandle}>
                         <option>Senior</option>
                         <option>Alumni</option>
-                        <option>Iba</option>
+                        <option>Iab</option>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col}>

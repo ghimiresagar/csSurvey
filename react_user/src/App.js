@@ -24,11 +24,11 @@ function App() {
           <PrivateRoute exact path='/admin/surveys' component={Dashboard}/>
           <PrivateRoute exact path='/admin/surveys/senior/edit' name="Senior" component={SurveyLayoutEdit} />
           <PrivateRoute exact path='/admin/surveys/alumni/edit' name="Alumni" component={SurveyLayoutEdit} />
-          <PrivateRoute exact path='/admin/surveys/iba/edit' name="Iba" component={SurveyLayoutEdit} />
+          <PrivateRoute exact path='/admin/surveys/iab/edit' name="IAB" component={SurveyLayoutEdit} />
           <PrivateRoute exact path='/admin/surveys/results' component={SurveyResult} />
           <Route exact path='/admin/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
           <Route exact path='/admin/surveys/alumni/url/:id' render={(props) => <SurveyView {...props} name="Alumni"/> } />
-          <Route exact path='/admin/surveys/iba/url/:id' render={(props) => <SurveyView {...props} name="Iba"/> } />
+          <Route exact path='/admin/surveys/iab/url/:id' render={(props) => <SurveyView {...props} name="IAB"/> } />
           <Route path='/'>
             <Redirect to="/" />
           </Route>

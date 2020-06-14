@@ -14,7 +14,7 @@ function Dashboard() {
         <Container>
             <Survey name="Senior" />
             <Survey name="Alumni" />
-            <Survey name="Iba" />
+            <Survey name="IAB" />
         </Container>
     );
 }
