@@ -133,7 +133,7 @@ function EditUrl(props) {
                                 <Col sm={2}>
                                 <Card.Text className="text-center">
                                     <Button variant="primary m-2" onClick={updateQuestion}>
-                                        Update Details
+                                        Edit Description
                                     </Button> 
                                     <Button variant="warning" className='m-2' onClick={deleteSurvey}>
                                             Close Survey
