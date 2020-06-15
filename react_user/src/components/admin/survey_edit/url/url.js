@@ -15,12 +15,14 @@ function Url(props) {
 
     const [count, setCount] = useState(0);
     const [obj, setObj] = useState([]);
+    const [urlId, setUrlId] = useState("");
 
     useEffect(() => {
         getQuery()
         .then(body => {
-            setCount(body.number_question);
-            setObj(Object.keys(body.question).map(keys => body.question[keys]));
+            setCount(body.number_url);
+            setObj(Object.keys(body.details).map(keys => body.details[keys]));
+            setUrlId(body.urlId._id);
         })
         .catch(err => console.log(err));
     }, [change]);
@@ -64,7 +66,7 @@ function Url(props) {
     if (count === 1) {
         for (const [x , y] of obj.entries()) {
         questions.push(
-            <EditUrl key={x} value={y} name={props.name} num={props.num} count={count} onChangeHandle={onChangeHandle}/>
+            <EditUrl key={x} value={y} urlId={urlId} name={props.name} num={props.num} count={count} onChangeHandle={onChangeHandle}/>
         )
         }
     }

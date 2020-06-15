@@ -142,8 +142,11 @@ function SurveyView(props) {
                                     <div className="m-1">
                                         2
                                     </div>
-                                    <div className="mt-1">
+                                    <div className="m-1">
                                         1
+                                    </div>
+                                    <div className="m-1">
+                                        N/A
                                     </div>
                                 </Row>
                             </Col>

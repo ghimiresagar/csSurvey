@@ -46,7 +46,7 @@ function UrlView(props) {
                 {props.value.result.numberOfParts}
             </Col>
         </Row>
-        <Row>
+        {/* <Row>
             <Col sm={3}>
                 Survey Link:
             </Col>
@@ -54,7 +54,7 @@ function UrlView(props) {
                 {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.value._id}
                 <br/><br/>
             </Col>
-        </Row>
+        </Row> */}
         </>
     )
 };

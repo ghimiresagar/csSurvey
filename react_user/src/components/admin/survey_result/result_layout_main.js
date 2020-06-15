@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 
-import Container from 'react-bootstrap/Container';
 import BootstrapTable from 'react-bootstrap-table-next';
 
 function ResultLayoutMain(props) {
 
     const [valuesRates, setValuesRates] = useState([]);
     const [valuesComments, setValuesComments] = useState([]);
-
+    console.log(props.numberOfParts);
     for (const [x, y] of props.value.entries()) {
         if (y.q_type === "Rate") {
-            let rateArr = [y.rate['1'], y.rate['2'], y.rate['3'], y.rate['4'], y.rate['5']];
-            let rateAvg = (rateArr[0]+rateArr[1]+rateArr[2]+rateArr[3]+rateArr[4]) / rateArr.length;
+            let rateArr = [y.rate['0'], y.rate['1'], y.rate['2'], y.rate['3'], y.rate['4'], y.rate['5']];
+            let sumArr = rateArr.reduce((a, b) => a+b, 0);
+            let rateAvg = sumArr / props.numberOfParts;
             valuesRates.push({
                 id: x+1,
                 title: y.q_title,
-                rate1: rateArr[0],
-                rate2: rateArr[1],
-                rate3: rateArr[2],
-                rate4: rateArr[3],
-                rate5: rateArr[4],
-                avg: rateAvg
+                rate0: rateArr[0],
+                rate1: rateArr[1],
+                rate2: rateArr[2],
+                rate3: rateArr[3],
+                rate4: rateArr[4],
+                rate5: rateArr[5],
+                avg: rateAvg.toPrecision(3),
             });
         } else {
             valuesComments.push({
@@ -57,6 +58,9 @@ function ResultLayoutMain(props) {
       }, {
         dataField: 'rate1',
         text: '1'
+      }, {
+        dataField: 'rate0',
+        text: 'N/A'
       }, {
         dataField: 'avg',
         text: 'Avg'

@@ -42,6 +42,14 @@ function InputRate(props) {
                         id={props.id}
                         typeval = "Rate"
                         onChange={props.handleChange}/>
+            <Form.Check type="radio" 
+                        name={"question-"+props.number} 
+                        num = {props.number-1}
+                        value={0} 
+                        id={props.id}
+                        typeval = "Rate"
+                        onChange={props.handleChange}
+                        required/>
         </Row>
     );
 }

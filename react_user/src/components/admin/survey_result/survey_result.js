@@ -14,6 +14,7 @@ function SurveyResult() {
         semester: "Spring"
     });
     const [obj, setObj] = useState([]);
+    const [numberOfParts, setNumberOfParts] = useState(0);
     const [message, setMessage] = useState('');
     const [contains, setContains] = useState(false);
 
@@ -27,6 +28,7 @@ function SurveyResult() {
                 });
             } else {
                 const got = Object.keys(result).map(keys => result[keys]);
+                setNumberOfParts(got[0].numberOfParts);
                 setObj(got[0]['result']);           // array of objects
                 setContains(true);
             }
@@ -58,7 +60,7 @@ function SurveyResult() {
             <SurveySearch onChangeHandle={onChangeHandle} />
             {message ? <Message message={message} /> : null }
             <br />
-            {contains ? <ResultLayoutMain value={obj} /> : null }
+            {contains ? <ResultLayoutMain value={obj} numberOfParts={numberOfParts} /> : null }
         </Container>
     );
 }

@@ -14,6 +14,7 @@ IabSurveySchema = new Schema(
                 name: {type: String}, 
                 numberOfParts: {type: Number, default: 0},  
                 rate: {
+                    0: {type: Number, default: 0},
                     1: {type: Number, default: 0},
                     2: {type: Number, default: 0},
                     3: {type: Number, default: 0},

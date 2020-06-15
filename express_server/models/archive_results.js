@@ -6,6 +6,7 @@ ArchiveResultSchema = new Schema(
         name: { type: String, required: true },
         semester: { type: String, required: true},
         year: { type: Number, require: true},
+        numberOfParts: { type: Number, require: true },
         result: [
             {
                 q_title: { type: String, required: true },

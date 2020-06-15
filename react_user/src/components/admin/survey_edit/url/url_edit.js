@@ -45,7 +45,7 @@ function EditUrl(props) {
 
     function deleteSurvey(e) {
         e.preventDefault();
-        fetch("/surveys/"+props.name+"/url/delete/"+props.value._id, {
+        fetch("/surveys/"+props.name+"/url/delete/"+props.urlId, {          // using id of url
             method: 'post'
         })
         .then(res => res.json())
@@ -61,7 +61,7 @@ function EditUrl(props) {
     function archiveSurvey(e) {
         e.preventDefault();
 
-        fetch("/surveys/"+props.name+"/url/archive/"+props.value._id, {
+        fetch("/surveys/"+props.name+"/url/archive/"+props.value._id, {         // using id of detail
             method: 'post'
         })
         .then(res => res.json())
@@ -160,11 +160,11 @@ function EditUrl(props) {
                                 </Col>
                                 <Col sm={8}>
                                     <Card.Text>  
-                                        {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.value._id}
+                                        {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.urlId}
                                     </Card.Text>
                                 </Col>
                                 <Col sm={2} className="text-center">
-                                    <a href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.value._id}>
+                                    <a href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.urlId}>
                                         <Button variant="success">Preview Survey</Button>    
                                     </a>
                                 </Col>
