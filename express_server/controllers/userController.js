@@ -53,6 +53,7 @@ exports.get_senior_result = function (req, res) {
 // /users
 //--------------------- ADMIN URL CONTROLLERS ----------------------------
 exports.index = function (req, res, next) {
+    // res.sendFile(path.join(__dirname, '../build/index.html'));
     res.status(200).json({ message: { msgBody: "Login to manage Surveys.", msgError: false } });
 }
 

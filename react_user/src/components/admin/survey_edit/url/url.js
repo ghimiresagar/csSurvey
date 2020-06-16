@@ -152,10 +152,12 @@ function Url(props) {
                             <Col sm={7}>
                                 <Card.Text>  
                                     {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}
+                                    {/* {'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id} */}
                                 </Card.Text>
                             </Col>
                             <Col sm={2} className="text-center">
                                 <a href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}>
+                                {/* <a href={'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}> */}
                                     <Button variant="success">Preview Survey</Button>    
                                 </a>
                             </Col>
