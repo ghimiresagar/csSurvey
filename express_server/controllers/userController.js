@@ -81,16 +81,20 @@ exports.authenticated = function (req, res) {
 exports.senior_url_get = function(req, res){
     async.parallel({
         details: function(callback){
-            SeniorSurvey.find({"type": "detail"}, callback);
+            SeniorSurvey.findOne({"type": "detail"}, callback);
         },
         number_url: function(callback){
             SeniorSurvey.countDocuments({"type": "url"}, callback);
+        },
+        number_detail: function(callback) {
+            SeniorSurvey.countDocuments({"type": "detail"}, callback);
         },
         urlId: function(callback){
             SeniorSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
     }, function(err, result){
         if (err) console.log(err);
+        if (!result) res.send(null);
         res.send(result);
     });
 }
@@ -244,7 +248,7 @@ exports.senior_url_check_get = function(req, res){
         // check if the ip address passed is not present on the list
         checkIp(req, 'Senior').then(doc => {
             if (doc === 0) {    // ip is not found
-                SeniorSurvey.findOne({ "_id" : req.params.id }, function(err, result){
+                SeniorSurvey.findOne({ "_id" : req.params.id, "type": "url" }, function(err, result){
                     if (err) console.log(err);
                     if (!result) {
                         res.json({"value": null});
@@ -339,16 +343,20 @@ exports.senior_url_check_post = function(req, res){
 exports.alumni_url_get = function(req, res){
     async.parallel({
         details: function(callback){
-            AlumniSurvey.find({"type": "detail"}, callback);
+            AlumniSurvey.findOne({"type": "detail"}, callback);
         },
         number_url: function(callback){
             AlumniSurvey.countDocuments({"type": "url"}, callback);
+        },
+        number_detail: function(callback) {
+            AlumniSurvey.countDocuments({"type": "detail"}, callback);
         },
         urlId: function(callback){
             AlumniSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
     }, function(err, result){
         if (err) console.log(err);
+        if (!result) res.send(null);
         res.send(result);
     });
 }
@@ -516,7 +524,7 @@ exports.alumni_url_check_get = function(req, res){
         // check if the ip address passed is not present on the list
         checkIp(req, 'Alumni').then(doc => {
             if (doc === 0) {    // ip is not found
-                AlumniSurvey.findOne({ "_id" : req.params.id }, function(err, result){
+                AlumniSurvey.findOne({ "_id" : req.params.id, "type": "url" }, function(err, result){
                     if (err) console.log(err);
                     if (!result) {
                         res.json({"value": null});
@@ -610,20 +618,23 @@ exports.alumni_url_check_post = function(req, res){
 exports.iab_url_get = function(req, res){
     async.parallel({
         details: function(callback){
-            IabSurvey.find({"type": "detail"}, callback);
+            IabSurvey.findOne({"type": "detail"}, callback);
         },
         number_url: function(callback){
             IabSurvey.countDocuments({"type": "url"}, callback);
+        },
+        number_detail: function(callback) {
+            IabSurvey.countDocuments({"type": "detail"}, callback);
         },
         urlId: function(callback){
             IabSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
     }, function(err, result){
         if (err) console.log(err);
+        if (!result) res.send(null);
         res.send(result);
     });
 }
-
 
 // update url details part searching by type of detail
 exports.iab_url_post = function(req, res) {
@@ -775,7 +786,7 @@ exports.iab_url_check_get = function(req, res){
         // check if the ip address passed is not present on the list
         checkIp(req, 'Iab').then(doc => {
             if (doc === 0) {    // ip is not found
-                IabSurvey.findOne({ "_id" : req.params.id }, function(err, result){
+                IabSurvey.findOne({ "_id" : req.params.id, "type": "url" }, function(err, result){
                     if (err) console.log(err);
                     if (!result) {
                         res.json({"value": null});
@@ -807,8 +818,6 @@ exports.iab_url_check_get = function(req, res){
                 });
             }
         });
-        
-        
     }
 }
 
@@ -870,22 +879,23 @@ exports.iab_url_check_post = function(req, res){
 //--------------------- SENIOR SURVEY CONTROLLERS ----------------------------
 
 // users/senior - dashboard
-exports.senior_survey_get = function(req, res){
-    async.parallel({
-        question: function(callback){
-            SeniorSurvey.find({"type": "detail"}, callback);
-        },
-        number_question: function(callback){
-            SeniorSurvey.countDocuments({"type": "question"}, callback);
-        },
-        number_url: function(callback){
-            SeniorSurvey.countDocuments({'type': 'detail'}, callback);
-        }
-    }, function(err, result){
-        if (err) console.log(err);
-        res.status(200).send(result);
-    });
-};
+
+// exports.senior_survey_get = function(req, res){
+//     async.parallel({
+//         question: function(callback){
+//             SeniorSurvey.find({"type": "detail"}, callback);
+//         },
+//         number_question: function(callback){
+//             SeniorSurvey.countDocuments({"type": "question"}, callback);
+//         },
+//         number_url: function(callback){
+//             SeniorSurvey.countDocuments({'type': 'detail'}, callback);
+//         }
+//     }, function(err, result){
+//         if (err) console.log(err);
+//         res.status(200).send(result);
+//     });
+// };
 
 // exports.senior_detail_get = function(req, res){
 //     res.send("Senior Survey Detail get: " + req.params.id);
@@ -906,7 +916,6 @@ exports.senior_create_post = function(req, res){
         question_type: req.body.question_type
     })
         .then(doc => { 
-            // console.log(doc)
             res.json(doc)
         })
         .catch(err => { console.error(err)})
@@ -959,23 +968,23 @@ exports.senior_delete_post = function(req, res) {
 //--------------------- ALUMNI SURVEY CONTROLLER----------------------------
 // users/alumni
 
-exports.alumni_survey_get = function(req, res){
-    async.parallel({
-        question: function(callback){
-            AlumniSurvey.find({"type": "url"}, callback);
-        },
-        number_question: function(callback){
-            AlumniSurvey.countDocuments({"type": "question"}, callback);
-        },
-        number_url: function(callback){
-            AlumniSurvey.countDocuments({"type": "url"}, callback);
-        }
-    }, function(err, result){
-        if (err) console.log(err);
-        res.send(result);
+// exports.alumni_survey_get = function(req, res){
+//     async.parallel({
+//         question: function(callback){
+//             AlumniSurvey.find({"type": "url"}, callback);
+//         },
+//         number_question: function(callback){
+//             AlumniSurvey.countDocuments({"type": "question"}, callback);
+//         },
+//         number_url: function(callback){
+//             AlumniSurvey.countDocuments({"type": "url"}, callback);
+//         }
+//     }, function(err, result){
+//         if (err) console.log(err);
+//         res.send(result);
 
-    });
-};
+//     });
+// };
 
 exports.alumni_detail_get = function(req, res){
     res.send("alumni Survey Detail get" + req.params.id);
@@ -1048,23 +1057,23 @@ exports.alumni_delete_post = function(req, res) {
 //--------------------- IAB SURVEY ----------------------------
 // users/iab/
 
-exports.iab_survey_get = function(req, res){
-    async.parallel({
-        question: function(callback){
-            IabSurvey.find({"type": "url"}, callback);
-        },
-        number_question: function(callback){
-            IabSurvey.countDocuments({"type": "question"}, callback);
-        },
-        number_url: function(callback){
-            IabSurvey.countDocuments({"type": "url"}, callback);
-        }
-    }, function(err, result){
-        if (err) console.log(err);
-        res.send(result);
+// exports.iab_survey_get = function(req, res){
+//     async.parallel({
+//         question: function(callback){
+//             IabSurvey.find({"type": "url"}, callback);
+//         },
+//         number_question: function(callback){
+//             IabSurvey.countDocuments({"type": "question"}, callback);
+//         },
+//         number_url: function(callback){
+//             IabSurvey.countDocuments({"type": "url"}, callback);
+//         }
+//     }, function(err, result){
+//         if (err) console.log(err);
+//         res.send(result);
 
-    });
-};
+//     });
+// };
 
 exports.iab_detail_get = function(req, res){
     res.send("iab Survey Detail get" + req.params.id);

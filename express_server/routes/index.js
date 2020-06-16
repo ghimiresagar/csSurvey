@@ -66,7 +66,7 @@ router.get('/surveys/iab/url/:id', user_controller.iab_url_check_get);
 // sending the request to the server for posting results
 router.post('/surveys/iab/url/:id', user_controller.iab_url_check_post);
 //--------------------- SENIOR SURVEY ----------------------------
-router.get('/surveys/senior', passport.authenticate('jwt', {session: false}), user_controller.senior_survey_get);
+// router.get('/surveys/senior', passport.authenticate('jwt', {session: false}), user_controller.senior_survey_get);
 
 // create senior survey
 // router.get('/surveys/senior/create', passport.authenticate('jwt', {session: false}), user_controller.senior_create_get);
@@ -83,7 +83,7 @@ router.post('/surveys/senior/delete', passport.authenticate('jwt', {session: fal
 // router.get('/senior/:id', passport.authenticate('jwt', {session: false}), user_controller.senior_detail_get);
 
 //--------------------- ALUMNI SURVEY ----------------------------
-router.get('/surveys/alumni', passport.authenticate('jwt', {session: false}), user_controller.alumni_survey_get);
+// router.get('/surveys/alumni', passport.authenticate('jwt', {session: false}), user_controller.alumni_survey_get);
 
 // router.get('/surveys/alumni/create', user_controller.alumni_create_get);
 router.post('/surveys/alumni/create', passport.authenticate('jwt', {session: false}), user_controller.alumni_create_post);
@@ -97,7 +97,7 @@ router.post('/surveys/alumni/delete', passport.authenticate('jwt', {session: fal
 // router.get('/alumni/:id', user_controller.alumni_detail_get);
 
 //--------------------- IAB SURVEY ----------------------------
-router.get('/surveys/iab', passport.authenticate('jwt', {session: false}), user_controller.iab_survey_get);
+// router.get('/surveys/iab', passport.authenticate('jwt', {session: false}), user_controller.iab_survey_get);
 
 // router.get('/surveys/iab/create', user_controller.iab_create_get);
 router.post('/surveys/iab/create', passport.authenticate('jwt', {session: false}), user_controller.iab_create_post);

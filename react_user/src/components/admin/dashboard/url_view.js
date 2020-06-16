@@ -30,14 +30,14 @@ function UrlView(props) {
                 {props.value.result.year}
             </Col>
         </Row>
-        <Row>
+        {/* <Row>
             <Col sm={3}>
                 Number of questions:
             </Col>
             <Col sm={9}>
                 {props.num}
             </Col>
-        </Row>
+        </Row> */}
         <Row>
             <Col sm={3}>
                 Survey Takers:
