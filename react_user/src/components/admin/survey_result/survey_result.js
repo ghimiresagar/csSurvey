@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import SurveySearch from './survey_search';
 import ResultLayoutMain from './result_layout_main';
 import Message from '../../message';
+import Header from '../../header';
+import BackButton from '../../backbutton';
 
 function SurveyResult() {
     const [change, setChange] = useState(0);
@@ -57,6 +59,8 @@ function SurveyResult() {
 
     return (
         <Container>
+            <Header value="Dashboard" />
+            <BackButton />
             <SurveySearch onChangeHandle={onChangeHandle} />
             {message ? <Message message={message} /> : null }
             <br />

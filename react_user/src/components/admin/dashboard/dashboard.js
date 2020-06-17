@@ -1,5 +1,7 @@
 import React from 'react';
 import Survey from './surveys_layout_dashboard';
+import Header from '../../header';
+import BackButton from '../../backbutton';
 
 import Container from 'react-bootstrap/Container';
 
@@ -12,6 +14,8 @@ import Container from 'react-bootstrap/Container';
 function Dashboard() {
     return (
         <Container>
+            <Header value="Dashboard" />
+            <BackButton />
             <Survey name="Senior" />
             <Survey name="Alumni" />
             <Survey name="IAB" />

@@ -38,12 +38,12 @@ const Header = props => {
 
 
     return(
-        <Container>
-            <Navbar className="bg-light justify-content-between" variant="light">
-                <Navbar.Brand href="/">{props.value}</Navbar.Brand>
-                    { isAuthenticated ? authNavBar() : nauthNavBar() }
-            </Navbar> <hr/> <br />
-        </Container>
+        <>
+        <Navbar className="bg-light justify-content-between" variant="light">
+            <Navbar.Brand href="/">{props.value}</Navbar.Brand>
+                { isAuthenticated ? authNavBar() : nauthNavBar() }
+        </Navbar> <hr/>
+        </>
     );
 }
 

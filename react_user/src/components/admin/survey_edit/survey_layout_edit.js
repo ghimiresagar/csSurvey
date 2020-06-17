@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import AddQuestion from './add_question';
 import EditQuestion from './edit_question';
 import Url from './url/url';
+import BackButton from '../../backbutton';
+import Header from '../../header';
 
 function SeniorSurvey(props) {
     const [questionList, setQuestionList] = useState([]);
@@ -45,6 +47,8 @@ function SeniorSurvey(props) {
 
     return(
         <Container>
+            <Header value="Dashboard" />
+            <BackButton />
             <Url name={props.name} num={count.questionCount} />
             <AddQuestion name={props.name} questionNumber={count.questionNumber} onChangeHandle={onChangeHandle} />
             {questions}

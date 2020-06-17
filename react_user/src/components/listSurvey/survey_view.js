@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col';
 import TakeQuestion from './take_question';
 import Message from '../message';
 import AuthService from '../../Services/AuthService'; 
+import Header from '../header';
+import BackButton from '../backbutton';
 
 function SurveyView(props) {
     const [message, setMessage] = useState(null);
@@ -112,6 +114,8 @@ function SurveyView(props) {
     
     return(
         <Container>
+            <Header value="Survey Web App" />
+            { logged ? <BackButton /> : null}
             <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
                 <Card.Header as="h5" className="text-center"> 
                     {props.name} Survey

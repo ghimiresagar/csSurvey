@@ -27,7 +27,7 @@ function Survey(props) {
     }
 
     return(
-        <Container>
+        <>
             <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
                 <Card.Header as="h5" className="text-center"> {props.name} Survey Details </Card.Header>
                 <Card.Body>
@@ -49,7 +49,7 @@ function Survey(props) {
                     </div>
                 </Card.Body>
             </Card>
-        </Container>
+        </>
     );
 }
 

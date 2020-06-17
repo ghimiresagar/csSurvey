@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 
-import Header from './components/header';
 import Login from './components/login';
 import Dashboard from './components/admin/dashboard/dashboard';
 import SurveyLayoutEdit from './components/admin/survey_edit/survey_layout_edit';
@@ -18,7 +17,6 @@ import SurveyView from './components/listSurvey/survey_view';
 function App() {
     return (
       <Router>
-        <Header value="Survey Web App" />
         <Switch>
           <UnPrivateRoute exact path='/' component={Login} />
           <PrivateRoute exact path='/admin/surveys' component={Dashboard}/>
@@ -33,6 +31,7 @@ function App() {
             <Redirect to="/" />
           </Route>
         </Switch>
+        <br />
       </Router>
     );
 }

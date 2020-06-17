@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import BootstrapTable from 'react-bootstrap-table-next';
 
+import Header from '../../header';
+
 function ResultLayoutMain(props) {
 
     const [valuesRates, setValuesRates] = useState([]);
