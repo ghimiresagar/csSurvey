@@ -13,12 +13,12 @@ function AddQuestion(props) {
     const [body, setBody] = useState({
         title: "",
         input_type: "Rate",
-        question_type: "1"
+        question_type: 0                    // 0 is never the question number
     });
 
     function handleChange(e) {
         e.preventDefault();
-        setBody({ ...body, [e.target.name]: e.target.value });
+        setBody({ ...body, [e.target.name]: e.target.value, question_type: props.questionNumber });
     }
 
     function postQuestion(e) {
@@ -44,7 +44,7 @@ function AddQuestion(props) {
                 setBody({
                     title: "",
                     input_type: "Rate",
-                    question_type: "1"
+                    question_type: 0
                 });
             }, 750)
             setMessage({
@@ -101,19 +101,9 @@ function AddQuestion(props) {
                         <Form.Label column sm={2}>
                             Question Type:
                         </Form.Label>
-                        <Col sm={4}>
-                            <Form.Control 
-                                as="select" 
-                                custom name="question_type" 
-                                value={body.question_type} 
-                                onChange={handleChange}>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            </Form.Control>
-                        </Col>
+                        <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
+                            {body.question_type}
+                        </Form.Label>
                     </Form.Group>
                     </Col>
                     <Col sm={2}>

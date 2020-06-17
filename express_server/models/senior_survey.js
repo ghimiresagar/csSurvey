@@ -5,7 +5,7 @@ SeniorSurveySchema = new Schema(
     {
         title: {type: String, required: true, unique: true},                    // title has to be unique
         input_type: {type: String},
-        question_type: {type: Number},
+        question_type: {type: Number},                                          // stores the order of question
         type: {type: String, required: true, default: "question"},              // type of question or url
         result:
             {

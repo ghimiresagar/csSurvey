@@ -19,6 +19,8 @@ function EditQuestion(props) {
         question_type: props.value.question_type
     });
 
+    console.log(body.question_type);
+
     function handleChange(e) {
         e.preventDefault();
         setBody({ ...body, [e.target.name]: e.target.value });
@@ -54,10 +56,11 @@ function EditQuestion(props) {
         });
     }
 
-    function deleteQuestion(e) {
+    function deleteQuestion(e) {                    // if deleted, operation on question number at backend
         e.preventDefault();
         let body2 = {
-            id: body.id
+            id: body.id,
+            num: body.question_type
         }
         fetch("/surveys/"+props.name+"/delete", {
             method: 'post',
@@ -65,8 +68,9 @@ function EditQuestion(props) {
             body: JSON.stringify(body2)
         }).then(data => {
             setTimeout(() => {
-                props.onChangeHandle();
+                // props.onChangeHandle();
                 setMessage(null);
+                window.location.reload(false);
             }, 750)
             setMessage({
                 msgBody: "Question Deleted",
@@ -131,22 +135,14 @@ function EditQuestion(props) {
                                     <option>Longer Comment</option>
                                     </Form.Control>
                                 </Col>
+
                                 <Form.Label column sm={2}>
                                     Question Type:
                                 </Form.Label>
-                                <Col sm={4}>
-                                    <Form.Control 
-                                        as="select" 
-                                        custom name="question_type" 
-                                        defaultValue={body.question_type} 
-                                        onChange={handleChange}>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </Form.Control>
-                                </Col>
+                                <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
+                                    {body.question_type}
+                                </Form.Label>
+
                             </Form.Group>
                         </Col>
                         <Col sm={2}>

@@ -21,7 +21,7 @@ function Url(props) {
         getQuery()
         .then(body => {
             setDetailBody(body);
-            console.log(body);
+            // console.log(body);
         })
         .catch(err => console.log(err));
     }, [change]);

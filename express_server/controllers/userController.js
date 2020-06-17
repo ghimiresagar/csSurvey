@@ -654,10 +654,9 @@ exports.iab_url_post = function(req, res) {
     .catch(err => console.log(err));
 };
 
-// when creating url, create one doc for url and another to keep the details
 exports.iab_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future. ',
+        title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
         type: 'detail',
         result: {
             semester: 'Spring',
@@ -684,7 +683,6 @@ exports.iab_url_create_post = function(req, res){
     }).catch(err => console.log(err));
 
     res.json({ "status": "Saved" });
-
 }
 
 
@@ -1107,7 +1105,6 @@ exports.iab_update_get = function(req, res){
         question: function(callback){
             IabSurvey.find({"type": "question"}, callback)
             .sort({question_type: 1})
-            .sort({input_type: -1});
         },
         number_question: function(callback){
             IabSurvey.countDocuments({"type": "question"}, callback);
@@ -1138,8 +1135,11 @@ exports.iab_delete_get = function(req, res) {
 exports.iab_delete_post = function(req, res) {
     IabSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
-        // console.log(deleted)
-        res.json(deleted)
+        IabSurvey.updateMany({ question_type: {$gt: req.body.num} }, {
+            $inc: { question_type: -1 }
+        })
+        .then(data => res.send(data))
+        .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
 };
