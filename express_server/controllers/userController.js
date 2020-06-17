@@ -27,7 +27,7 @@ const checkIp = (req, name) => {
 }
 
 const checkResult = (body) => {
-    return ArchiveResult.countDocuments({ semester: body.semester, year: body.year, name: body.name });
+    return ArchiveResult.countDocuments({ /*semester: body.semester,*/ year: body.year, name: body.name });
 }
 
 // results
@@ -36,9 +36,9 @@ exports.get_senior_result = function (req, res) {
     const survey = {
         name: req.body.type,
         year: req.body.year,
-        semester: req.body.semester
+        // semester: req.body.semester
     }
-    ArchiveResult.findOne({ name: survey.name, year: survey.year, semester: survey.semester })
+    ArchiveResult.findOne({ name: survey.name, year: survey.year/*, semester: survey.semester*/ })
         .then(result => {
             res.json({ "result": result });
             // console.log(result);
@@ -682,8 +682,7 @@ exports.iab_url_post = function(req, res) {
         title: req.body.title,
         type: 'detail',
         result: {
-            semester: req.body.semester,
-            year: new Date().getFullYear(),
+            year: req.body.year,
             name: 'Iab'
         }
     })
@@ -698,7 +697,6 @@ exports.iab_url_create_post = function(req, res){
         title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
         type: 'detail',
         result: {
-            semester: 'Spring',
             year: new Date().getFullYear(),
             name: 'Iab'
         }
@@ -742,7 +740,7 @@ exports.iab_url_archive_post = function(req, res){
     // check if we have valid id being passed as type url is only one
     if (req.params.id) {        // see if we have id present
         const body = {
-            semester: "",
+            // semester: "",
             year: "",
             name: "",
             numberOfParts: 0,
@@ -763,7 +761,7 @@ exports.iab_url_archive_post = function(req, res){
             if (!result)
                 res.json({message: { msgBody: "Error", msgError: true }});
             if (result.detail) {
-                body.semester = result.detail.result.semester;
+                // body.semester = result.detail.result.semester;
                 body.year = result.detail.result.year;
                 body.name = result.detail.result.name;
                 body.numberOfParts = result.detail.result.numberOfParts;

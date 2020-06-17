@@ -19,6 +19,7 @@ function EditUrl(props) {
         year: props.value.result.year,
         numberOfTakers: props.value.result.numberOfParts
     });
+    const thisYear = new Date().getFullYear();
 
     function handleChange(e) {
         e.preventDefault();
@@ -79,7 +80,7 @@ function EditUrl(props) {
                                 </Col>
                             </Form.Group>
                             <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
-                                <Form.Label column sm={2}>
+                                {/* <Form.Label column sm={2}>
                                     Semester:
                                 </Form.Label>
                                 <Col sm={4}>
@@ -91,15 +92,28 @@ function EditUrl(props) {
                                     <option>Spring</option>
                                     <option>Fall</option>
                                     </Form.Control>
-                                </Col>
+                                </Col> */}
                                 <Form.Label column sm={2}>
                                     Year:
                                 </Form.Label>
                                 <Col sm={4}>
+                                    <Form.Control 
+                                        as="select" 
+                                        custom name="year" 
+                                        defaultValue={body.year} 
+                                        onChange={handleChange}>
+                                    <option>{thisYear - 1}</option>
+                                    <option>{thisYear}</option>
+                                    <option>{thisYear + 1}</option>
+                                    <option>{thisYear + 2}</option>
+                                    <option>{thisYear + 3}</option>
+                                    </Form.Control>
+                                </Col>
+                                {/* <Col sm={4}>
                                     <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
                                         {body.year}
                                     </Form.Label>
-                                </Col>
+                                </Col> */}
                             </Form.Group>
                             <Row>
                                 <Col sm={12} className="text-center">
