@@ -77,6 +77,45 @@ exports.authenticated = function (req, res) {
     res.status(200).json({ isAuthenticated: true, user: {username} });
 }
 
+// Incrementing question order
+
+exports.increment_question = function(req, res) {
+    if ( req.body.surveyType === "IAB" ) {
+        IabSurvey.updateOne({ question_type : req.body.numUp }, {
+            $inc: { question_type: 1 }
+        })
+        .then(data => {
+            IabSurvey.updateOne({ "_id": req.body.id }, {
+                $inc: { question_type: -1 }
+            })
+            .then(data2 => {
+                if (!data2) res.send(null);
+                res.json({ "value": true });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+}
+
+exports.decrement_question = function(req, res) {
+    if ( req.body.surveyType === "IAB" ) {
+        IabSurvey.updateOne({ question_type : req.body.numDown }, {
+            $inc: { question_type: -1 }
+        })
+        .then(data => {
+            IabSurvey.updateOne({ "_id": req.body.id }, {
+                $inc: { question_type: 1 }
+            })
+            .then(data2 => {
+                if (!data2) res.send(null);
+                res.json({ "value": true });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+}
 //--------------------- SURVEY URL CONTROLLERS ----------------------------
 // get for display
 exports.senior_url_get = function(req, res){

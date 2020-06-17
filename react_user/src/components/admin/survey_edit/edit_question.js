@@ -19,8 +19,6 @@ function EditQuestion(props) {
         question_type: props.value.question_type
     });
 
-    console.log(body.question_type);
-
     function handleChange(e) {
         e.preventDefault();
         setBody({ ...body, [e.target.name]: e.target.value });
@@ -43,7 +41,7 @@ function EditQuestion(props) {
             setTimeout(() => {
                 props.onChangeHandle();
                 setMessage(null);
-            }, 750)
+            }, 1000)
             setMessage({
                 msgBody: "Question Set",
                 msgError: false
@@ -71,7 +69,7 @@ function EditQuestion(props) {
                 // props.onChangeHandle();
                 setMessage(null);
                 window.location.reload(false);
-            }, 750)
+            }, 1000)
             setMessage({
                 msgBody: "Question Deleted",
                 msgError: false
@@ -84,19 +82,73 @@ function EditQuestion(props) {
         });
     }
 
+    async function takeStepUp(e) {
+        e.preventDefault();
+        let bodyInc = {
+            id: body.id,
+            surveyType: props.name,
+            numUp: body.question_type - 1,
+        };
+        console.log(bodyInc);
+
+        const fetchReq = await fetch("/surveys/questions/orderinc", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyInc)
+        });
+        const fetchReqJson = await fetchReq.json();
+        if (fetchReqJson.value === true)
+            window.location.reload(false);
+        // props.onChangeHandle();
+    }
+
+    async function takeStepDown(e) {
+        e.preventDefault();
+        let bodyDec = {
+            id: body.id,
+            surveyType: props.name,
+            numDown: body.question_type + 1,
+        };
+        console.log(bodyDec);
+
+        const fetchReq = await fetch("/surveys/questions/orderdec", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyDec)
+        });
+        const fetchReqJson = await fetchReq.json();
+        if (fetchReqJson.value === true)
+            window.location.reload(false);
+        // props.onChangeHandle();
+    }
+
     return(     
         <Accordion>
             <Card>
                 <Card.Header>
                     <Container>
                         <Row>
-                            <Col sm={10}>
+                            <Col sm={9}>
                                 {props.value.title}
                             </Col>
-                            <Col sm={2} className="text-right">
-                                <Accordion.Toggle as={Button} eventKey="0">
-                                    Edit Question
-                                </Accordion.Toggle>
+                            <Col sm={3}>
+                                <Row className="justify-content-end">
+                                    <Accordion.Toggle as={Button} eventKey="0">
+                                        Edit Question
+                                    </Accordion.Toggle>
+                                    <div className="ml-2">
+                                        { body.question_type !== 1 &&
+                                            <Button variant="info" className="m-1" onClick={takeStepUp}>
+                                                ↑
+                                            </Button>
+                                        }
+                                        { body.question_type !== props.num &&
+                                            <Button variant="info" className="m-1" onClick={takeStepDown}>
+                                                ↓
+                                            </Button>
+                                        }
+                                    </div>
+                                </Row>
                             </Col>
                         </Row>
                     </Container>

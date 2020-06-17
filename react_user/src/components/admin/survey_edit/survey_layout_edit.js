@@ -38,6 +38,7 @@ function SeniorSurvey(props) {
             key={question._id}
             value = {question}
             name={props.name}
+            num={count.questionCount}
             onChangeHandle={onChangeHandle}
         />
     ));

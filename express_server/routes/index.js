@@ -22,6 +22,10 @@ router.get('/authenticated', passport.authenticate('jwt', {session: false}), use
 
 // router.get('/surveys', passport.authenticate('jwt', {session: false}), user_controller.list_surveys);
 
+// incrementing and decrementing
+router.post('/surveys/questions/orderinc', passport.authenticate('jwt', {session: false}), user_controller.increment_question);
+router.post('/surveys/questions/orderdec', passport.authenticate('jwt', {session: false}), user_controller.decrement_question);
+
 //--------------------- SURVEY URL ----------------------------
 // get's the url object's id to display on url
 router.get('/surveys/senior/url', passport.authenticate('jwt', {session: false}), user_controller.senior_url_get);
