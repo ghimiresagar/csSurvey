@@ -37,13 +37,13 @@ function Survey(props) {
                             name={props.name} />
                     : 
                         <p className="text-center">
-                            No Survey active to show description. Create survey first.
+                            No Survey Active.
                         </p>
                     }
                     <div className="text-center">
                     <Link to={`/admin/surveys/${props.name}/edit`} className="active">
                         <Button variant="primary">
-                            { detailBody.number_url !== 0 ? "Edit Survey" : "Create Survey"}
+                            { detailBody.number_url !== 0 ? "Administrate" : "Create Survey"}
                         </Button>    
                     </Link>
                     </div>

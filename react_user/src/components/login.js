@@ -3,6 +3,7 @@ import AuthService from '../Services/AuthService';
 import { AuthContext } from '../Context/AuthContext';
 
 import Message from './message';
+import Header from './header';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
@@ -60,6 +61,7 @@ const Login = props => {
   
     return (
         <Container>
+          <Header value="Survey Web App" />
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Row>
                 <Form.Group as={Col} md="4">

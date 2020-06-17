@@ -127,7 +127,14 @@ function Url(props) {
                             count={detailBody.number_detail} 
                             onChangeHandle={onChangeHandle}/>
                     </Row>
-
+                    <Row>
+                        <Col sm={3}>
+                            Year:
+                        </Col>
+                        <Col sm={9}>
+                            {detailBody.details.result.year}
+                        </Col>
+                    </Row>
                     <Row>
                         <Col sm={3}>
                             Number of Questions:
@@ -149,25 +156,28 @@ function Url(props) {
                             <Col sm={3}>
                             Survey Link: 
                             </Col>
-                            <Col sm={7}>
+                            <Col sm={9}>
                                 <Card.Text>  
                                     {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}
                                     {/* {'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id} */}
                                 </Card.Text>
                             </Col>
-                            <Col sm={2} className="text-center">
-                                <a href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}>
-                                {/* <a href={'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}> */}
-                                    <Button variant="success">Preview Survey</Button>    
-                                </a>
-                            </Col>
                         </Row>
                     }
-                    <Row className="justify-content-center">
+                    <Row className="justify-content-around mt-2">
                         { detailBody.number_url === 0 ?     // no url link, give option to create it
                             <div className="m-2">
                                 <Button variant="info" className='m-1' onClick={createSurvey}>Create Survey Link</Button>    
                             </div>
+                        : null}
+
+                        { detailBody.number_url === 1 ?     // url present so give option to close the url
+                            // <div className="m-3">
+                                <a className="m-2" href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}>
+                                {/* <a href={'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}> */}
+                                    <Button variant="success">Preview Survey</Button>    
+                                </a>
+                            // </div>
                         : null}
                         
                         { detailBody.number_url === 1 ?     // url present so give option to close the url
@@ -175,6 +185,7 @@ function Url(props) {
                                 <Button variant="warning" className='m-1' onClick={deleteSurvey}>Close Survey Link</Button>    
                             </div>
                         : null}
+                        
                         <div className="m-2">
                             <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                                 <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Archive Survey Result</Button> 
