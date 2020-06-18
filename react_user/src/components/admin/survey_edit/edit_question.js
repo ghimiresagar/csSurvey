@@ -188,12 +188,12 @@ function EditQuestion(props) {
                                     </Form.Control>
                                 </Col>
 
-                                <Form.Label column sm={2}>
+                                {/* <Form.Label column sm={2}>
                                     Question Type:
                                 </Form.Label>
                                 <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
                                     {body.question_type}
-                                </Form.Label>
+                                </Form.Label> */}
 
                             </Form.Group>
                         </Col>

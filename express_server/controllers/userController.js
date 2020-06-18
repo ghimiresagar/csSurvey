@@ -146,7 +146,7 @@ exports.senior_url_post = function(req, res) {
         type: 'detail',
         result: {
             semester: req.body.semester,
-            year: new Date().getFullYear(),
+            year: req.body.year,
             name: 'Senior'
         }
     })
@@ -229,7 +229,7 @@ exports.senior_url_archive_post = function(req, res){
             if (!result)
                 res.json({message: { msgBody: "Error", msgError: true }});
             if (result.detail) {
-                body.semester = result.detail.result.semester;
+                // body.semester = result.detail.result.semester;
                 body.year = result.detail.result.year;
                 body.name = result.detail.result.name;
                 body.numberOfParts = result.detail.result.numberOfParts;
@@ -408,7 +408,7 @@ exports.alumni_url_post = function(req, res) {
         type: 'detail',
         result: {
             semester: req.body.semester,
-            year: new Date().getFullYear(),
+            year: req.body.year,
             name: 'Alumni'
         }
     })
