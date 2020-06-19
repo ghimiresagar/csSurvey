@@ -35,18 +35,6 @@ function SurveySearch(props) {
                 {/* <Form.Group as={Col}>
                     <Button onClick={() => window.printPreview() }> Print </Button>
                 </Form.Group> */}
-                {/* <Form.Group as={Col}>
-                    <Form.Label>Semester:</Form.Label>
-                    <Form.Control 
-                        as="select"
-                        custom name="semester"
-                        defaultValue= 'Spring' 
-                        onChange={props.onChangeHandle}
-                        required>
-                        <option>Spring</option>
-                        <option>Fall</option>
-                    </Form.Control>
-                </Form.Group> */}
             </Row>
         </Form>
     );

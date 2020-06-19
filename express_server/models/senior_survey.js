@@ -6,13 +6,12 @@ SeniorSurveySchema = new Schema(
         title: {type: String, required: true, unique: true},                    // title has to be unique
         input_type: {type: String},
         question_type: {type: Number},                                          // stores the order of question
-        type: {type: String, required: true, default: "question"},              // type of question or url
+        type: {type: String, required: true, default: "question"},              // type of question or url or detail
         result:
             {
-                semester: {type: String},                           // used with url only
-                year: {type: Number},                               // used with url only
-                name: {type: String},                               // used with url, senior, alumni, iba
-                numberOfParts: {type: Number, default: 0},          // used with url
+                year: {type: Number},                               // used with detail only
+                name: {type: String},                               // used with detail, senior, alumni, iba
+                numberOfParts: {type: Number, default: 0},          // used with detail
                 rate: {
                     0: {type: Number, default: 0},
                     1: {type: Number, default: 0},

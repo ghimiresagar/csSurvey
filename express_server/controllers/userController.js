@@ -27,7 +27,7 @@ const checkIp = (req, name) => {
 }
 
 const checkResult = (body) => {
-    return ArchiveResult.countDocuments({ /*semester: body.semester,*/ year: body.year, name: body.name });
+    return ArchiveResult.countDocuments({ year: body.year, name: body.name });
 }
 
 // results
@@ -36,9 +36,8 @@ exports.get_senior_result = function (req, res) {
     const survey = {
         name: req.body.type,
         year: req.body.year,
-        // semester: req.body.semester
     }
-    ArchiveResult.findOne({ name: survey.name, year: survey.year/*, semester: survey.semester*/ })
+    ArchiveResult.findOne({ name: survey.name, year: survey.year })
         .then(result => {
             res.json({ "result": result });
             // console.log(result);
@@ -96,6 +95,38 @@ exports.increment_question = function(req, res) {
         })
         .catch(err => console.log(err));
     }
+    if ( req.body.surveyType === "Senior" ) {
+        SeniorSurvey.updateOne({ question_type : req.body.numUp }, {
+            $inc: { question_type: 1 }
+        })
+        .then(data => {
+            SeniorSurvey.updateOne({ "_id": req.body.id }, {
+                $inc: { question_type: -1 }
+            })
+            .then(data2 => {
+                if (!data2) res.send(null);
+                res.json({ "value": true });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+    if ( req.body.surveyType === "Alumni" ) {
+        AlumniSurvey.updateOne({ question_type : req.body.numUp }, {
+            $inc: { question_type: 1 }
+        })
+        .then(data => {
+            AlumniSurvey.updateOne({ "_id": req.body.id }, {
+                $inc: { question_type: -1 }
+            })
+            .then(data2 => {
+                if (!data2) res.send(null);
+                res.json({ "value": true });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
 }
 
 exports.decrement_question = function(req, res) {
@@ -105,6 +136,38 @@ exports.decrement_question = function(req, res) {
         })
         .then(data => {
             IabSurvey.updateOne({ "_id": req.body.id }, {
+                $inc: { question_type: 1 }
+            })
+            .then(data2 => {
+                if (!data2) res.send(null);
+                res.json({ "value": true });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+    if ( req.body.surveyType === "Senior" ) {
+        SeniorSurvey.updateOne({ question_type : req.body.numDown }, {
+            $inc: { question_type: -1 }
+        })
+        .then(data => {
+            SeniorSurvey.updateOne({ "_id": req.body.id }, {
+                $inc: { question_type: 1 }
+            })
+            .then(data2 => {
+                if (!data2) res.send(null);
+                res.json({ "value": true });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+    if ( req.body.surveyType === "Alumni" ) {
+        AlumniSurvey.updateOne({ question_type : req.body.numDown }, {
+            $inc: { question_type: -1 }
+        })
+        .then(data => {
+            AlumniSurvey.updateOne({ "_id": req.body.id }, {
                 $inc: { question_type: 1 }
             })
             .then(data2 => {
@@ -132,6 +195,9 @@ exports.senior_url_get = function(req, res){
         urlId: function(callback){
             SeniorSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
+        archived_result: function(callback){
+            ArchiveResult.find({ "name": "Senior" }, { year: 1, _id: 0 }, callback)
+        }
     }, function(err, result){
         if (err) console.log(err);
         if (!result) res.send(null);
@@ -145,7 +211,6 @@ exports.senior_url_post = function(req, res) {
         title: req.body.title,
         type: 'detail',
         result: {
-            semester: req.body.semester,
             year: req.body.year,
             name: 'Senior'
         }
@@ -166,7 +231,6 @@ exports.senior_url_create_post = function(req, res){
         'questions.',
         type: 'detail',
         result: {
-            semester: 'Spring',
             year: new Date().getFullYear(),
             name: 'Senior'
         }
@@ -208,7 +272,6 @@ exports.senior_url_archive_post = function(req, res){
     // check if we have valid id being passed as type url is only one
     if (req.params.id) {        // see if we have id present
         const body = {
-            semester: "",
             year: "",
             name: "",
             numberOfParts: 0,
@@ -229,7 +292,6 @@ exports.senior_url_archive_post = function(req, res){
             if (!result)
                 res.json({message: { msgBody: "Error", msgError: true }});
             if (result.detail) {
-                // body.semester = result.detail.result.semester;
                 body.year = result.detail.result.year;
                 body.name = result.detail.result.name;
                 body.numberOfParts = result.detail.result.numberOfParts;
@@ -271,7 +333,7 @@ exports.senior_url_archive_post = function(req, res){
                         }
                     });
                 } else {                        // if old update
-                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
+                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current year.", msgError: true }});           
                 }                       
             }).catch(
                 err => {
@@ -299,8 +361,7 @@ exports.senior_url_check_get = function(req, res){
                         async.parallel({
                             question: function(callback){
                                 SeniorSurvey.find({"type": "question"}, callback)
-                                .sort({question_type: 1})
-                                .sort({input_type: -1});
+                                .sort({question_type: 1});
                             },
                             number_question: function(callback){
                                 SeniorSurvey.countDocuments({"type": "question"}, callback);
@@ -394,6 +455,9 @@ exports.alumni_url_get = function(req, res){
         urlId: function(callback){
             AlumniSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
+        archived_result: function(callback){
+            ArchiveResult.find({ "name": "Alumni" }, { year: 1, _id: 0 }, callback)
+        }
     }, function(err, result){
         if (err) console.log(err);
         if (!result) res.send(null);
@@ -407,7 +471,6 @@ exports.alumni_url_post = function(req, res) {
         title: req.body.title,
         type: 'detail',
         result: {
-            semester: req.body.semester,
             year: req.body.year,
             name: 'Alumni'
         }
@@ -423,7 +486,6 @@ exports.alumni_url_create_post = function(req, res){
         title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
         type: 'detail',
         result: {
-            semester: 'Spring',
             year: new Date().getFullYear(),
             name: 'Alumni'
         }
@@ -467,7 +529,6 @@ exports.alumni_url_archive_post = function(req, res){
     // check if we have valid id being passed as type url is only one
     if (req.params.id) {        // see if we have id present
         const body = {
-            semester: "",
             year: "",
             name: "",
             numberOfParts: 0,
@@ -476,7 +537,7 @@ exports.alumni_url_archive_post = function(req, res){
         // get things in parallel
         async.parallel({
             detail: function(callback) {
-                SeniorSurvey.findOne({ $and: [{"_id" : req.params.id}, {"type": "detail"} ] },  
+                AlumniSurvey.findOne({ $and: [{"_id" : req.params.id}, {"type": "detail"} ] },  
                 callback);
             },
             question: function(callback) {
@@ -488,7 +549,6 @@ exports.alumni_url_archive_post = function(req, res){
             if (!result)
                 res.json({message: { msgBody: "Error", msgError: true }});
             if (result.detail) {
-                body.semester = result.detail.result.semester;
                 body.year = result.detail.result.year;
                 body.name = result.detail.result.name;
                 body.numberOfParts = result.detail.result.numberOfParts;
@@ -512,7 +572,7 @@ exports.alumni_url_archive_post = function(req, res){
 
                     async.parallel({
                         deleteIp: function(callback){
-                            IpAddress.remove({ "name": body.name }, callback);
+                            IpAddress.deleteMany({ "name": body.name }, callback);
                         },
                         deleteUrl: function(callback){
                             AlumniSurvey.findOneAndDelete({ "type": "url" }, callback);
@@ -521,33 +581,16 @@ exports.alumni_url_archive_post = function(req, res){
                             AlumniSurvey.findOneAndDelete({ "type": "detail" }, callback);
                         },
                         deleteQuestionResults: function(callback){
-                            AlumniSurvey.update({ "type": "question" }, {
+                            AlumniSurvey.updateMany({ "type": "question" }, {
                                 $unset: { "result": {} } 
-                            }, { multi: true } , callback);
+                            }, callback);
                         }, function (err, result){
                             if (err) console.log(err);
                             res.json({message: { msgBody: "Saving Result!", msgError: false }});
                         }
                     });
                 } else {                        // if old update
-                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
-
-                    // async.parallel({
-                    //     deleteIp: function(callback){
-                    //         IpAddress.remove({ "url": req.params.id }, callback);
-                    //     },
-                    //     deleteUrl: function(callback){
-                    //         AlumniSurvey.findOneAndDelete({ "type": "url" }, callback);
-                    //     },
-                    //     deleteQuestionResults: function(callback){
-                    //         AlumniSurvey.update({ "type": "question" }, {
-                    //             $unset: { "result": {} } 
-                    //         }, { multi: true } , callback);
-                    //     }, function (err, result){
-                    //         if (err) console.log(err);
-                    //         res.json({message: { msgBody: "The results are already available. Can't update them anymore.", msgError: true }});           
-                    //     }
-                    // });
+                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current year.", msgError: true }});      
                 }                       
                 }).catch(
                     err => {
@@ -575,8 +618,7 @@ exports.alumni_url_check_get = function(req, res){
                         async.parallel({
                             question: function(callback){
                                 AlumniSurvey.find({"type": "question"}, callback)
-                                .sort({question_type: 1})
-                                .sort({input_type: -1});
+                                .sort({question_type: 1});
                             },
                             number_question: function(callback){
                                 AlumniSurvey.countDocuments({"type": "question"}, callback);
@@ -669,6 +711,9 @@ exports.iab_url_get = function(req, res){
         urlId: function(callback){
             IabSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
+        archived_result: function(callback){
+            ArchiveResult.find({ "name": "Iab" }, { year: 1, _id: 0 }, callback)
+        }
     }, function(err, result){
         if (err) console.log(err);
         if (!result) res.send(null);
@@ -740,7 +785,6 @@ exports.iab_url_archive_post = function(req, res){
     // check if we have valid id being passed as type url is only one
     if (req.params.id) {        // see if we have id present
         const body = {
-            // semester: "",
             year: "",
             name: "",
             numberOfParts: 0,
@@ -761,7 +805,6 @@ exports.iab_url_archive_post = function(req, res){
             if (!result)
                 res.json({message: { msgBody: "Error", msgError: true }});
             if (result.detail) {
-                // body.semester = result.detail.result.semester;
                 body.year = result.detail.result.year;
                 body.name = result.detail.result.name;
                 body.numberOfParts = result.detail.result.numberOfParts;
@@ -804,7 +847,7 @@ exports.iab_url_archive_post = function(req, res){
                         }
                     });
                 } else {                        // if old update
-                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current semester and year.", msgError: true }});           
+                    res.json({message: { msgBody: "The results are already available for this term. Please check if it's the current year.", msgError: true }});           
                 }                    
             }).catch(
                 err => {
@@ -833,8 +876,7 @@ exports.iab_url_check_get = function(req, res){
                         async.parallel({
                             question: function(callback){
                                 IabSurvey.find({"type": "question"}, callback)
-                                .sort({question_type: 1})
-                                .sort({input_type: -1});
+                                .sort({question_type: 1});
                             },
                             number_question: function(callback){
                                 IabSurvey.countDocuments({"type": "question"}, callback);
@@ -962,8 +1004,7 @@ exports.senior_update_get = function(req, res){
     async.parallel({
         question: function(callback){
             SeniorSurvey.find({"type": "question"}, callback)
-            .sort({question_type: 1})
-            .sort({input_type: -1});
+            .sort({question_type: 1});
         },
         number_question: function(callback){
             SeniorSurvey.countDocuments({"type": "question"}, callback);
@@ -1052,8 +1093,7 @@ exports.alumni_update_get = function(req, res){
     async.parallel({
         question: function(callback){
             AlumniSurvey.find({"type": "question"}, callback)
-            .sort({question_type: 1})
-            .sort({input_type: -1});
+            .sort({question_type: 1});
         },
         number_question: function(callback){
             AlumniSurvey.countDocuments({"type": "question"}, callback);

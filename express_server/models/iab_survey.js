@@ -9,7 +9,6 @@ IabSurveySchema = new Schema(
         type: {type: String, required: true, default: "question"},
         result:
             {
-                semester: {type: String},
                 year: {type: Number},
                 name: {type: String}, 
                 numberOfParts: {type: Number, default: 0},  

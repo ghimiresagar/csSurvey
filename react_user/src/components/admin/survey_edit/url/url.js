@@ -21,7 +21,8 @@ function Url(props) {
         getQuery()
         .then(body => {
             setDetailBody(body);
-            // console.log(body);
+            // run a quick check after we get the body
+            runCheckForSurvey(body);
         })
         .catch(err => console.log(err));
     }, [change]);
@@ -34,6 +35,22 @@ function Url(props) {
 
     const onChangeHandle = () => {
         setChange(change + 1);
+    }
+
+    function runCheckForSurvey(body) {
+        if (body.details !== null) {
+            for (let x = 0; x < body.archived_result.length; x++){
+                if (body.archived_result[x].year === body.details.result.year) {
+                    setMessage({
+                        msgBody: "The result for this particular year already exists.",
+                        msgError: true
+                    });
+                    break
+                } else {
+                    setMessage(null);
+                }
+            }
+        }
     }
 
     function createSurvey(e) {

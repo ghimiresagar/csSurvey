@@ -4,7 +4,6 @@ let Schema = mongoose.Schema;
 ArchiveResultSchema = new Schema(
     {
         name: { type: String, required: true },
-        semester: { type: String, required: true},
         year: { type: Number, require: true},
         numberOfParts: { type: Number, require: true },
         result: [

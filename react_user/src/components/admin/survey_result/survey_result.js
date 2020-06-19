@@ -13,7 +13,6 @@ function SurveyResult() {
     const [survey, setSurvey] = useState({
         type: "Senior",
         year: "2020",
-        semester: "Spring"
     });
     const [obj, setObj] = useState([]);
     const [numberOfParts, setNumberOfParts] = useState(0);

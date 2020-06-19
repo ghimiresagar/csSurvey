@@ -15,7 +15,6 @@ function EditUrl(props) {
     const [body, setBody] = useState({
         id: props.value._id,
         title: props.value.title,
-        semester: props.value.result.semester,
         year: props.value.result.year,
         numberOfTakers: props.value.result.numberOfParts
     });
@@ -80,19 +79,6 @@ function EditUrl(props) {
                                 </Col>
                             </Form.Group>
                             <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
-                                {/* <Form.Label column sm={2}>
-                                    Semester:
-                                </Form.Label>
-                                <Col sm={4}>
-                                    <Form.Control 
-                                        as="select" 
-                                        custom name="semester" 
-                                        defaultValue={body.semester} 
-                                        onChange={handleChange}>
-                                    <option>Spring</option>
-                                    <option>Fall</option>
-                                    </Form.Control>
-                                </Col> */}
                                 <Form.Label column sm={2}>
                                     Year:
                                 </Form.Label>
@@ -109,11 +95,6 @@ function EditUrl(props) {
                                     <option>{thisYear + 3}</option>
                                     </Form.Control>
                                 </Col>
-                                {/* <Col sm={4}>
-                                    <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
-                                        {body.year}
-                                    </Form.Label>
-                                </Col> */}
                             </Form.Group>
                             <Row>
                                 <Col sm={12} className="text-center">

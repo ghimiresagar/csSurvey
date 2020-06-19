@@ -16,14 +16,6 @@ function UrlView(props) {
         </Row>
         <Row>
             <Col sm={3}>
-                Semester:
-            </Col>
-            <Col sm={9}>
-                {props.value.result.semester}
-            </Col>
-        </Row>
-        <Row>
-            <Col sm={3}>
                 Year:
             </Col>
             <Col sm={9}>
