@@ -6,6 +6,7 @@ import SurveySearch from './survey_search';
 import ResultLayoutMain from './result_layout_main';
 import Message from '../../message';
 import Header from '../../header';
+import BackPrintButton from '../../backplusprintbutton';
 import BackButton from '../../backbutton';
 
 function SurveyResult() {
@@ -56,10 +57,12 @@ function SurveyResult() {
         setChange(change + 1);
     }
 
+    console.log(obj)
+
     return (
         <Container>
             <Header value="Dashboard" />
-            <BackButton />
+            <BackPrintButton show={contains} />
             <SurveySearch onChangeHandle={onChangeHandle} />
             {message ? <Message message={message} /> : null }
             <br />

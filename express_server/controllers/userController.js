@@ -32,7 +32,6 @@ const checkResult = (body) => {
 
 // results
 exports.get_senior_result = function (req, res) {
-    console.log(req.body);
     const survey = {
         name: req.body.type,
         year: req.body.year,
@@ -260,7 +259,7 @@ exports.senior_url_delete_post = function(req, res) {
     if (req.params.id) {
         SeniorSurvey.findOneAndDelete({ "type": "url" })
         .then(data => {
-            res.json({message: { msgBody: "Deleting Survey Link.", msgError: true }});           
+            res.json({message: { msgBody: "Deactivating Survey Link.", msgError: true }});           
         })
         .catch(err => console.log(err));
     }
@@ -516,7 +515,7 @@ exports.alumni_url_delete_post = function(req, res){
     if (req.params.id) {
         AlumniSurvey.findOneAndDelete({ "type": "url" })
         .then(data => {
-            res.json({message: { msgBody: "Deleting Survey Link.", msgError: true }});           
+            res.json({message: { msgBody: "Deactivating Survey Link.", msgError: true }});           
         })
         .catch(err => console.log(err));
     }
@@ -773,7 +772,7 @@ exports.iab_url_delete_post = function(req, res){
     if (req.params.id) {
         IabSurvey.findOneAndDelete({ "type": "url" })
         .then(data => {
-            res.json({message: { msgBody: "Deleting Survey Link.", msgError: true }});           
+            res.json({message: { msgBody: "Deactivating Survey Link.", msgError: true }});           
         })
         .catch(err => console.log(err));
     }

@@ -64,7 +64,7 @@ function Url(props) {
                 onChangeHandle();
             }, 1000);
             setMessage({
-                msgBody: "Creating Survey",
+                msgBody: "Activating Survey",
                 msgError: false
             });
         }).catch(err => {
@@ -184,7 +184,7 @@ function Url(props) {
                     <Row className="justify-content-around mt-2">
                         { detailBody.number_url === 0 ?     // no url link, give option to create it
                             <div className="m-2">
-                                <Button variant="info" className='m-1' onClick={createSurvey}>Create Survey Link</Button>    
+                                <Button variant="info" className='m-1' onClick={createSurvey}>Activate Survey</Button>    
                             </div>
                         : null}
 
@@ -199,13 +199,13 @@ function Url(props) {
                         
                         { detailBody.number_url === 1 ?     // url present so give option to close the url
                             <div className="m-2">
-                                <Button variant="warning" className='m-1' onClick={deleteSurvey}>Close Survey Link</Button>    
+                                <Button variant="warning" className='m-1' onClick={deleteSurvey}>Deactivate Survey</Button>    
                             </div>
                         : null}
                         
                         <div className="m-2">
                             <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                                <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Archive Survey Result</Button> 
+                                <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Save and Close</Button> 
                             </OverlayTrigger>   
                         </div>
                     </Row>

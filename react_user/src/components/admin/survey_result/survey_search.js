@@ -6,6 +6,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 function SurveySearch(props) {
+    const years = [];
+
+    for (let i = 2019; i < 2070; i++) {
+        years.push(
+            <option key={i}>{i}</option>
+        );      
+    }
+
     return (
         <Form>
             <Row>
@@ -23,14 +31,15 @@ function SurveySearch(props) {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col}>
-                    <Form.Label>Year: </Form.Label>
+                    <Form.Label>Year:</Form.Label>
                     <Form.Control 
-                        type="text" 
+                        as="select"
+                        custom name="year"
+                        required
                         defaultValue= {new Date().getFullYear()} 
-                        name="year"
-                        placeholder="Year"
-                        onChange={props.onChangeHandle}
-                        required/>
+                        onChange={props.onChangeHandle}>
+                        {years}
+                    </Form.Control>
                 </Form.Group>
                 {/* <Form.Group as={Col}>
                     <Button onClick={() => window.printPreview() }> Print </Button>
