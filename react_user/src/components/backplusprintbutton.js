@@ -11,12 +11,43 @@ function BackPrintButton(props) {
         window.history.back();
     }
 
-    const printCSV = (e) => {
+    const downloadCSV = (e) => {
         e.preventDefault();
-        window.print()
-        console.log("print");
+        console.log(props.obj)
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        // set the heading
+        // let headerRate = "Title,5,4,3,2,1,N/A";
+        // let headerComment = "Title, Comments";
+
+        props.obj.forEach(element => {      // each element is an object
+            
+            let row = element.q_title+",";
+            if (element.q_type === "Rate") {
+            row += element.rate[5]+","+
+                element.rate[4]+","+
+                element.rate[3]+","+
+                element.rate[2]+","+
+                element.rate[1]+","+
+                element.rate[0];
+            } else {
+                row += element.comment.join(",");
+            }
+            csvContent += row + "\r\n";
+        });
+
+        // window.open(encodeURI(csvContent));
+        // set custome name
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', props.name.type+"Survey"+props.name.year+".csv");
+        document.body.appendChild(link);
+
+        link.click();
         
     }
+
 
     return (
         <Row>
@@ -31,8 +62,8 @@ function BackPrintButton(props) {
             { props.show ?
             <Button 
                 variant="primary"
-                onClick={printCSV}>
-                {"Print CSV"}
+                onClick={downloadCSV}>
+                {"Download CSV"}
             </Button> 
             : null }
             <br/> <br/>
