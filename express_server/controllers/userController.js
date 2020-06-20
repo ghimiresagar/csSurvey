@@ -23,7 +23,8 @@ const getIp = (req) => {
 }
 
 const checkIp = (req, name) => {
-    return IpAddress.countDocuments({ ip: getIp(req), name: name });
+    return IpAddress.countDocuments({ ip: getIp(req), name: 'NameDoesnotExist' });
+    // return 0;
 }
 
 const checkResult = (body) => {

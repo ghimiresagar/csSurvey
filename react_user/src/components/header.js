@@ -33,7 +33,7 @@ const Header = props => {
                 setUser(data.user);
                 setIsAuthenticated(false);
             }
-        })
+        })//.then(data => window.location.href="/" );
     }
 
 

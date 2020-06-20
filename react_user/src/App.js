@@ -9,6 +9,8 @@ import Dashboard from './components/admin/dashboard/dashboard';
 import SurveyLayoutEdit from './components/admin/survey_edit/survey_layout_edit';
 import SurveyResult from './components/admin/survey_result/survey_result';
 import SurveyView from './components/listSurvey/survey_view';
+// import PageNotFound from './components/extrapages/404';
+import ThankPage from './components/extrapages/thank';
 
 /**
  * This class only matches the url and renders the appropriate component for the url 
@@ -27,6 +29,8 @@ function App() {
           <Route exact path='/admin/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
           <Route exact path='/admin/surveys/alumni/url/:id' render={(props) => <SurveyView {...props} name="Alumni"/> } />
           <Route exact path='/admin/surveys/iab/url/:id' render={(props) => <SurveyView {...props} name="IAB"/> } />
+          {/* <Route exact path='/pagenotfound' component={PageNotFound} /> */}
+          <Route exact path='/thankyou' component={ThankPage} />
           <Route path='/'>
             <Redirect to="/" />
           </Route>

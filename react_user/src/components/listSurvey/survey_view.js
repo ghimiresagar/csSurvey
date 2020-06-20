@@ -31,7 +31,7 @@ function SurveyView(props) {
                 if (body === null) {
                     // url doesn't exist
                     setTimeout(() => {
-                        window.location.href = '/';
+                        window.location.href = '/pagenotfound';
                         setMessage(null);
                     }, 3000);
                     setMessage({
@@ -41,7 +41,7 @@ function SurveyView(props) {
                 } else if (body === "taken") {
                     // survey is already taken
                     setTimeout(() => {
-                        window.location.href = '/';
+                        window.location.href = '/thankyou';
                         setMessage(null);
                     }, 3000);
                     setMessage({
@@ -95,7 +95,7 @@ function SurveyView(props) {
             if (!body.message.msgError) {   // if error is false
                 setTimeout(() => {
                     setMessage(null);
-                    window.location.href = '/';
+                    window.location.href = '/thankyou';
                 }, 3000);
             };
             setMessage({
