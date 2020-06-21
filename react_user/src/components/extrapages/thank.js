@@ -5,8 +5,10 @@ import './thank.css';
 function ThankPage() {
     return (
         <div className="main">
-            <div className="container">
+            <div className="main-box">
                 <h1> Thank you! </h1>
+                <hr />
+                <h5> The Computer Science department appreciates your effort for taking the survey. </h5>
             </div>
         </div>
     );

@@ -66,7 +66,7 @@ function EditUrl(props) {
                         <Col sm={12}>
                             <Form.Group as={Row}>
                                 <Form.Label column sm={2}>
-                                    Edit Description: 
+                                    Description: 
                                 </Form.Label>
                                 <Col sm={10}>
                                 <Form.Control 

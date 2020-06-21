@@ -5,11 +5,54 @@
     width: 100%;
     overflow: hidden;
     background: rgb(162,184,219);
-    background: linear-gradient(0deg, rgba(162,184,219,1) 0%, rgba(144,177,232,1) 14%, rgba(103,173,210,1) 44%, rgba(211,248,255,1) 100%);
+    background: linear-gradient(0deg, rgba(162,184,219,.3) 0%, rgba(144,177,232,.3) 14%, rgba(103,173,210,.3) 44%, rgba(211,248,255,.3) 100%);
+}
+
+.main-box {
+    margin-top: 20%;
 }
 
 h1 {
     color: rgb(21, 29, 100);
-    font-size: 50px;
+    font-size: 70px;
+    -webkit-animation: shakeit 3s;
+    animation: shakeit 3s;
     text-align: center;
+}
+
+h5 {
+    color: rgb(21, 29, 100);
+    font-size: 30px;
+    text-align: center;
+    margin-top: -50%;
+    animation: fadein 2s 1s;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes shakeit {
+    12.5% {margin-left: -50px;}
+    25% {margin-left: 50px;}
+    37.5% {margin-left: -25px;}
+    50% {margin-left: 25px;}
+    62.5% {margin-left: -10px;}
+    75% {margin-left: 10px;}
+}
+
+@keyframes shakeit {
+    12.5% {margin-left: -50px;}
+    25% {margin-left: 50px;}
+    37.5% {margin-left: -25px;}
+    50% {margin-left: 25px;}
+    62.5% {margin-left: -10px;}
+    75% {margin-left: 10px;}
+}
+
+@-webkit-keyframes fadein {
+    0% {margin-top: -50%; opacity: 0;}
+    100% {margin-top: 50px; opacity: 1;}
+}
+
+@keyframes fadein {
+    0% {margin-top: -50%; opacity: 0;}
+    100% {margin-top: 0px; opacity: 1;}
 }

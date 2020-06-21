@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 function SurveySearch(props) {
     const years = [];
 
-    for (let i = 2019; i < 2070; i++) {
+    for (let i = 2019; i < (new Date().getFullYear() + 5); i++) {
         years.push(
             <option key={i}>{i}</option>
         );      
