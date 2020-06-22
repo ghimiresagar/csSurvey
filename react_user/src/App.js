@@ -9,7 +9,7 @@ import Dashboard from './components/admin/dashboard/dashboard';
 import SurveyLayoutEdit from './components/admin/survey_edit/survey_layout_edit';
 import SurveyResult from './components/admin/survey_result/survey_result';
 import SurveyView from './components/listSurvey/survey_view';
-// import PageNotFound from './components/extrapages/404';
+import HowTo from './components/extrapages/howto';
 import ThankPage from './components/extrapages/thank';
 
 /**
@@ -29,7 +29,7 @@ function App() {
           <Route exact path='/admin/surveys/senior/url/:id' render={(props) => <SurveyView {...props} name="Senior"/> } />
           <Route exact path='/admin/surveys/alumni/url/:id' render={(props) => <SurveyView {...props} name="Alumni"/> } />
           <Route exact path='/admin/surveys/iab/url/:id' render={(props) => <SurveyView {...props} name="IAB"/> } />
-          {/* <Route exact path='/pagenotfound' component={PageNotFound} /> */}
+          <Route exact path='/about' component={HowTo} />
           <Route exact path='/thankyou' component={ThankPage} />
           <Route path='/'>
             <Redirect to="/" />

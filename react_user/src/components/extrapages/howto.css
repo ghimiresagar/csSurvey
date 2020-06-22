@@ -1,0 +1,61 @@
+.main-howto {
+    height: 100%;
+    width: 100%;
+    min-width: 500px;
+    overflow: hidden;
+    background: rgb(162,184,219);
+    background: linear-gradient(0deg, rgba(162,184,219,.3) 0%, rgba(144,177,232,.3) 14%, rgba(103,173,210,.3) 44%, rgba(211,248,255,.3) 100%);
+}
+
+.para-section {
+    margin: 0px 0px 20px 0px;
+}
+
+.toph1 {
+    text-align: center;
+}
+
+.toph3left {
+    text-align: center;
+    animation: toleft 2s;
+    -webkit-animation: toleft 2s;
+    animation-fill-mode: forwards;
+}
+
+.toph3right {
+    text-align: center;
+    animation: toright 2s;
+    -webkit-animation: toright 2s;
+    animation-fill-mode: forwards;
+}
+
+.gifBox {
+    width: 80%;
+}
+
+img {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+@keyframes toleft {
+    0% {margin-right: 0%;}
+    100% {margin-right: 60%;}
+}
+
+@keyframes toright {
+    0% {margin-left: 0%;}
+    100% {margin-left: 60%;}
+}
+
+@-webkit-keyframes toleft {
+    0% {margin-right: 0%;}
+    100% {margin-right: 60%;}
+}
+
+@-webkit-keyframes toright {
+    0% {margin-left: 0%;}
+    100% {margin-left: 60%;}
+}

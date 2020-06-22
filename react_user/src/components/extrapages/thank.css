@@ -12,7 +12,7 @@
     margin-top: 20%;
 }
 
-h1 {
+.shaky {
     color: rgb(21, 29, 100);
     font-size: 70px;
     -webkit-animation: shakeit 3s;
@@ -20,7 +20,7 @@ h1 {
     text-align: center;
 }
 
-h5 {
+.scrollTopToBottom {
     color: rgb(21, 29, 100);
     font-size: 30px;
     text-align: center;
