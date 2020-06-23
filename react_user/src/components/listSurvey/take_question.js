@@ -17,10 +17,10 @@ function TakeQuestion(props) {
                 </Col>
                 {(props.value.input_type === "Rate") && 
                 <>
-                    <Col sm={9}>
+                    <Col sm={8}>
                         {props.value.title}
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <InputRate number={props.number} id={props.value._id} handleChange={props.handleChange} />
                     </Col>
                 </>

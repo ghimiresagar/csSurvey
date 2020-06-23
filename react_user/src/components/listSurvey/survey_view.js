@@ -113,10 +113,10 @@ function SurveyView(props) {
     }
     
     return(
-        <Container>
+        <Container >
             <Header value="Survey Web App" />
             { logged ? <BackButton /> : null}
-            <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
+            <Card className="shadow-sm mb-5 bg-white rounded" >
                 <Card.Header as="h5" className="text-center"> 
                     {props.name} Survey
                 </Card.Header>
@@ -129,27 +129,27 @@ function SurveyView(props) {
                             <Col sm={1}>
                                 #
                             </Col>
-                            <Col sm={9} className="text-center">
+                            <Col sm={8} className="text-center">
                                 Question
                             </Col>
-                            <Col sm={2}>
-                                <Row>
-                                    <div className="m-1">
+                            <Col sm={3}>
+                                <Row className="justify-content-center">
+                                    <div className="m-3">
                                         5
                                     </div>
-                                    <div className="m-1">
+                                    <div className="m-2 mt-3">
                                         4
                                     </div>
-                                    <div className="m-1">
+                                    <div className="m-3">
                                         3
                                     </div>
-                                    <div className="m-1">
+                                    <div className="m-2 mt-3">
                                         2
                                     </div>
-                                    <div className="m-1">
+                                    <div className="m-3">
                                         1
                                     </div>
-                                    <div className="m-1">
+                                    <div className="m-2 mt-3">
                                         N/A
                                     </div>
                                 </Row>

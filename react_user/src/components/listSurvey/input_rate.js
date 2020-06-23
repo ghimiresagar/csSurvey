@@ -5,7 +5,8 @@ import Row from 'react-bootstrap/Row';
 
 function InputRate(props) {
     return(
-        <Row>
+        <Row className="justify-content-center">
+            <div className="m-2">
             <Form.Check type="radio" 
                         name={"question-"+props.number} 
                         num = {props.number-1}
@@ -14,6 +15,8 @@ function InputRate(props) {
                         typeval = "Rate"
                         onChange={props.handleChange}
                         required/>
+            </div>
+            <div className="m-2">
             <Form.Check type="radio" 
                         name={"question-"+props.number} 
                         value={4} 
@@ -21,6 +24,8 @@ function InputRate(props) {
                         id={props.id}
                         typeval = "Rate"
                         onChange={props.handleChange}/>
+            </div>
+            <div className="m-2">
             <Form.Check type="radio" 
                         name={"question-"+props.number} 
                         value={3} 
@@ -28,6 +33,8 @@ function InputRate(props) {
                         id={props.id}
                         typeval = "Rate"
                         onChange={props.handleChange}/>
+            </div>
+            <div className="m-2">
             <Form.Check type="radio" 
                         name={"question-"+props.number} 
                         value={2} 
@@ -35,6 +42,8 @@ function InputRate(props) {
                         id={props.id}
                         typeval = "Rate"
                         onChange={props.handleChange}/>
+            </div>
+            <div className="m-2">
             <Form.Check type="radio" 
                         name={"question-"+props.number} 
                         value={1} 
@@ -42,6 +51,8 @@ function InputRate(props) {
                         id={props.id}
                         typeval = "Rate"
                         onChange={props.handleChange}/>
+            </div>
+            <div className="m-2">
             <Form.Check type="radio" 
                         name={"question-"+props.number} 
                         num = {props.number-1}
@@ -50,6 +61,7 @@ function InputRate(props) {
                         typeval = "Rate"
                         onChange={props.handleChange}
                         required/>
+            </div>
         </Row>
     );
 }
