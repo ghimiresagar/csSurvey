@@ -712,7 +712,7 @@ exports.iab_url_get = function(req, res){
             IabSurvey.findOne({"type": "url"}, {"_id": 1}, callback);
         },
         archived_result: function(callback){
-            ArchiveResult.find({ "name": "Iab" }, { year: 1, _id: 0 }, callback)
+            ArchiveResult.find({ "name": "IAB" }, { year: 1, _id: 0 }, callback)
         }
     }, function(err, result){
         if (err) console.log(err);
@@ -728,7 +728,7 @@ exports.iab_url_post = function(req, res) {
         type: 'detail',
         result: {
             year: req.body.year,
-            name: 'Iab'
+            name: 'IAB'
         }
     })
     .then(updated => {
@@ -743,7 +743,7 @@ exports.iab_url_create_post = function(req, res){
         type: 'detail',
         result: {
             year: new Date().getFullYear(),
-            name: 'Iab'
+            name: 'IAB'
         }
     };
     const url = {
@@ -863,7 +863,7 @@ exports.iab_url_archive_post = function(req, res){
 exports.iab_url_check_get = function(req, res){
     if (req.params.id){     // if url id is present in the link, check this
         // check if the ip address passed is not present on the list
-        checkIp(req, 'Iab').then(doc => {
+        checkIp(req, 'IAB').then(doc => {
             if (doc === 0) {    // ip is not found
                 IabSurvey.findOne({ "_id" : req.params.id, "type": "url" }, function(err, result){
                     if (err) console.log(err);
@@ -901,7 +901,7 @@ exports.iab_url_check_get = function(req, res){
 
 // post the result to the respective question
 exports.iab_url_check_post = function(req, res){
-    checkIp(req, 'Iab')
+    checkIp(req, 'IAB')
     .then(doc => {
         if (doc === 0) {    // nothing found
             (req.body).forEach(element => {
@@ -937,7 +937,7 @@ exports.iab_url_check_post = function(req, res){
             const address = new IpAddress({
                 url: req.params.id,
                 ip: getIp(req),
-                name: 'Iab'
+                name: 'IAB'
             });
             address.save()
             .catch(err => console.log(err));

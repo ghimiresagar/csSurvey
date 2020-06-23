@@ -3,7 +3,6 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 function SurveySearch(props) {
     const years = [];
@@ -27,7 +26,7 @@ function SurveySearch(props) {
                         onChange={props.onChangeHandle}>
                         <option>Senior</option>
                         <option>Alumni</option>
-                        <option>Iab</option>
+                        <option>IAB</option>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col}>
@@ -41,9 +40,6 @@ function SurveySearch(props) {
                         {years}
                     </Form.Control>
                 </Form.Group>
-                {/* <Form.Group as={Col}>
-                    <Button onClick={() => window.printPreview() }> Print </Button>
-                </Form.Group> */}
             </Row>
         </Form>
     );

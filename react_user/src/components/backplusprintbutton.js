@@ -16,13 +16,10 @@ function BackPrintButton(props) {
         console.log(props.obj)
 
         let csvContent = "data:text/csv;charset=utf-8,";
-        // set the heading
-        // let headerRate = "Title,5,4,3,2,1,N/A";
-        // let headerComment = "Title, Comments";
 
         props.obj.forEach(element => {      // each element is an object
             
-            let row = element.q_title+",";
+            let row = "\""+element.q_title+"\""+",";
             if (element.q_type === "Rate") {
             row += element.rate[5]+","+
                 element.rate[4]+","+
@@ -36,7 +33,6 @@ function BackPrintButton(props) {
             csvContent += row + "\r\n";
         });
 
-        // window.open(encodeURI(csvContent));
         // set custome name
         let encodedUri = encodeURI(csvContent);
         let link = document.createElement('a');
@@ -45,7 +41,6 @@ function BackPrintButton(props) {
         document.body.appendChild(link);
 
         link.click();
-        
     }
 
 
