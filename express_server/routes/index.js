@@ -26,6 +26,13 @@ router.get('/authenticated', passport.authenticate('jwt', {session: false}), use
 router.post('/surveys/questions/orderinc', passport.authenticate('jwt', {session: false}), user_controller.increment_question);
 router.post('/surveys/questions/orderdec', passport.authenticate('jwt', {session: false}), user_controller.decrement_question);
 
+// gets survey results
+router.post('/surveys/results/all', passport.authenticate('jwt', {session: false}), user_controller.get_survey_result);
+// delete survey results
+router.post('/surveys/result/delete', passport.authenticate('jwt', {session: false}), user_controller.delete_survey_result);
+
+
+
 //--------------------- SURVEY URL ----------------------------
 // get's the url object's id to display on url
 router.get('/surveys/senior/url', passport.authenticate('jwt', {session: false}), user_controller.senior_url_get);
@@ -40,9 +47,6 @@ router.post('/surveys/senior/url/delete/:id', passport.authenticate('jwt', {sess
 router.get('/surveys/senior/url/:id', user_controller.senior_url_check_get);
 // sending the request to the server for posting results
 router.post('/surveys/senior/url/:id', user_controller.senior_url_check_post);
-
-router.post('/surveys/results/all', passport.authenticate('jwt', {session: false}), user_controller.get_senior_result);
-
 
 // get's the url object's id to display on url
 router.get('/surveys/alumni/url', passport.authenticate('jwt', {session: false}), user_controller.alumni_url_get);

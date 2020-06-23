@@ -14,6 +14,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 function Url(props) {
     const [change, setChange] = useState(0);
     const [message, setMessage] = useState(null);
+    const [resultExist, setResultExist] = useState(false);
 
     const [detailBody, setDetailBody] = useState({});
 
@@ -42,9 +43,10 @@ function Url(props) {
             for (let x = 0; x < body.archived_result.length; x++){
                 if (body.archived_result[x].year === body.details.result.year) {
                     setMessage({
-                        msgBody: "The result for this particular year already exists.",
+                        msgBody: `The result for the year ${body.archived_result[x].year} already exists. Click recreate survey to delete the existing results and create a new survey for this year.`,
                         msgError: true
                     });
+                    setResultExist(true);
                     break
                 } else {
                     setMessage(null);
@@ -109,11 +111,44 @@ function Url(props) {
         }).catch(err => console.log(err));
     }
 
-    const popover = (
+    function deleteResult(e) {
+        e.preventDefault();
+        let postBody = {
+            name: props.name,
+            year: detailBody.details.result.year
+        }
+        fetch("/surveys/result/delete/", {          // using id of url
+            method: 'post',
+            body: JSON.stringify(postBody),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTimeout(() => {
+                onChangeHandle();
+                setMessage(null);
+                setResultExist(false);
+            }, 2000);
+            setMessage( data.message );
+        }).catch(err => console.log(err));
+    }
+
+    const popoverArchiveSurvey = (
+        <Popover id="popover-basic" data-trigger="focus">
+        <Popover.Title as="h3">Closing Survey</Popover.Title>
+        <Popover.Content>
+            After closing the survey you won't be able to <strong>update</strong> the results until you delete the results. Double Click to close the survey.
+        </Popover.Content>
+        </Popover>
+    );
+
+    const popoverDeleteResult = (
         <Popover id="popover-basic">
-          <Popover.Title as="h3">Closing Survey</Popover.Title>
+          <Popover.Title as="h3">Delete the Result</Popover.Title>
           <Popover.Content>
-            After closing the survey you won't be able to <strong>update</strong> the results anymore. Double Click to close the survey.
+            Double click to delete the result of this particular survey. You won't me able to <strong>view</strong> the results anymore.
           </Popover.Content>
         </Popover>
     );
@@ -144,14 +179,14 @@ function Url(props) {
                             count={detailBody.number_detail} 
                             onChangeHandle={onChangeHandle}/>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col sm={3}>
                             Year:
                         </Col>
                         <Col sm={9}>
                             {detailBody.details.result.year}
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
                         <Col sm={3}>
                             Number of Questions:
@@ -181,7 +216,8 @@ function Url(props) {
                             </Col>
                         </Row>
                     }
-                    <Row className="justify-content-around mt-2">
+
+                    <Row className="justify-content-center mt-2">
                         { detailBody.number_url === 0 ?     // no url link, give option to create it
                             <div className="m-2">
                                 <Button variant="info" className='m-1' onClick={createSurvey}>Activate Survey</Button>    
@@ -189,12 +225,12 @@ function Url(props) {
                         : null}
 
                         { detailBody.number_url === 1 ?     // url present so give option to close the url
-                            // <div className="m-3">
-                                <a className="m-2" href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}>
+                            <div className="m-2">
+                                <a href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}>
                                 {/* <a href={'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}> */}
-                                    <Button variant="success">Preview Survey</Button>    
+                                    <Button variant="success" className='m-1'>Preview Survey</Button>    
                                 </a>
-                            // </div>
+                            </div>
                         : null}
                         
                         { detailBody.number_url === 1 ?     // url present so give option to close the url
@@ -203,17 +239,31 @@ function Url(props) {
                             </div>
                         : null}
                         
-                        <div className="m-2">
-                            <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                                <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Save and Close</Button> 
-                            </OverlayTrigger>   
-                        </div>
+                        { !resultExist ?
+                            <div className="m-2">
+                                <OverlayTrigger 
+                                    delay={{ show: 250, hide: 300 }} 
+                                    placement="right" 
+                                    overlay={popoverArchiveSurvey}>
+                                    <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Save and Close</Button> 
+                                </OverlayTrigger>   
+                            </div>
+                            :
+                            <div className="m-2">
+                                <OverlayTrigger
+                                    delay={{ show: 250, hide: 300 }} 
+                                    placement="right" 
+                                    overlay={popoverDeleteResult}>
+                                    <Button variant="danger" className='m-1' onDoubleClick={deleteResult}>Delete and Recreate</Button>
+                                </OverlayTrigger>   
+                            </div>
+                        }
                     </Row>
                 </>
                 }
                 <div className="m-1 p-1">
-                    {message ? <Message message={message} /> : null }
-                </div>
+                        {message ? <Message message={message} /> : null }
+                    </div>
             </Card.Body>
         </Card>
     );

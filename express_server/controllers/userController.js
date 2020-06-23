@@ -32,7 +32,7 @@ const checkResult = (body) => {
 }
 
 // results
-exports.get_senior_result = function (req, res) {
+exports.get_survey_result = function (req, res) {
     const survey = {
         name: req.body.type,
         year: req.body.year,
@@ -47,6 +47,20 @@ exports.get_senior_result = function (req, res) {
             console.log(err);
             res.json({ "result": err });
         });
+}
+
+exports.delete_survey_result = function(req, res){
+    if (req.body) {     // not empty
+        ArchiveResult.findOneAndDelete({ name: req.body.name, year: req.body.year })
+        .then(data => {
+            res.json({ message: {msgBody: "Recreating Survey", msgError: false } });
+        })
+        .catch(err => {
+            res.json({ message: { msgBody: "Error deleting", msgError: true} });
+        })
+    } else {
+        res.json({ message: { msgBody: "Error", msgError: true} });
+    }
 }
 
 // /users

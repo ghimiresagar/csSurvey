@@ -11,6 +11,14 @@ import Accordion from 'react-bootstrap/Accordion';
 import Container from 'react-bootstrap/Container';
  
 function EditUrl(props) {
+    const years = [];
+
+    for (let i = 2019; i < (new Date().getFullYear() + 5); i++) {
+        years.push(
+            <option key={i}>{i}</option>
+        );      
+    }
+
     const [message, setMessage] = useState(null);
     const [body, setBody] = useState({
         id: props.value._id,
@@ -54,8 +62,13 @@ function EditUrl(props) {
                             </Col>
                             <Col sm={4} className="text-right">
                                 <Accordion.Toggle as={Button} eventKey="0">
-                                    Edit Description
+                                    <div style={{width: "100px"}}>Edit</div>
                                 </Accordion.Toggle>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={12}>
+                                Year: {body.year}
                             </Col>
                         </Row>
                     </Card.Header>
@@ -88,11 +101,7 @@ function EditUrl(props) {
                                         custom name="year" 
                                         defaultValue={body.year} 
                                         onChange={handleChange}>
-                                    <option>{thisYear - 1}</option>
-                                    <option>{thisYear}</option>
-                                    <option>{thisYear + 1}</option>
-                                    <option>{thisYear + 2}</option>
-                                    <option>{thisYear + 3}</option>
+                                        {years}
                                     </Form.Control>
                                 </Col>
                             </Form.Group>
