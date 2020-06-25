@@ -9,14 +9,12 @@
 }
 
 .main-box {
-    margin-top: 20%;
+    margin-top: 5%;
 }
 
 .shaky {
     color: rgb(21, 29, 100);
     font-size: 70px;
-    -webkit-animation: shakeit 3s;
-    animation: shakeit 3s;
     text-align: center;
 }
 
@@ -24,35 +22,135 @@
     color: rgb(21, 29, 100);
     font-size: 30px;
     text-align: center;
-    margin-top: -50%;
-    animation: fadein 2s 1s;
+}
+
+/* code for robot */
+
+.robo {
+    --robo-skin: black;
+    --robo-margin: black;
+
+    position: relative;
+    margin: auto;
+    display: block;
+    opacity: 0;;
+    width: 300px;
+    height: 300px;
+    animation: fadeIn 4s;
     animation-fill-mode: forwards;
 }
 
-@-webkit-keyframes shakeit {
-    12.5% {margin-left: -50px;}
-    25% {margin-left: 50px;}
-    37.5% {margin-left: -25px;}
-    50% {margin-left: 25px;}
-    62.5% {margin-left: -10px;}
-    75% {margin-left: 10px;}
+.robo-top {
+    width: 40%;
+    left: 30%;
+    top: 5%;
+    height: 33%;
+    background-color: transparent;
+    animation: waveHead 1s 1s infinite linear;
+    -webkit-animation: waveHead 1s 1s infinite linear;
 }
 
-@keyframes shakeit {
-    12.5% {margin-left: -50px;}
-    25% {margin-left: 50px;}
-    37.5% {margin-left: -25px;}
-    50% {margin-left: 25px;}
-    62.5% {margin-left: -10px;}
-    75% {margin-left: 10px;}
+.robo-middle {
+    width: 40%;
+    left: 30%;
+    top: 40%;
+    height: 60%;
+    background-color: transparent;
 }
 
-@-webkit-keyframes fadein {
-    0% {margin-top: -50%; opacity: 0;}
-    100% {margin-top: 50px; opacity: 1;}
+.head {
+    width: 100%;
+    height: 100%;
+    border-radius: 70% 70% 60% 60%;
+    background-color: var(--robo-skin, black);
 }
 
-@keyframes fadein {
-    0% {margin-top: -50%; opacity: 0;}
-    100% {margin-top: 0px; opacity: 1;}
+.eye {
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
+    border-radius: 70% 70% 60% 60%;
+    background: rgb(205, 219, 240);
+}
+
+.sparkle-left {
+    width: 30%;
+    height: 40%;
+    top: 25%;
+    left: 10%;
+    background-color: var(--robo-skin, black);
+    border-radius: 50%;
+}
+
+.sparkle-right {
+    width: 30%;
+    height: 40%;
+    top: 25%;
+    right: 10%;
+    background-color: var(--robo-skin, black);
+    border-radius: 50%;
+}
+
+.torso {
+    width: 100%;
+    height: 100%;
+    background-color: var(--robo-skin, black);
+    border-radius: 50% 50% 70% 70%;
+    z-index: 2;
+}
+
+.torso-inner {
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    background: rgb(193, 209, 231);
+    border-radius: 50% 50% 70% 70%;
+}
+
+.hand-left {
+    width: 25%;
+    height: 50%;
+    background-color: var(--robo-skin, black);
+    border-radius: 30% 30% 30% 120%;
+    transform: rotate(120deg);
+    top: -10%;
+    left: -45%;
+    z-index: 1;
+}
+
+.hand-right {
+    width: 25%;
+    height: 50%;
+    background-color: var(--robo-skin, black);
+    border-radius: 30% 30% 30% 120%;
+    transform: rotate(-25deg);
+    top: 25%;
+    right: -25%;
+}
+
+.robo * {
+    position: absolute;
+}
+
+@keyframes waveHead {
+    0% { left: 30%; }
+    25% { left: 25%; }
+    50% { left: 30%; }
+    75% { left: 35%; }
+    100% { left: 30%; }
+}
+
+@-webkit-keyframes waveHead {
+    0% { left: 30%; }
+    25% { left: 25%; }
+    50% { left: 30%; }
+    75% { left: 35%; }
+    100% { left: 30%; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
