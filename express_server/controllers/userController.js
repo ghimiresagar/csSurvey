@@ -497,7 +497,8 @@ exports.alumni_url_post = function(req, res) {
 
 exports.alumni_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
+        title: 'The Computer Science department constantly improve the quality of its services to the students.'+ 
+        ' Your feedback will be used to help to determine how we can best serve students in the future.',
         type: 'detail',
         result: {
             year: new Date().getFullYear(),

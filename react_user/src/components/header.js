@@ -3,8 +3,6 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import AuthService from '../Services/AuthService';
 import { Nav, Navbar } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 
 const Header = props => {
     const { setUser, isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -33,7 +31,7 @@ const Header = props => {
                 setUser(data.user);
                 setIsAuthenticated(false);
             }
-        })//.then(data => window.location.href="/" );
+        })
     }
 
 

@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 
 function InputComment(props) {
     return(
-        <Row>
+        <div style={{ "margin": "1px", "padding": "1px"}}>
             <Form.Control as="textarea" 
                         rows="3"
                         name={"question-"+props.number} 
@@ -15,7 +15,7 @@ function InputComment(props) {
                         placeholder="Leave blank if not applicable"
                         onChange={props.handleChange}
                         />
-        </Row>
+        </div>
     );
 }
 

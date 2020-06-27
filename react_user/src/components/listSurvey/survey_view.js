@@ -111,6 +111,14 @@ function SurveyView(props) {
             <TakeQuestion key={x} value={y} number={x+1} handleChange={callOnChangeParent} />
         )
     }
+
+    const stylesRate = {
+        width: "15%",
+        margin: "1px",
+        padding: "1px",
+        display: "inline-block",
+        "text-align": "center"
+    }
     
     return(
         <Container >
@@ -124,38 +132,36 @@ function SurveyView(props) {
                     {detailBody}
                 </Card.Text>
                 <Card.Header as="h5"> 
-                    <Container>
-                        <Row>
-                            <Col sm={1}>
-                                #
-                            </Col>
-                            <Col sm={8} className="text-center">
-                                Question
-                            </Col>
-                            <Col sm={3}>
-                                <Row className="justify-content-center">
-                                    <div className="m-3">
-                                        5
-                                    </div>
-                                    <div className="m-2 mt-3">
-                                        4
-                                    </div>
-                                    <div className="m-3">
-                                        3
-                                    </div>
-                                    <div className="m-2 mt-3">
-                                        2
-                                    </div>
-                                    <div className="m-3">
-                                        1
-                                    </div>
-                                    <div className="m-2 mt-3">
-                                        N/A
-                                    </div>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Container>
+                <Container>
+                    <Row>
+                        <div style={{ "width": "5%"}}>
+                            #
+                        </div>
+                        <div style={{ "width": "65%"}}>
+                            Question
+                        </div>
+                        <div style={{ "width": "30%"}}>
+                            <div style={stylesRate}>
+                                5
+                            </div>
+                            <div  style={stylesRate}>
+                                4
+                            </div>
+                            <div style={stylesRate}>
+                                3
+                            </div>
+                            <div style={stylesRate}>
+                                2
+                            </div>
+                            <div style={stylesRate}>
+                                1
+                            </div>
+                            <div style={stylesRate}>
+                                0
+                            </div>
+                        </div>
+                    </Row>
+                </Container>
                 </Card.Header>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>

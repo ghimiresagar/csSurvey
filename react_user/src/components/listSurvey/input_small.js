@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 
 function InputSmall(props) {
     return(
-        <Row>
+        <div style={{ "margin": "1px", "padding": "1px"}}>
             <Form.Control type="text" 
                         name={"question-"+props.number} 
                         num = {props.number-1} 
@@ -14,7 +14,7 @@ function InputSmall(props) {
                         typeval="Short Answer"
                         onChange={props.handleChange}
                         />
-        </Row>
+        </div>
     );
 }
 

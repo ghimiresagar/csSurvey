@@ -12,37 +12,38 @@ function TakeQuestion(props) {
     return(
         <Container>
             <Row>
-                <Col sm={1}>
-                    {props.number}.
-                </Col>
+                <div style={{ "width": "5%"}}>
+                    <div style={{ "display": "inline-block" }}>{props.number}.</div>
+                </div>
+
                 {(props.value.input_type === "Rate") && 
                 <>
-                    <Col sm={8}>
+                    <div style={{ "width": "65%"}}>
                         {props.value.title}
-                    </Col>
-                    <Col sm={3}>
+                    </div>
+                    <div style={{ "width": "30%"}}>
                         <InputRate number={props.number} id={props.value._id} handleChange={props.handleChange} />
-                    </Col>
+                    </div>
                 </>
                 }
                 {(props.value.input_type === "Short Answer") && 
                 <>
-                    <Col sm={8}>
+                    <div style={{ "width": "45%"}}>
                         {props.value.title}
-                    </Col>
-                    <Col sm={3}>
+                    </div>
+                    <div style={{ "width": "50%"}}>
                         <InputSmall number={props.number} id={props.value._id} handleChange={props.handleChange} />
-                    </Col>
+                    </div>
                 </>
                 }
                 {(props.value.input_type === "Longer Comment") && 
                 <>
-                    <Col sm={5}>
+                    <div style={{ "width": "40%"}}>
                         {props.value.title}
-                    </Col>
-                    <Col sm={6}>
+                    </div>
+                    <div style={{ "width": "55%"}}>
                         <InputComment number={props.number} id={props.value._id} handleChange={props.handleChange} />
-                    </Col>
+                    </div>
                 </>
                 }
             </Row> <hr />
