@@ -12,6 +12,8 @@ function SeniorSurvey(props) {
     const [count, setCount] = useState({});
     const [change, setChange] = useState(1);
 
+    let num = 1;
+
     useEffect(() => {
         getQuestions()
         .then(body => {
@@ -35,15 +37,19 @@ function SeniorSurvey(props) {
         return body;
     }
 
-    const questions = questionList.map(question => (
-        <EditQuestion
-            key={question._id}
-            value = {question}
-            name={props.name}
-            num={count.questionCount}
-            onChangeHandle={onChangeHandle}
-        />
-    ));
+    const questions = []
+    for (const [x, y] of questionList.entries()) {
+        if (y.input_type !== "Instruction") {
+            questions.push(
+                <EditQuestion key={x} value={y} name={props.name} number={num} num={count.questionCount} onChangeHandle={onChangeHandle} />
+            );
+            num += 1;
+        } else {
+            questions.push(
+                <EditQuestion key={x} value={y} name={props.name} num={count.questionCount} onChangeHandle={onChangeHandle} />
+            );
+        }
+    }
 
     return(
         <Container>

@@ -17,6 +17,7 @@ function SurveyView(props) {
     const [body, setBody] = useState([]);
     const [detailBody, setDetailBody] = useState("");
     const [results, setResults] = useState(null);
+    let num = 1;
 
     const [logged, setLogged] = useState(false);
 
@@ -107,9 +108,16 @@ function SurveyView(props) {
  
     const questions = []
     for (const [x, y] of body.entries()) {
-        questions.push(
-            <TakeQuestion key={x} value={y} number={x+1} handleChange={callOnChangeParent} />
-        )
+        if (y.input_type !== "Instruction") {
+            questions.push(
+                <TakeQuestion key={x} value={y} number={num} handleChange={callOnChangeParent} />
+            );
+            num += 1;
+        } else {
+            questions.push(
+                <TakeQuestion key={x} value={y} />
+            );
+        }
     }
 
     const stylesRate = {
@@ -137,10 +145,10 @@ function SurveyView(props) {
                         <div style={{ "width": "5%"}}>
                             #
                         </div>
-                        <div style={{ "width": "65%"}}>
+                        <div style={{ "width": "60%"}}>
                             Question
                         </div>
-                        <div style={{ "width": "30%"}}>
+                        <div style={{ "width": "35%"}}>
                             <div style={stylesRate}>
                                 5
                             </div>

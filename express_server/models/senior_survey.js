@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 SeniorSurveySchema = new Schema(
     {
         title: {type: String, required: true, unique: true},                    // title has to be unique
-        input_type: {type: String},
+        input_type: {type: String},                                             // rate, input small, longer comment, information
         question_type: {type: Number},                                          // stores the order of question
         type: {type: String, required: true, default: "question"},              // type of question or url or detail
         result:

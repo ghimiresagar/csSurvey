@@ -10,7 +10,7 @@ function UrlView(props) {
             <Col sm={3}>
                 Description:
             </Col>
-            <Col sm={9}>
+            <Col sm={9} style={{ whiteSpace: "pre-line" }}>
                 {props.value.title}
             </Col>
         </Row>
@@ -22,14 +22,6 @@ function UrlView(props) {
                 {props.value.result.year}
             </Col>
         </Row>
-        {/* <Row>
-            <Col sm={3}>
-                Number of questions:
-            </Col>
-            <Col sm={9}>
-                {props.num}
-            </Col>
-        </Row> */}
         <Row>
             <Col sm={3}>
                 Survey Takers:
@@ -38,15 +30,6 @@ function UrlView(props) {
                 {props.value.result.numberOfParts}
             </Col>
         </Row>
-        {/* <Row>
-            <Col sm={3}>
-                Survey Link:
-            </Col>
-            <Col sm={9}>
-                {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+props.value._id}
-                <br/><br/>
-            </Col>
-        </Row> */}
         </>
     )
 };

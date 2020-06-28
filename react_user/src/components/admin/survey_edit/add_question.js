@@ -96,16 +96,9 @@ function AddQuestion(props) {
                             <option>Rate</option>
                             <option>Short Answer</option>
                             <option>Longer Comment</option>
+                            <option>Instruction</option>
                             </Form.Control>
                         </Col>
-
-                        {/* <Form.Label column sm={2}>
-                            Question Type:
-                        </Form.Label>
-                        <Form.Label row="true" sm={2} className="p-2 font-weight-bold">
-                            {body.question_type}
-                        </Form.Label> */}
-
                     </Form.Group>
                     </Col>
                     <Col sm={2}>

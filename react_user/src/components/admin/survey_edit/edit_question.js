@@ -122,6 +122,7 @@ function EditQuestion(props) {
         // props.onChangeHandle();
     }
 
+    console.log(props.num)
     return(     
         <Accordion>
             <Card>
@@ -129,6 +130,11 @@ function EditQuestion(props) {
                     <Container>
                         <Row>
                             <Col sm={9}>
+                                { props.value.input_type !== "Instruction" &&
+                                    <div className="d-inline-block mr-1">
+                                        {props.number}.
+                                    </div>
+                                }
                                 {props.value.title}
                             </Col>
                             <Col sm={3}>
@@ -185,6 +191,7 @@ function EditQuestion(props) {
                                     <option>Rate</option>
                                     <option>Short Answer</option>
                                     <option>Longer Comment</option>
+                                    <option>Instruction</option>
                                     </Form.Control>
                                 </Col>
 
