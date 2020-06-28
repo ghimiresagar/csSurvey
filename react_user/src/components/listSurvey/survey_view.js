@@ -5,7 +5,6 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 import TakeQuestion from './take_question';
 import Message from '../message';
@@ -65,6 +64,7 @@ function SurveyView(props) {
             return null;
         if (body.value === "taken")
             return "taken";
+        console.log(body);
         return body;
     }
 
@@ -117,7 +117,7 @@ function SurveyView(props) {
         margin: "1px",
         padding: "1px",
         display: "inline-block",
-        "text-align": "center"
+        textAlign: "center"
     }
     
     return(
@@ -128,7 +128,7 @@ function SurveyView(props) {
                 <Card.Header as="h5" className="text-center"> 
                     {props.name} Survey
                 </Card.Header>
-                <Card.Text className="p-2">
+                <Card.Text className="p-2" style={{ whiteSpace: "pre-line" }}>
                     {detailBody}
                 </Card.Text>
                 <Card.Header as="h5"> 

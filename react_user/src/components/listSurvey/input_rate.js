@@ -9,7 +9,7 @@ function InputRate(props) {
         margin: "1px",
         padding: "1px",
         display: "inline-block",
-        "text-align": "center"
+        textAlign: "center"
     }
 
     return(

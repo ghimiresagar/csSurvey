@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import UrlView from './url_view';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -15,7 +14,6 @@ function Survey(props) {
         getQuery()
         .then(body => {
             setDetailBody(body);
-            // console.log(body);
         })
         .catch(err => console.log(err));
     }, []);

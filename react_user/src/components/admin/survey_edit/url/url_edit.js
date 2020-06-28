@@ -26,7 +26,6 @@ function EditUrl(props) {
         year: props.value.result.year,
         numberOfTakers: props.value.result.numberOfParts
     });
-    const thisYear = new Date().getFullYear();
 
     function handleChange(e) {
         e.preventDefault();

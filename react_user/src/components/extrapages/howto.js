@@ -47,7 +47,7 @@ function HowTo() {
                         The app introduces a basic login page for the admin with option to provide username and password. It also provides basic validation and appropriate error message to the user.<br />
                     </p>
                     <div className="gifBox">
-                        <img src={loginGif} />
+                        <img src={loginGif} alt="login gif"/>
                     </div>
                     <br />
                     <p>
@@ -59,7 +59,7 @@ function HowTo() {
                     </p>
 
                     <div className="gifBox">
-                        <img src={dashboard} />
+                        <img src={dashboard} alt="dashboard"/>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@ function HowTo() {
                     </p>
 
                     <div className="gifBox">
-                        <img src={url} />
+                        <img src={url} alt="url edit"/>
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@ function HowTo() {
                     </p>
                     
                     <div className="gifBox">
-                        <img src={questions} />
+                        <img src={questions} alt="questions"/>
                     </div>
                 </div>
 
@@ -106,11 +106,11 @@ function HowTo() {
 
                     
                     <div className="gifBox">
-                        <img src={results} />
+                        <img src={results} alt="results"/>
                     </div>
                     <br></br>
                     <div className="gifBox">
-                        <img src={graph} />
+                        <img src={graph} alt="graph"/>
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@ function HowTo() {
                     </p>
                     
                     <div className="gifBox">
-                        <img src={surveyview} />
+                        <img src={surveyview} alt="survey view"/>
                     </div>
                 </div>
             </Container>

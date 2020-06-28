@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 
 import CanvasJSReact from "../../../canvasjs/canvasjs.react";
 
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class SurveyBarchar extends React.Component {
@@ -25,9 +24,9 @@ class SurveyBarchar extends React.Component {
 		var dps = [];
 		var chart = this.chart;
 		var yValue, yTotal = 0 , yPercent = 0;
-		for(var i = 0; i < chart.data[0].dataPoints.length; i++)
+		for(let i = 0; i < chart.data[0].dataPoints.length; i++)
 			yTotal += chart.data[0].dataPoints[i].y;
-		for(var i = 0; i < chart.data[0].dataPoints.length; i++){
+		for(let i = 0; i < chart.data[0].dataPoints.length; i++){
 			yValue = chart.data[0].dataPoints[i].y;
 			yPercent = (yValue*100 / yTotal);
 			yPercent = Number(yPercent.toPrecision(3));

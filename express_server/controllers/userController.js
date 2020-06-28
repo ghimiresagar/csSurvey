@@ -374,7 +374,7 @@ exports.senior_url_check_get = function(req, res){
                         // basically same as iab update get
                         async.parallel({
                             question: function(callback){
-                                SeniorSurvey.find({"type": "question"}, callback)
+                                SeniorSurvey.find({"type": "question"}, { result: 0 }, callback)
                                 .sort({question_type: 1});
                             },
                             number_question: function(callback){
@@ -632,7 +632,7 @@ exports.alumni_url_check_get = function(req, res){
                         // basically same as iab update get
                         async.parallel({
                             question: function(callback){
-                                AlumniSurvey.find({"type": "question"}, callback)
+                                AlumniSurvey.find({"type": "question"}, { result: 0 }, callback)
                                 .sort({question_type: 1});
                             },
                             number_question: function(callback){
@@ -890,7 +890,7 @@ exports.iab_url_check_get = function(req, res){
                         // basically same as iab update get
                         async.parallel({
                             question: function(callback){
-                                IabSurvey.find({"type": "question"}, callback)
+                                IabSurvey.find({"type": "question"}, { result: 0 }, callback)
                                 .sort({question_type: 1});
                             },
                             number_question: function(callback){

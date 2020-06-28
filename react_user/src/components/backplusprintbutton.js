@@ -19,7 +19,7 @@ function BackPrintButton(props) {
 
         props.obj.forEach(element => {      // each element is an object
             
-            let row = "\""+element.q_title+"\""+",";
+            let row = "\""+element.q_title+"\",";
             if (element.q_type === "Rate") {
             row += element.rate[5]+","+
                 element.rate[4]+","+
