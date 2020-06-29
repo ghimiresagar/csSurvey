@@ -92,7 +92,8 @@ function AddQuestion(props) {
                                 as="select" 
                                 custom name="input_type" 
                                 value={body.input_type} 
-                                onChange={handleChange}>
+                                onChange={handleChange}
+                                style={{"cursor": "pointer"}}>
                             <option>Rate</option>
                             <option>Short Answer</option>
                             <option>Longer Comment</option>

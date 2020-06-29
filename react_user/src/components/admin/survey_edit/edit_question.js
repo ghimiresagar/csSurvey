@@ -89,7 +89,7 @@ function EditQuestion(props) {
             surveyType: props.name,
             numUp: body.question_type - 1,
         };
-        console.log(bodyInc);
+        // console.log(bodyInc);
 
         const fetchReq = await fetch("/surveys/questions/orderinc", {
             method: 'post',
@@ -122,7 +122,7 @@ function EditQuestion(props) {
         // props.onChangeHandle();
     }
 
-    console.log(props.num)
+    // console.log(props.num)
     return(     
         <Accordion>
             <Card>
@@ -140,7 +140,7 @@ function EditQuestion(props) {
                             <Col sm={3}>
                                 <Row className="justify-content-end">
                                     <Accordion.Toggle as={Button} eventKey="0">
-                                        Edit Question
+                                        { props.value.input_type !== "Instruction" ? "Edit Question" : "Edit Instruction" }
                                     </Accordion.Toggle>
                                     <div className="ml-2">
                                         { body.question_type !== 1 &&
@@ -187,7 +187,8 @@ function EditQuestion(props) {
                                         as="select" 
                                         custom name="input_type" 
                                         defaultValue={body.input_type} 
-                                        onChange={handleChange}>
+                                        onChange={handleChange}
+                                        style={{"cursor": "pointer"}}>
                                     <option>Rate</option>
                                     <option>Short Answer</option>
                                     <option>Longer Comment</option>

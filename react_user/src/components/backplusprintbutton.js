@@ -47,21 +47,21 @@ function BackPrintButton(props) {
     return (
         <Row>
             <Col sm={6} className="text-left">
-            <Button 
-                variant="primary"
-                onClick={goBack}>
-                {"< Back"}
-            </Button>
+                <Button 
+                    variant="primary"
+                    onClick={goBack}>
+                    {"< Back"}
+                </Button>
             </Col>
             <Col sm={6} className="text-right">
-            { props.show ?
-            <Button 
-                variant="primary"
-                onClick={downloadCSV}>
-                {"Download CSV"}
-            </Button> 
-            : null }
-            <br/> <br/>
+                { props.show ?
+                <Button 
+                    variant="primary"
+                    onClick={downloadCSV}>
+                    {"Download CSV"}
+                </Button> 
+                : null }
+                <br/> <br/>
             </Col>
         </Row>
     );

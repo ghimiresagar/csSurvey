@@ -23,7 +23,8 @@ function SurveySearch(props) {
                         custom name="type"
                         required
                         defaultValue= 'Senior' 
-                        onChange={props.onChangeHandle}>
+                        onChange={props.onChangeHandle}
+                        style={{"cursor": "pointer"}}>
                         <option>Senior</option>
                         <option>Alumni</option>
                         <option>IAB</option>
@@ -36,7 +37,8 @@ function SurveySearch(props) {
                         custom name="year"
                         required
                         defaultValue= {new Date().getFullYear()} 
-                        onChange={props.onChangeHandle}>
+                        onChange={props.onChangeHandle}
+                        style={{"cursor": "pointer"}}>
                         {years}
                     </Form.Control>
                 </Form.Group>

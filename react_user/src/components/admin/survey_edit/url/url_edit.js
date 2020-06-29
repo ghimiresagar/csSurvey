@@ -99,7 +99,8 @@ function EditUrl(props) {
                                         as="select" 
                                         custom name="year" 
                                         defaultValue={body.year} 
-                                        onChange={handleChange}>
+                                        onChange={handleChange}
+                                        style={{"cursor": "pointer"}}>
                                         {years}
                                     </Form.Control>
                                 </Col>
