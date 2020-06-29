@@ -298,7 +298,7 @@ exports.senior_url_archive_post = function(req, res){
                 callback);
             },
             question: function(callback) {
-                SeniorSurvey.find({ "type": "question" }, 
+                SeniorSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] }, 
                  callback);
             }
         }, function (err, result) {     // when we get our url and questions
@@ -556,7 +556,7 @@ exports.alumni_url_archive_post = function(req, res){
                 callback);
             },
             question: function(callback) {
-                AlumniSurvey.find({ "type": "question" }, 
+                AlumniSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] }, 
                  callback);
             }
         }, function (err, result) {     // when we get our url and questions
@@ -812,7 +812,7 @@ exports.iab_url_archive_post = function(req, res){
                 callback);
             },
             question: function(callback) {
-                IabSurvey.find({ "type": "question" }, 
+                IabSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] }, 
                  callback);
             }
         }, function (err, result) {     // when we get our url and questions
@@ -1051,8 +1051,11 @@ exports.senior_delete_get = function(req, res) {
 exports.senior_delete_post = function(req, res) {
     SeniorSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
-        // console.log(deleted)
-        res.json(deleted)
+        SeniorSurvey.updateMany({ question_type: {$gt: req.body.num} }, {
+            $inc: { question_type: -1 }
+        })
+        .then(data => res.send(data))
+        .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
 };
@@ -1139,8 +1142,11 @@ exports.alumni_delete_get = function(req, res) {
 exports.alumni_delete_post = function(req, res) {
     AlumniSurvey.findOneAndDelete({ "_id": req.body.id })
     .then(deleted => {
-        // console.log(deleted)
-        res.json(deleted)
+        AlumniSurvey.updateMany({ question_type: {$gt: req.body.num} }, {
+            $inc: { question_type: -1 }
+        })
+        .then(data => res.send(data))
+        .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
 };

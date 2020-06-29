@@ -62,7 +62,7 @@ function AddQuestion(props) {
     return(     
         <Card className="shadow-sm mb-5 bg-white rounded" style={{ width: '100%' }}>
             <Card.Header as="h5" className="text-center">
-                Add a new Question
+                Add a new Question or Instruction
             </Card.Header>
             <Card.Body>
             <Form>
@@ -70,13 +70,13 @@ function AddQuestion(props) {
                     <Col sm={10}>
                     <Form.Group as={Row}>
                         <Form.Label column sm={2}>
-                            New Question: 
+                            New Description: 
                         </Form.Label>
                         <Col sm={10}>
                             <Form.Control
                                 as="textarea"
                                 rows="2"
-                                placeholder="Question"
+                                placeholder="Description"
                                 name="title"
                                 value={body.title}
                                 onChange={handleChange}
@@ -85,7 +85,7 @@ function AddQuestion(props) {
                     </Form.Group>
                     <Form.Group controlId="exampleForm.SelectCustom" as={Row}>
                         <Form.Label column sm={2}>
-                            Input Type:
+                            Type:
                         </Form.Label>
                         <Col sm={4}>
                             <Form.Control 
@@ -105,7 +105,7 @@ function AddQuestion(props) {
                     <Col sm={2}>
                         <div className="text-center">
                             <Button variant="primary" onClick={postQuestion}>
-                                Add Question
+                                Add
                             </Button>    
                         </div>
                     </Col>
