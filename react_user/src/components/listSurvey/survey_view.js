@@ -65,7 +65,7 @@ function SurveyView(props) {
             return null;
         if (body.value === "taken")
             return "taken";
-        console.log(body);
+        // console.log(body);
         return body;
     }
 
@@ -124,7 +124,7 @@ function SurveyView(props) {
         width: "15%",
         padding: "1px",
         display: "inline-block",
-        textAlign: "center"
+        textAlign: "right"
     }
     
     return(
@@ -144,10 +144,10 @@ function SurveyView(props) {
                         <div style={{ "width": "5%"}}>
                             #
                         </div>
-                        <div style={{ "width": "60%"}}>
+                        <div style={{ "width": "65%"}}>
                             Question
                         </div>
-                        <div style={{ "width": "35%"}}>
+                        <div style={{ "width": "30%", textAlign: "center" }}>
                             <div style={stylesRate}>
                                 5
                             </div>

@@ -6,6 +6,8 @@ let IpAddress = require('../models/ip_addresses');
 let ArchiveResult = require('../models/archive_results');
 let async = require('async');
 
+var path = require('path');
+
 const jwt = require('jsonwebtoken');
 
 const signToken = userId => {

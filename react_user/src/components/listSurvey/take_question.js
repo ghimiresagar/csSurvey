@@ -18,10 +18,10 @@ function TakeQuestion(props) {
                 }
                 {(props.value.input_type === "Rate") && 
                 <>
-                    <div style={{ "width": "58%"}}>
+                    <div style={{ "width": "63%"}}>
                         {props.value.title}
                     </div>
-                    <div style={{ "width": "35%"}}>
+                    <div style={{ "width": "30%", textAlign: "center"}}>
                         <InputRate number={props.number} id={props.value._id} handleChange={props.handleChange} />
                     </div>
                 </>
