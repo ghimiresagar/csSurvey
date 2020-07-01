@@ -238,11 +238,11 @@ exports.senior_url_post = function(req, res) {
 // create url
 exports.senior_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'Computer Science Department is very interested in your opinions. '+
-        'We believe that, as a graduating senior, you can provide us with useful '+
-        'information to help us evaluate and improve the BS in Computer Science '+
-        '(BS in CS) program. We appreciate your taking the time to answer these '+
-        'questions.',
+        title: 'The Computer Science Department is very interested in your opinions. We believe that, as a graduating senior, you can provide us with very useful feedback to help us in evaluating and improving he quality of BS in CS program.\n\n'+
+                'Please provide feedback regarding the success of the BS in CS program in meeting its intended Student Outcomes. Please indicate the extent to which you feel you have attained each outcome.\n\n'+
+                'Please use the rating scale from 5 to 0 with the following definitions.\n'+
+                '(5 –  Strongly Agree; 4 – Agree; 3 – Neutral; 2 – Disagree; 1 – Strongly Disagree; 0 – Not Applicable)\n\n'+
+                'Thank you for your time and willingness to complete this survey.',
         type: 'detail',
         result: {
             year: new Date().getFullYear(),
@@ -497,8 +497,11 @@ exports.alumni_url_post = function(req, res) {
 
 exports.alumni_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science department constantly improve the quality of its services to the students.'+ 
-        ' Your feedback will be used to help to determine how we can best serve students in the future.',
+        title: 'The Computer Science Department constantly improves the quality of its services to its students. Your feedback will be used to help in determining how we can best serve our students in the future. \n\n'+
+                'Please provide feedback regarding how well the SSU Computer Science program helped in preparing you in the following areas.\n\n'+
+                'Please use the rating scale from 5 to 0 with the following definitions.\n'+
+                '(5 –  Strongly Agree; 4 – Agree; 3 – Neutral; 2 – Disagree; 1 – Strongly Disagree; 0 – Not Applicable)\n\n'+
+                'Thank you for your time and willingness to complete this survey.',
         type: 'detail',
         result: {
             year: new Date().getFullYear(),
@@ -754,7 +757,10 @@ exports.iab_url_post = function(req, res) {
 
 exports.iab_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science department constantly improve the quality of its services to the students. Your feedback will be used to help to determine how we can best serve students in the future.',
+        title: 'The Computer Science Department is very interested in your opinions. Please evaluate how appropriate you believe the following Computer Science major Program Educational Objectives are.\n\n'+
+                'Please use the rating scale from 5 to 0 with the following definitions.\n'+
+                '(5 –  Very Appropriate; 4 – Appropriate; 3 – Neutral; 2 – Inappropriate; 1 – Very Inappropriate; 0 – Not Applicable)\n\n'+
+                'Thank you for your time and willingness to complete this survey.',
         type: 'detail',
         result: {
             year: new Date().getFullYear(),

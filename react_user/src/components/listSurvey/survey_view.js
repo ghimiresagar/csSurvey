@@ -122,7 +122,6 @@ function SurveyView(props) {
 
     const stylesRate = {
         width: "15%",
-        margin: "1px",
         padding: "1px",
         display: "inline-block",
         textAlign: "center"
@@ -136,7 +135,7 @@ function SurveyView(props) {
                 <Card.Header as="h5" className="text-center"> 
                     {props.name} Survey
                 </Card.Header>
-                <Card.Text className="p-2" style={{ whiteSpace: "pre-line" }}>
+                <Card.Text className="p-2" style={{ whiteSpace: "pre-line", padding: "2px" }}>
                     {detailBody}
                 </Card.Text>
                 <Card.Header as="h5"> 

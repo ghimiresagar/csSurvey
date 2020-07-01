@@ -6,7 +6,6 @@ function InputRate(props) {
 
     const stylesRate = {
         width: "15%",
-        margin: "1px",
         padding: "1px",
         display: "inline-block",
         textAlign: "center"
