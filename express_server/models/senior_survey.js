@@ -13,7 +13,6 @@ SeniorSurveySchema = new Schema(
                 name: {type: String},                               // used with detail, senior, alumni, iba
                 numberOfParts: {type: Number, default: 0},          // used with detail
                 rate: {
-                    0: {type: Number, default: 0},
                     1: {type: Number, default: 0},
                     2: {type: Number, default: 0},
                     3: {type: Number, default: 0},

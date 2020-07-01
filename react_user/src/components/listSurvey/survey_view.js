@@ -163,9 +163,6 @@ function SurveyView(props) {
                             <div style={stylesRate}>
                                 1
                             </div>
-                            <div style={stylesRate}>
-                                0
-                            </div>
                         </div>
                     </Row>
                 </Container>

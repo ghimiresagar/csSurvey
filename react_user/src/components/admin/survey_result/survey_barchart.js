@@ -65,12 +65,11 @@ class SurveyBarchar extends React.Component {
 			data: [{
 				type: "column",
 				dataPoints: [
-					{ label: "5", y: this.state.rateArray[5] },
-					{ label: "4", y: this.state.rateArray[4] },
-					{ label: "3", y: this.state.rateArray[3] },
-					{ label: "2", y: this.state.rateArray[2] },
-					{ label: "1", y: this.state.rateArray[1] },
-					{ label: "N/A", y: this.state.rateArray[0] }
+					{ label: "5", y: this.state.rateArray[4] },
+					{ label: "4", y: this.state.rateArray[3] },
+					{ label: "3", y: this.state.rateArray[2] },
+					{ label: "2", y: this.state.rateArray[1] },
+					{ label: "1", y: this.state.rateArray[0] }
 				]
 			}]
         }

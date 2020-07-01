@@ -14,8 +14,8 @@ function ResultLayoutMain(props) {
     for (const [x, y] of props.value.entries()) {
         if (y.q_type === "Rate") {
 
-            let rateArr = [y.rate['0'], y.rate['1'], y.rate['2'], y.rate['3'], y.rate['4'], y.rate['5']];
-            let total = [y.rate['0'] * 0, y.rate['1'] * 1, y.rate['2'] * 2, y.rate['3'] * 3, y.rate['4'] * 4, y.rate['5'] * 5];
+            let rateArr = [y.rate['1'], y.rate['2'], y.rate['3'], y.rate['4'], y.rate['5']];
+            let total = [y.rate['1'] * 1, y.rate['2'] * 2, y.rate['3'] * 3, y.rate['4'] * 4, y.rate['5'] * 5];
             let sumTotal = total.reduce((a, b) => a+b, 0);
             let rateAvg = sumTotal / props.numberOfParts;
             let perArr = rateArr.map(element => (element*100/props.numberOfParts).toPrecision(3));
@@ -23,19 +23,17 @@ function ResultLayoutMain(props) {
             valuesRates.push({
                 id: x+1,
                 title: y.q_title,
-                rate0: rateArr[0],
-                rate1: rateArr[1],
-                rate2: rateArr[2],
-                rate3: rateArr[3],
-                rate4: rateArr[4],
-                rate5: rateArr[5],
+                rate1: rateArr[0],
+                rate2: rateArr[1],
+                rate3: rateArr[2],
+                rate4: rateArr[3],
+                rate5: rateArr[4],
                 avg: rateAvg.toPrecision(3),
-                per0: perArr[0],
-                per1: perArr[1],
-                per2: perArr[2],
-                per3: perArr[3],
-                per4: perArr[4],
-                per5: perArr[5],
+                per1: perArr[0],
+                per2: perArr[1],
+                per3: perArr[2],
+                per4: perArr[3],
+                per5: perArr[4],
                 graph: <Button onClick={(e) => showGraph(e, y.q_title, rateArr)} >
                         { barShow ? "Close" : "Graph" }
                         </Button>
@@ -76,9 +74,6 @@ function ResultLayoutMain(props) {
         dataField: 'rate1',
         text: '1'
       }, {
-        dataField: 'rate0',
-        text: 'N/A'
-      }, {
         dataField: 'avg',
         text: 'Avg'
       }, {
@@ -96,9 +91,6 @@ function ResultLayoutMain(props) {
       }, {
         dataField: 'per1',
         text: '1%'
-      }, {
-        dataField: 'per0',
-        text: 'N/A%'
       }, {
         dataField: 'graph',
         text: 'Graph'
