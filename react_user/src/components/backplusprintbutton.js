@@ -25,8 +25,7 @@ function BackPrintButton(props) {
                 element.rate[4]+","+
                 element.rate[3]+","+
                 element.rate[2]+","+
-                element.rate[1]+","+
-                element.rate[0];
+                element.rate[1];
             } else {
                 row += element.comment.join(",");
             }

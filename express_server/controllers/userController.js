@@ -56,7 +56,7 @@ exports.delete_survey_result = function(req, res){
     if (req.body) {     // not empty
         ArchiveResult.findOneAndDelete({ name: req.body.name, year: req.body.year })
         .then(data => {
-            res.json({ message: {msgBody: "Recreating Survey", msgError: false } });
+            res.json({ message: {msgBody: "Deleting Survey Result", msgError: false } });
         })
         .catch(err => {
             res.json({ message: { msgBody: "Error deleting", msgError: true} });
@@ -241,10 +241,10 @@ exports.senior_url_post = function(req, res) {
 // create url
 exports.senior_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science Department is very interested in your opinions. We believe that, as a graduating senior, you can provide us with very useful feedback to help us in evaluating and improving he quality of BS in CS program.\n\n'+
+        title: 'The Computer Science Department is very interested in your opinions. We believe that, as a graduating senior, you can provide us with very valuable feedback to help us in evaluating and improving the quality of BS in CS program.\n\n'+
                 'Please provide feedback regarding the success of the BS in CS program in meeting its intended Student Outcomes. Please indicate the extent to which you feel you have attained each outcome.\n\n'+
-                'Please use the rating scale from 5 to 0 with the following definitions.\n'+
-                '(5 –  Strongly Agree; 4 – Agree; 3 – Neutral; 2 – Disagree; 1 – Strongly Disagree)\n\n'+
+                'Please use the rating scale from 5 to 1 with the following definitions.\n'+
+                '(5 – Strongly Agree; 4 – Agree; 3 – Neutral; 2 – Disagree; 1 – Strongly Disagree)\n\n'+
                 'Thank you for your time and willingness to complete this survey.',
         type: 'detail',
         result: {
@@ -301,8 +301,9 @@ exports.senior_url_archive_post = function(req, res){
                 callback);
             },
             question: function(callback) {
-                SeniorSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] }, 
-                 callback);
+                SeniorSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] },
+                 callback).sort({ "question_type": 1})
+                 ;
             }
         }, function (err, result) {     // when we get our url and questions
             if (err) console.log(err);
@@ -500,10 +501,10 @@ exports.alumni_url_post = function(req, res) {
 
 exports.alumni_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science Department constantly improves the quality of its services to its students. Your feedback will be used to help in determining how we can best serve our students in the future. \n\n'+
+        title: 'The Computer Science Department constantly improves the quality of its services to its students. We believe that, as an alumni of the BS in CS program, you can provide us with very valuable feedback to help us in evaluating and improving the quality of the program.\n\n'+
                 'Please provide feedback regarding how well the SSU Computer Science program helped in preparing you in the following areas.\n\n'+
-                'Please use the rating scale from 5 to 0 with the following definitions.\n'+
-                '(5 –  Strongly Agree; 4 – Agree; 3 – Neutral; 2 – Disagree; 1 – Strongly Disagree)\n\n'+
+                'Please use the rating scale from 5 to 1 with the following definitions.\n'+
+                '(5 – Strongly Agree; 4 – Agree; 3 – Neutral; 2 – Disagree; 1 – Strongly Disagree)\n\n'+
                 'Thank you for your time and willingness to complete this survey.',
         type: 'detail',
         result: {
@@ -563,7 +564,7 @@ exports.alumni_url_archive_post = function(req, res){
             },
             question: function(callback) {
                 AlumniSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] }, 
-                 callback);
+                 callback).sort({ "question_type": 1});
             }
         }, function (err, result) {     // when we get our url and questions
             if (err) console.log(err);
@@ -760,9 +761,10 @@ exports.iab_url_post = function(req, res) {
 
 exports.iab_url_create_post = function(req, res){
     const urlDetails = {
-        title: 'The Computer Science Department is very interested in your opinions. Please evaluate how appropriate you believe the following Computer Science major Program Educational Objectives are.\n\n'+
-                'Please use the rating scale from 5 to 0 with the following definitions.\n'+
-                '(5 –  Very Appropriate; 4 – Appropriate; 3 – Neutral; 2 – Inappropriate; 1 – Very Inappropriate)\n\n'+
+        title: 'The Computer Science Department is very interested in your opinions. We believe that, as an IAB member of the BS in CS program, you can provide us with very valuable feedback to help us in evaluating and improving the quality of the program.\n\n'+
+                'Please evaluate how appropriate you believe the following BS in Computer Science Major Program Educational Objectives are.\n\n'+
+                'Please use the rating scale from 5 to 1 with the following definitions.\n'+
+                '(5 – Very Appropriate; 4 – Appropriate; 3 – Neutral; 2 – Inappropriate; 1 – Very Inappropriate)\n\n'+
                 'Thank you for your time and willingness to complete this survey.',
         type: 'detail',
         result: {
@@ -822,7 +824,7 @@ exports.iab_url_archive_post = function(req, res){
             },
             question: function(callback) {
                 IabSurvey.find({ $and: [ {"type": "question"}, {"input_type": {$not: {$regex: "Instruction"} }} ] }, 
-                 callback);
+                 callback).sort({ "question_type": 1});
             }
         }, function (err, result) {     // when we get our url and questions
             if (err) console.log(err);

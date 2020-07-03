@@ -43,7 +43,7 @@ function Url(props) {
             for (let x = 0; x < body.archived_result.length; x++){
                 if (body.archived_result[x].year === body.details.result.year) {
                     setMessage({
-                        msgBody: `The result for the year ${body.archived_result[x].year} already exists. Click recreate survey to delete the existing results and create a new survey for this year.`,
+                        msgBody: `The result for the year ${body.archived_result[x].year} already exists. Double click the Delete Previous Result button to delete the result for this year.`,
                         msgError: true
                     });
                     setResultExist(true);
@@ -148,7 +148,7 @@ function Url(props) {
         <Popover id="popover-basic">
           <Popover.Title as="h3">Delete the Result</Popover.Title>
           <Popover.Content>
-            Double click to delete the result of this particular survey. You won't me able to <strong>view</strong> the results anymore.
+            Double click to delete the previous result of this particular survey. You won't be able to <strong>view</strong> the result anymore.
           </Popover.Content>
         </Popover>
     );
@@ -240,21 +240,22 @@ function Url(props) {
                         : null}
                         
                         { !resultExist ?
-                            <div className="m-2">
-                                <OverlayTrigger 
-                                    delay={{ show: 250, hide: 300 }} 
-                                    placement="right" 
-                                    overlay={popoverArchiveSurvey}>
-                                    <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Save and Close</Button> 
-                                </OverlayTrigger>   
-                            </div>
+                            detailBody.details.result.numberOfParts === 0 ? null :
+                                <div className="m-2">
+                                     <OverlayTrigger 
+                                        delay={{ show: 250, hide: 300 }} 
+                                        placement="right" 
+                                        overlay={popoverArchiveSurvey}>
+                                        <Button variant="danger" className='m-1' onDoubleClick={archiveSurvey}>Save and Close</Button> 
+                                    </OverlayTrigger>   
+                                </div>
                             :
                             <div className="m-2">
                                 <OverlayTrigger
                                     delay={{ show: 250, hide: 300 }} 
                                     placement="right" 
                                     overlay={popoverDeleteResult}>
-                                    <Button variant="danger" className='m-1' onDoubleClick={deleteResult}>Delete and Recreate</Button>
+                                    <Button variant="danger" className='m-1' onDoubleClick={deleteResult}>Delete Previous Result</Button>
                                 </OverlayTrigger>   
                             </div>
                         }
