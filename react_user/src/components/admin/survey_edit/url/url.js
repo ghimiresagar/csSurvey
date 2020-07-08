@@ -211,7 +211,7 @@ function Url(props) {
                             <Col sm={9}>
                                 <Card.Text>  
                                     {'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}
-                                    {/* {'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id} */}
+                                    {/* {'http://surveycs.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id} */}
                                 </Card.Text>
                             </Col>
                         </Row>
@@ -227,7 +227,7 @@ function Url(props) {
                         { detailBody.number_url === 1 ?     // url present so give option to close the url
                             <div className="m-2">
                                 <a href={'http://127.0.0.1:3000/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}>
-                                {/* <a href={'http://cs_survey.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}> */}
+                                {/* <a href={'http://surveycs.salemstate.edu/admin/surveys/'+props.name+'/url/'+detailBody.urlId._id}> */}
                                     <Button variant="success" className='m-1'>Preview Survey</Button>    
                                 </a>
                             </div>

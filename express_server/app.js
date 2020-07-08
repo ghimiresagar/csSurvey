@@ -34,7 +34,7 @@ db.on('error', err => {
 
 // cross origin resourse sharing
 // ---for publishing
-// app.use(cors({ origin: 'http://cs_survey.salemstate.edu' }));
+// app.use(cors({ origin: 'http://surveycs.salemstate.edu' }));
 
 // for using locally
 app.use(cors({ origin: 'http://127.0.0.1' }));
